@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Navbar from "../components/navbar.astro";
 
 interface Props {
 	title?: string;
@@ -17,6 +18,7 @@ const { title = "Ryan Furrer", description } = Astro.props;
 		{description && <meta name="description" content={description} />}
 	</head>
 	<body class="antialiased max-w-3xl mx-auto py-8 px-4 lg:px-0">
+		<Navbar />
 		<slot />
 	</body>
 </html>
