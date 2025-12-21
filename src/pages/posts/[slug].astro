@@ -1,9 +1,9 @@
 ---
 import type { SanityDocument } from "@sanity/client";
-import { sanityClient } from "sanity:client";
 import { createImageUrlBuilder, type SanityImageSource } from "@sanity/image-url";
-import { PortableText } from "astro-portabletext";
+import { sanityClient } from "sanity:client";
 import Layout from "../../layouts/Layout.astro";
+import PortableText from "../../components/sanity/PortableText.astro";
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
 const post = await sanityClient.fetch<SanityDocument>(POST_QUERY, Astro.params);
@@ -24,24 +24,25 @@ const postImageUrl = post.image
   ? urlFor(post.image)?.width(550).height(310).url()
   : null;
 ---
+
 <Layout title={post.title} description={post.excerpt}>
-<main class="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4">
-  <a href="/posts" class="hover:underline">&larr; Back to posts</a>
-  {
-    postImageUrl && (
-      <img
-        src={postImageUrl}
-        alt={post.title}
-        class="aspect-video rounded-xl"
-        width="550"
-        height="310"
-      />
-    )
-  }
-  <h1 class="text-4xl font-bold mb-8">{post.title}</h1>
-  <div class="prose dark:prose-invert">
-    <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p>
-    {Array.isArray(post.body) && <PortableText value={post.body} />}
-  </div>
-</main>
+  <main class="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4">
+    <a href="/posts" class="hover:underline">&larr; Back to posts</a>
+    {
+      postImageUrl && (
+        <img
+          src={postImageUrl}
+          alt={post.title}
+          class="aspect-video rounded-xl"
+          width="550"
+          height="310"
+        />
+      )
+    }
+    <h1 class="text-4xl font-bold mb-8">{post.title}</h1>
+    <div class="prose dark:prose-invert">
+      <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p>
+      {Array.isArray(post.body) && <PortableText portableText={post.body} />}
+    </div>
+  </main>
 </Layout>

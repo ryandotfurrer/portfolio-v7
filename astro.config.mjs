@@ -18,7 +18,10 @@ export default defineConfig({
       useCdn: false,
     }),
   ],
+  site: "https://portfolio-v7-gamma.vercel.app/",
   vite: {
+    // @ts-expect-error - Vite version mismatch between Astro (v6) and @tailwindcss/vite (v7)
+    // The plugin works at runtime despite the type incompatibility
     plugins: [tailwindcss()],
   },
 });
