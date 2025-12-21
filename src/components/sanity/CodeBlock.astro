@@ -1,0 +1,12 @@
+---
+import { Code } from "astro:components";
+
+const { node } = Astro.props;
+const { code, language } = node;
+
+// Default to 'text' if language is not specified
+const lang = language || "text";
+---
+
+<Code code={code} lang={lang} />
+
