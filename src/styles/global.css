@@ -122,6 +122,14 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background font-sans text-foreground;
+  }
+
+  .prose {
+    @apply mx-auto w-full!;
+
+    img {
+      @apply relative left-1/2 block w-screen max-w-[1080px] -translate-x-1/2 rounded-lg border;
+    }
   }
 }

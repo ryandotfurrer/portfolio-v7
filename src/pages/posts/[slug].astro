@@ -1,6 +1,9 @@
 ---
 import type { SanityDocument } from "@sanity/client";
-import { createImageUrlBuilder, type SanityImageSource } from "@sanity/image-url";
+import {
+  createImageUrlBuilder,
+  type SanityImageSource,
+} from "@sanity/image-url";
 import { sanityClient } from "sanity:client";
 import Layout from "../../layouts/Layout.astro";
 import PortableText from "../../components/sanity/PortableText.astro";
@@ -26,23 +29,11 @@ const postImageUrl = post.image
 ---
 
 <Layout title={post.title} description={post.excerpt}>
-  <main class="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4">
-    <a href="/posts" class="hover:underline">&larr; Back to posts</a>
-    {
-      postImageUrl && (
-        <img
-          src={postImageUrl}
-          alt={post.title}
-          class="aspect-video rounded-xl"
-          width="550"
-          height="310"
-        />
-      )
-    }
-    <h1 class="text-4xl font-bold mb-8">{post.title}</h1>
-    <div class="prose dark:prose-invert">
-      <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p>
-      {Array.isArray(post.body) && <PortableText portableText={post.body} />}
-    </div>
+  <a href="/posts">&larr; Back to posts</a>
+  <main class="prose prose-neutral dark:prose-invert">
+    {postImageUrl && <img src={postImageUrl} alt={post.title} />}
+    <h1>{post.title}</h1>
+    <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p>
+    {Array.isArray(post.body) && <PortableText portableText={post.body} />}
   </main>
 </Layout>
