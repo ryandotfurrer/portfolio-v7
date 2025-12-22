@@ -147,7 +147,7 @@
     }
 
     img {
-      @apply relative left-1/2 block w-screen max-w-[1080px] -translate-x-1/2 rounded-lg border;
+      @apply relative left-1/2 block w-screen max-w-5xl -translate-x-1/2 rounded-lg border;
     }
   }
 }
