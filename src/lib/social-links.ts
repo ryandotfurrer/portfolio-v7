@@ -1,5 +1,5 @@
 export const socialLinks = [
-  { label: "twittter/x", href: "https://x.com/ryandotfurrer" },
-  { label: "linkedin", href: "https://www.linkedin.com/in/ryanfurrer/" },
-  { label: "github", href: "https://github.com/ryandotfurrer" },
+  { label: "Twitter/X", href: "https://x.com/ryandotfurrer" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/ryanfurrer/" },
+  { label: "GitHub", href: "https://github.com/ryandotfurrer" },
 ];
