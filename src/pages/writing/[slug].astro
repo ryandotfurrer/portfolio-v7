@@ -5,8 +5,8 @@ import {
   type SanityImageSource,
 } from "@sanity/image-url";
 import { sanityClient } from "sanity:client";
-import Layout from "../../layouts/Layout.astro";
 import PortableText from "../../components/sanity/PortableText.astro";
+import Layout from "../../layouts/Layout.astro";
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
 const post = await sanityClient.fetch<SanityDocument>(POST_QUERY, Astro.params);
@@ -29,7 +29,7 @@ const postImageUrl = post.image
 ---
 
 <Layout title={post.title} description={post.excerpt}>
-  <a href="/posts">&larr; Back to posts</a>
+  <a href="/writing">&larr; Back to writing</a>
   <main class="prose prose-neutral dark:prose-invert">
     {postImageUrl && <img src={postImageUrl} alt={post.title} />}
     <h1>{post.title}</h1>

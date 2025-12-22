@@ -1,6 +1,14 @@
 ---
+import type { SanityDocument } from "@sanity/client";
+import { sanityClient } from "sanity:client";
 import Layout from "../layouts/Layout.astro";
-import Item from "../components/Item.astro";
+
+const LATEST_POSTS_QUERY = `*[
+  _type == "post"
+  && defined(slug.current)
+]|order(publishedAt desc)[0...3]{_id, title, slug, publishedAt}`;
+
+const latestPosts = await sanityClient.fetch<SanityDocument[]>(LATEST_POSTS_QUERY);
 ---
 
 <Layout
@@ -39,7 +47,36 @@ import Item from "../components/Item.astro";
     <main class="space-y-8">
       <section class="space-y-4">
         <h2 class="px-2">writing</h2>
-        <Item />
+        <ul class="space-y-2">
+          {
+            latestPosts.map((post) => (
+              <li>
+                <a
+                  href={`/writing/${post.slug.current}`}
+                  class="block rounded-md border border-transparent px-2 py-1 transition-all hover:border-border hover:bg-card hover:text-foreground"
+                >
+                  <div class="flex w-full items-center justify-between gap-4">
+                    <div class="w-fit">
+                      <h3>{post.title}</h3>
+                    </div>
+                    <div class="w-full flex-1 border-b"></div>
+                    <div
+                      class="w-fit font-mono text-sm font-thin tracking-[-0.03em] tabular-nums"
+                    >
+                      <span>
+                        {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                        }).replace(/\//g, ".")}
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
       </section>
     </main>
   </div>
