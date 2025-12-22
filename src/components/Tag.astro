@@ -1,0 +1,12 @@
+---
+interface Props {
+  label: string;
+  href?: string;
+}
+
+const { label, href } = Astro.props;
+---
+
+<a href={href} class="number rounded-md border bg-card p-1 text-sm lowercase">
+  {label}
+</a>

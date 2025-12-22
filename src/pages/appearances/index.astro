@@ -33,7 +33,7 @@ const years = Object.keys(postsByYear)
 <Layout>
   <div class="space-y-8">
     <header class="px-2">
-      <h1>Engagements</h1>
+      <h1>Appearances</h1>
     </header>
     <main>
       <div class="space-y-8">
@@ -46,7 +46,7 @@ const years = Object.keys(postsByYear)
                   <li>
                     <Item
                       title={post.title}
-                      href={`/engagements/${post.slug.current}`}
+                      href={`/appearances/${post.slug.current}`}
                       publishedAt={post.publishedAt}
                     />
                   </li>
@@ -59,3 +59,4 @@ const years = Object.keys(postsByYear)
     </main>
   </div>
 </Layout>
+

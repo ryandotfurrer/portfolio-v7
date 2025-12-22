@@ -4,6 +4,7 @@ import { sanityClient } from "sanity:client";
 import Layout from "../layouts/Layout.astro";
 import { socialLinks } from "../lib/social-links";
 import LatestItemsSection from "../components/LatestItemsSection.astro";
+import Tag from "../components/Tag.astro";
 
 const LATEST_POSTS_QUERY = `*[
   _type == "post"
@@ -16,7 +17,7 @@ const latestPosts =
 const latestProjects =
   await sanityClient.fetch<SanityDocument[]>(LATEST_POSTS_QUERY);
 
-const latestEngagements =
+const latestAppearances =
   await sanityClient.fetch<SanityDocument[]>(LATEST_POSTS_QUERY);
 ---
 
@@ -67,9 +68,9 @@ const latestEngagements =
         basePath="/projects"
       />
       <LatestItemsSection
-        title="Engagements"
-        items={latestEngagements}
-        basePath="/engagements"
+        title="Appearances"
+        items={latestAppearances}
+        basePath="/appearances"
       />
     </main>
   </div>

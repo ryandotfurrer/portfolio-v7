@@ -31,7 +31,7 @@ const postImageUrl = post.image
 
 <Layout title={post.title} description={post.excerpt}>
   <div class="space-y-8 px-2">
-    <a href="/engagements" class="inline-block">&larr; Back to engagements</a>
+    <a href="/appearances" class="inline-block">&larr; Back to appearances</a>
     <main class="prose prose-neutral dark:prose-invert">
       {postImageUrl && <img src={postImageUrl} alt={post.title} />}
       <header>
@@ -42,3 +42,4 @@ const postImageUrl = post.image
     </main>
   </div>
 </Layout>
+
