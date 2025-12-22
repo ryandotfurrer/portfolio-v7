@@ -1,0 +1,61 @@
+---
+import type { SanityDocument } from "@sanity/client";
+import { sanityClient } from "sanity:client";
+import Item from "../../components/Item.astro";
+import Layout from "../../layouts/Layout.astro";
+
+const POSTS_QUERY = `*[
+  _type == "post"
+  && defined(slug.current)
+]|order(publishedAt desc){_id, title, slug, publishedAt}`;
+
+const posts = await sanityClient.fetch<SanityDocument[]>(POSTS_QUERY);
+
+// Group posts by year
+const postsByYear = posts.reduce(
+  (acc, post) => {
+    const year = new Date(post.publishedAt).getFullYear();
+    if (!acc[year]) {
+      acc[year] = [];
+    }
+    acc[year].push(post);
+    return acc;
+  },
+  {} as Record<number, SanityDocument[]>,
+);
+
+// Sort years descending (newest first)
+const years = Object.keys(postsByYear)
+  .map(Number)
+  .sort((a, b) => b - a);
+---
+
+<Layout>
+  <div class="space-y-8">
+    <header class="px-2">
+      <h1>engagements</h1>
+    </header>
+    <main>
+      <div class="space-y-8">
+        {
+          years.map((year) => (
+            <section class="space-y-4">
+              <h2 class="number px-2">{year}</h2>
+              <ul class="space-y-2">
+                {postsByYear[year].map((post) => (
+                  <li>
+                    <Item
+                      title={post.title}
+                      href={`/engagements/${post.slug.current}`}
+                      publishedAt={post.publishedAt}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+      </div>
+    </main>
+  </div>
+</Layout>

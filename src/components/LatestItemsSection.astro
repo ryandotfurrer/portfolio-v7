@@ -1,0 +1,30 @@
+---
+import type { SanityDocument } from "@sanity/client";
+import Item from "./Item.astro";
+
+interface Props {
+  title: string;
+  items: SanityDocument[];
+  basePath: string;
+}
+
+const { title, items, basePath } = Astro.props;
+---
+
+<section class="space-y-4">
+  <h2 class="px-2">{title}</h2>
+  <ul class="space-y-2">
+    {
+      items.map((item) => (
+        <li>
+          <Item
+            title={item.title}
+            href={`${basePath}/${item.slug.current}`}
+            publishedAt={item.publishedAt}
+          />
+        </li>
+      ))
+    }
+  </ul>
+</section>
+

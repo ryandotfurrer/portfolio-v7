@@ -1,0 +1,44 @@
+---
+import type { SanityDocument } from "@sanity/client";
+import {
+  createImageUrlBuilder,
+  type SanityImageSource,
+} from "@sanity/image-url";
+import { sanityClient } from "sanity:client";
+import { formatDateLong } from "../../utils/date";
+import PortableText from "../../components/sanity/PortableText.astro";
+import Layout from "../../layouts/Layout.astro";
+
+const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
+const post = await sanityClient.fetch<SanityDocument>(POST_QUERY, Astro.params);
+
+export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
+  const SLUGS_QUERY = `*[_type == "post" && defined(slug.current)]{
+    "params": {"slug": slug.current}
+  }`;
+  return await sanityClient.fetch(SLUGS_QUERY, Astro.params);
+}
+
+const { projectId, dataset } = sanityClient.config();
+const urlFor = (source: SanityImageSource) =>
+  projectId && dataset
+    ? createImageUrlBuilder({ projectId, dataset }).image(source)
+    : null;
+const postImageUrl = post.image
+  ? urlFor(post.image)?.width(550).height(310).url()
+  : null;
+---
+
+<Layout title={post.title} description={post.excerpt}>
+  <div class="space-y-8">
+    <a href="/engagements" class="inline-block">&larr; Back to engagements</a>
+    <main class="prose prose-neutral dark:prose-invert">
+      {postImageUrl && <img src={postImageUrl} alt={post.title} />}
+      <header>
+        <h1 class="mb-1">{post.title}</h1>
+        <span>{formatDateLong(post.publishedAt)}</span>
+      </header>
+      {Array.isArray(post.body) && <PortableText portableText={post.body} />}
+    </main>
+  </div>
+</Layout>
