@@ -7,13 +7,17 @@ import {
 import { sanityClient } from "sanity:client";
 import { formatDateLong } from "../../utils/date";
 import PortableText from "../../components/sanity/PortableText.astro";
+import Tag from "../../components/Tag.astro";
 import Layout from "../../layouts/Layout.astro";
 
-const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
-const post = await sanityClient.fetch<SanityDocument>(POST_QUERY, Astro.params);
+const PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0]{
+  ...,
+  tags[]->{name, slug}
+}`;
+const project = await sanityClient.fetch<SanityDocument>(PROJECT_QUERY, Astro.params);
 
 export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
-  const SLUGS_QUERY = `*[_type == "post" && defined(slug.current)]{
+  const SLUGS_QUERY = `*[_type == "project" && defined(slug.current)]{
     "params": {"slug": slug.current}
   }`;
   return await sanityClient.fetch(SLUGS_QUERY, Astro.params);
@@ -24,21 +28,28 @@ const urlFor = (source: SanityImageSource) =>
   projectId && dataset
     ? createImageUrlBuilder({ projectId, dataset }).image(source)
     : null;
-const postImageUrl = post.image
-  ? urlFor(post.image)?.width(550).height(310).url()
+const projectImageUrl = project.image
+  ? urlFor(project.image)?.width(550).height(310).url()
   : null;
 ---
 
-<Layout title={post.title} description={post.excerpt}>
+<Layout title={project.title} description={project.excerpt}>
   <div class="space-y-8 px-2">
     <a href="/projects" class="inline-block">&larr; Back to projects</a>
     <main class="prose prose-neutral dark:prose-invert">
-      {postImageUrl && <img src={postImageUrl} alt={post.title} />}
+      {projectImageUrl && <img src={projectImageUrl} alt={project.title} />}
       <header>
-        <h1 class="mb-1">{post.title}</h1>
-        <span>{formatDateLong(post.publishedAt)}</span>
+        <h1 class="mb-1">{project.title}</h1>
+        <span>{formatDateLong(project.publishedAt)}</span>
       </header>
-      {Array.isArray(post.body) && <PortableText portableText={post.body} />}
+      {Array.isArray(project.description) && <PortableText portableText={project.description} />}
+      {Array.isArray(project.tags) && project.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-8">
+          {project.tags.map((tag) => (
+            <Tag label={tag.name} />
+          ))}
+        </div>
+      )}
     </main>
   </div>
 </Layout>

@@ -21,6 +21,7 @@ const { title, items, basePath } = Astro.props;
             title={item.title}
             href={`${basePath}/${item.slug.current}`}
             publishedAt={item.publishedAt}
+            techStack={item.techStack}
           />
         </li>
       ))

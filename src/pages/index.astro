@@ -11,14 +11,24 @@ const LATEST_POSTS_QUERY = `*[
   && defined(slug.current)
 ]|order(publishedAt desc)[0...3]{_id, title, slug, publishedAt}`;
 
+const LATEST_PROJECTS_QUERY = `*[
+  _type == "project"
+  && defined(slug.current)
+]|order(publishedAt desc)[0...3]{_id, title, slug, publishedAt, techStack}`;
+
+const LATEST_APPEARANCES_QUERY = `*[
+  _type == "appearance"
+  && defined(slug.current)
+]|order(publishedAt desc)[0...3]{_id, title, slug, publishedAt}`;
+
 const latestPosts =
   await sanityClient.fetch<SanityDocument[]>(LATEST_POSTS_QUERY);
 
 const latestProjects =
-  await sanityClient.fetch<SanityDocument[]>(LATEST_POSTS_QUERY);
+  await sanityClient.fetch<SanityDocument[]>(LATEST_PROJECTS_QUERY);
 
 const latestAppearances =
-  await sanityClient.fetch<SanityDocument[]>(LATEST_POSTS_QUERY);
+  await sanityClient.fetch<SanityDocument[]>(LATEST_APPEARANCES_QUERY);
 ---
 
 <Layout

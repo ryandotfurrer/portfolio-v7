@@ -7,6 +7,15 @@ interface Props {
 const { label, href } = Astro.props;
 ---
 
-<a href={href} class="number rounded-md border bg-card p-1 text-sm lowercase">
-  {label}
-</a>
+{
+  href ? (
+    <a
+      href={href}
+      class="number rounded-md bg-card p-1 text-xs lowercase no-underline"
+    >
+      {label}
+    </a>
+  ) : (
+    <span class="number rounded-md bg-card p-1 text-xs lowercase">{label}</span>
+  )
+}

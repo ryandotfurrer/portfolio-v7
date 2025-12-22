@@ -1,26 +1,42 @@
 ---
 import { formatDateDotNotation } from "../utils/date";
+import Tag from "./Tag.astro";
 
 interface Props {
   title: string;
   href: string;
-  publishedAt: string;
+  publishedAt?: string;
+  techStack?: string[];
 }
 
-const { title, href, publishedAt } = Astro.props;
+const { title, href, publishedAt, techStack } = Astro.props;
 
-const formattedDate = formatDateDotNotation(publishedAt);
+const formattedDate = publishedAt ? formatDateDotNotation(publishedAt) : null;
 ---
 
 <a
   href={href}
-  class="block rounded-md border border-transparent px-2 py-1 transition-all hover:border-border hover:bg-card hover:text-foreground"
+  class="block rounded-md border border-transparent px-2 py-1 no-underline transition-all hover:border-border hover:bg-card hover:text-foreground"
 >
   <div class="flex w-full items-center justify-between gap-4">
     <div class="w-fit"><h3>{title}</h3></div>
-    <div class="w-full flex-1 border-b"></div>
-    <div class="number w-fit">
-      <span>{formattedDate}</span>
-    </div>
+    <div class="min-w-0 flex-1 border-b"></div>
+    {
+      techStack && techStack.length > 0 ? (
+        <>
+          <div class="flex items-center gap-1">
+            {techStack.map((tech) => (
+              <Tag label={tech} />
+            ))}
+          </div>
+        </>
+      ) : (
+        formattedDate && (
+          <div class="number w-fit">
+            <span>{formattedDate}</span>
+          </div>
+        )
+      )
+    }
   </div>
 </a>
