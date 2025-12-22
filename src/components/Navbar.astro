@@ -2,15 +2,15 @@
 const navItems = [
   {
     label: "writing",
-    href: "/",
+    href: "/posts",
   },
   {
     label: "projects",
-    href: "/posts",
+    href: "/projects",
   },
   {
     label: "engagements",
-    href: "/posts",
+    href: "/engagements",
   },
 ];
 ---
@@ -22,7 +22,7 @@ const navItems = [
       class="font-semibold text-foreground transition-colors hover:text-primary"
       >RF</a
     >
-    <ul class="flex gap-6">
+    <ul class="flex gap-6 text-sm">
       {
         navItems.map((item) => (
           <li>

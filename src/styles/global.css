@@ -129,7 +129,16 @@
   }
 
   .prose {
-    @apply mx-auto w-full!;
+    @apply mx-auto w-full! text-foreground-muted!;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply text-foreground!;
+    }
 
     img {
       @apply relative left-1/2 block w-screen max-w-[1080px] -translate-x-1/2 rounded-lg border;
