@@ -1,6 +1,7 @@
 ---
 import type { SanityDocument } from "@sanity/client";
 import { sanityClient } from "sanity:client";
+import Item from "../../components/Item.astro";
 import Layout from "../../layouts/Layout.astro";
 
 const POSTS_QUERY = `*[
@@ -40,10 +41,11 @@ const years = Object.keys(postsByYear)
             <ul class="flex flex-col gap-y-4">
               {postsByYear[year].map((post) => (
                 <li>
-                  <a href={`/writing/${post.slug.current}`}>
-                    <h3>{post.title}</h3>
-                    <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
-                  </a>
+                  <Item
+                    title={post.title}
+                    href={`/writing/${post.slug.current}`}
+                    publishedAt={post.publishedAt}
+                  />
                 </li>
               ))}
             </ul>

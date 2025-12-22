@@ -1,18 +1,28 @@
 ---
+import { formatDateDotNotation } from "../utils/date";
 
+interface Props {
+  title: string;
+  href: string;
+  publishedAt: string;
+}
+
+const { title, href, publishedAt } = Astro.props;
+
+const formattedDate = formatDateDotNotation(publishedAt);
 ---
 
 <a
-  href="#"
+  href={href}
   class="block rounded-md border border-transparent px-2 py-1 transition-all hover:border-border hover:bg-card hover:text-foreground"
 >
   <div class="flex w-full items-center justify-between gap-4">
-    <div class="w-fit"><h3>How to build a blog with Astro and React</h3></div>
+    <div class="w-fit"><h3>{title}</h3></div>
     <div class="w-full flex-1 border-b"></div>
     <div
       class="w-fit font-mono text-sm font-thin tracking-[-0.03em] tabular-nums"
     >
-      <span>2025.12.15</span>
+      <span>{formattedDate}</span>
     </div>
   </div>
 </a>

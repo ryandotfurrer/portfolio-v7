@@ -5,6 +5,7 @@ import {
   type SanityImageSource,
 } from "@sanity/image-url";
 import { sanityClient } from "sanity:client";
+import { formatDateLong } from "../../utils/date";
 import PortableText from "../../components/sanity/PortableText.astro";
 import Layout from "../../layouts/Layout.astro";
 
@@ -33,7 +34,7 @@ const postImageUrl = post.image
   <main class="prose prose-neutral dark:prose-invert">
     {postImageUrl && <img src={postImageUrl} alt={post.title} />}
     <h1>{post.title}</h1>
-    <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p>
+    <p>{formatDateLong(post.publishedAt)}</p>
     {Array.isArray(post.body) && <PortableText portableText={post.body} />}
   </main>
 </Layout>
