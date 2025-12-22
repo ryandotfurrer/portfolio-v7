@@ -1,27 +1,33 @@
 ---
-
+const navItems = [
+  {
+    label: "writing",
+    href: "/",
+  },
+  {
+    label: "projects",
+    href: "/posts",
+  },
+  {
+    label: "engagements",
+    href: "/posts",
+  },
+];
 ---
 
-<nav class="mb-8">
+<nav class="mb-8 px-2">
   <div class="flex items-center justify-between">
-    <a
-      href="/"
-      class="text-lg font-semibold text-foreground transition-colors hover:text-primary"
-    >
-      Ryan Furrer
-    </a>
+    <a href="/">RF</a>
     <ul class="flex gap-6">
-      <li>
-        <a href="/" class="text-foreground transition-colors hover:text-primary"
-          >Home</a
-        >
-      </li>
-      <li>
-        <a
-          href="/posts"
-          class="text-foreground transition-colors hover:text-primary">Posts</a
-        >
-      </li>
+      {
+        navItems.map((item) => (
+          <li>
+            <a href={item.href} class="transition-colors hover:text-foreground">
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </div>
 </nav>
