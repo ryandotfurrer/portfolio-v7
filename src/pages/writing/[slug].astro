@@ -30,11 +30,15 @@ const postImageUrl = post.image
 ---
 
 <Layout title={post.title} description={post.excerpt}>
-  <a href="/writing">&larr; Back to writing</a>
-  <main class="prose prose-neutral dark:prose-invert">
-    {postImageUrl && <img src={postImageUrl} alt={post.title} />}
-    <h1>{post.title}</h1>
-    <p>{formatDateLong(post.publishedAt)}</p>
-    {Array.isArray(post.body) && <PortableText portableText={post.body} />}
-  </main>
+  <div class="space-y-8">
+    <a href="/writing" class="inline-block">&larr; Back to writing</a>
+    <main class="prose prose-neutral dark:prose-invert">
+      {postImageUrl && <img src={postImageUrl} alt={post.title} />}
+      <header>
+        <h1 class="mb-1">{post.title}</h1>
+        <span>{formatDateLong(post.publishedAt)}</span>
+      </header>
+      {Array.isArray(post.body) && <PortableText portableText={post.body} />}
+    </main>
+  </div>
 </Layout>

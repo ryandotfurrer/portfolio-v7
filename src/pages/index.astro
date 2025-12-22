@@ -1,7 +1,7 @@
 ---
 import type { SanityDocument } from "@sanity/client";
 import { sanityClient } from "sanity:client";
-import { formatDateDotNotation } from "../utils/date";
+import Item from "../components/Item.astro";
 import Layout from "../layouts/Layout.astro";
 
 const LATEST_POSTS_QUERY = `*[
@@ -53,20 +53,11 @@ const latestPosts =
           {
             latestPosts.map((post) => (
               <li>
-                <a
+                <Item
+                  title={post.title}
                   href={`/writing/${post.slug.current}`}
-                  class="block rounded-md border border-transparent px-2 py-1 transition-all hover:border-border hover:bg-card hover:text-foreground"
-                >
-                  <div class="flex w-full items-center justify-between gap-4">
-                    <div class="w-fit">
-                      <h3>{post.title}</h3>
-                    </div>
-                    <div class="w-full flex-1 border-b" />
-                    <div class="w-fit font-mono text-sm font-thin tracking-[-0.03em] tabular-nums">
-                      <span>{formatDateDotNotation(post.publishedAt)}</span>
-                    </div>
-                  </div>
-                </a>
+                  publishedAt={post.publishedAt}
+                />
               </li>
             ))
           }

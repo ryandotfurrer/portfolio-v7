@@ -31,27 +31,31 @@ const years = Object.keys(postsByYear)
 ---
 
 <Layout>
-  <main>
-    <h1>Writing</h1>
-    <div class="space-y-12">
-      {
-        years.map((year) => (
-          <section class="space-y-4">
-            <h2 class="text-lg font-medium">{year}</h2>
-            <ul class="flex flex-col gap-y-4">
-              {postsByYear[year].map((post) => (
-                <li>
-                  <Item
-                    title={post.title}
-                    href={`/writing/${post.slug.current}`}
-                    publishedAt={post.publishedAt}
-                  />
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))
-      }
-    </div>
-  </main>
+  <div class="space-y-8">
+    <header class="px-2">
+      <h1>writing</h1>
+    </header>
+    <main>
+      <div class="space-y-8">
+        {
+          years.map((year) => (
+            <section class="space-y-4">
+              <h2 class="number px-2">{year}</h2>
+              <ul class="space-y-2">
+                {postsByYear[year].map((post) => (
+                  <li>
+                    <Item
+                      title={post.title}
+                      href={`/writing/${post.slug.current}`}
+                      publishedAt={post.publishedAt}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+      </div>
+    </main>
+  </div>
 </Layout>
