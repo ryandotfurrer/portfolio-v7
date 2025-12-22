@@ -12,14 +12,14 @@ const posts = await sanityClient.fetch<SanityDocument[]>(POSTS_QUERY);
 ---
 
 <Layout>
-  <main class="container mx-auto min-h-screen max-w-3xl p-8">
-    <h1 class="mb-8 text-4xl font-bold">Posts</h1>
+  <main>
+    <h1>Posts</h1>
     <ul class="flex flex-col gap-y-4">
       {
         posts.map((post) => (
-          <li class="hover:underline">
+          <li>
             <a href={`/posts/${post.slug.current}`}>
-              <h2 class="text-xl font-semibold">{post.title}</h2>
+              <h2>{post.title}</h2>
               <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
             </a>
           </li>
