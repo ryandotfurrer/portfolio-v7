@@ -13,7 +13,7 @@ const { title, items, basePath } = Astro.props;
 
 <section class="space-y-4">
   <h2 class="px-2">{title}</h2>
-  <ul class="space-y-2">
+  <ul class="flex flex-col gap-px">
     {
       items.map((item) => (
         <li>
@@ -27,4 +27,3 @@ const { title, items, basePath } = Astro.props;
     }
   </ul>
 </section>
-

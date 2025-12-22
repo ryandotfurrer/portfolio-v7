@@ -1,0 +1,57 @@
+---
+import { socialLinks } from "../lib/social-links";
+
+const currentYear = new Date().getFullYear();
+
+const sitemapLinks = [
+  { label: "Home", href: "/" },
+  { label: "Writing", href: "/writing" },
+  { label: "Projects", href: "/projects" },
+  { label: "Engagements", href: "/engagements" },
+  { label: "Now", href: "/now" },
+  { label: "About", href: "/about" },
+];
+---
+
+<footer class="mb-0 px-2">
+  <div class="space-y-4">
+    <nav>
+      <h2 class="text-sm font-semibold text-foreground">Sitemap</h2>
+      <ul
+        class="grid grid-cols-2 gap-px text-sm md:flex md:flex-wrap md:gap-x-8 md:gap-y-4"
+      >
+        {
+          sitemapLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="inline-block w-full py-2 transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div
+      class="flex items-center justify-between text-sm text-foreground-muted"
+    >
+      <p>&copy; {currentYear} Ryan Furrer</p>
+      <ul class="flex gap-x-4">
+        {
+          socialLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</footer>

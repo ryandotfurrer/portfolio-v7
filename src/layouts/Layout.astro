@@ -1,5 +1,6 @@
 ---
 import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -19,9 +20,10 @@ const { title = "Ryan Furrer", description } = Astro.props;
     {description && <meta name="description" content={description} />}
   </head>
   <body
-    class="mx-auto max-w-3xl bg-background px-4 py-8 text-foreground-muted antialiased lg:px-0"
+    class="mx-auto max-w-3xl space-y-16 bg-background px-4 py-8 text-foreground-muted antialiased lg:px-0"
   >
     <Navbar />
     <slot />
+    <Footer />
   </body>
 </html>

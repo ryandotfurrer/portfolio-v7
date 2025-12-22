@@ -41,7 +41,7 @@ const years = Object.keys(postsByYear)
           years.map((year) => (
             <section class="space-y-4">
               <h2 class="number px-2">{year}</h2>
-              <ul class="space-y-2">
+              <ul class="flex flex-col gap-px">
                 {postsByYear[year].map((post) => (
                   <li>
                     <Item
