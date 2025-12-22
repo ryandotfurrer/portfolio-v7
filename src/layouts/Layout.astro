@@ -1,5 +1,5 @@
 ---
-import Navbarino from "../components/Navbarino.astro";
+import Navbar from "../components/Navbar.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -21,7 +21,7 @@ const { title = "Ryan Furrer", description } = Astro.props;
   <body
     class="mx-auto max-w-3xl bg-background px-4 py-8 text-foreground-muted antialiased lg:px-0"
   >
-    <Navbarino />
+    <Navbar />
     <slot />
   </body>
 </html>
