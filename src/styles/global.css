@@ -183,7 +183,7 @@
     }
 
     a {
-      @apply border-b-2 border-foreground/25 text-foreground no-underline! transition-all hover:border-foreground/90;
+      @apply border-b-2 border-foreground/25 font-normal! text-foreground no-underline! transition-all hover:border-foreground/90;
     }
 
     img {

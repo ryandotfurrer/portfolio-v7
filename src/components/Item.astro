@@ -16,11 +16,11 @@ const formattedDate = publishedAt ? formatDateDotNotation(publishedAt) : null;
 
 <a
   href={href}
-  class="block rounded-md border border-transparent py-1 no-underline transition-all hover:border-border hover:bg-card hover:text-foreground md:md:px-2"
+  class="group block rounded-md border border-transparent py-1 no-underline transition-all hover:border-border hover:bg-card hover:text-foreground md:md:px-2"
 >
   <div class="w-full items-center justify-between gap-4 md:flex">
     <div class="w-fit text-foreground md:text-foreground-muted">
-      <h3>{title}</h3>
+      <h3 class="transition-colors group-hover:text-foreground">{title}</h3>
     </div>
     <div class="hidden min-w-4 flex-1 border-b md:block"></div>
     {
@@ -35,7 +35,9 @@ const formattedDate = publishedAt ? formatDateDotNotation(publishedAt) : null;
       ) : (
         formattedDate && (
           <div class="custom-font-mono w-fit">
-            <span>{formattedDate}</span>
+            <span class="transition-colors group-hover:text-foreground">
+              {formattedDate}
+            </span>
           </div>
         )
       )
