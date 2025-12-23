@@ -1,0 +1,25 @@
+---
+import { socialLinks } from "../lib/social-links";
+
+type SocialLinksProps = {
+  orientation?: "horizontal" | "vertical";
+};
+
+const { orientation = "horizontal" } = Astro.props;
+---
+
+<ul
+  class:list={orientation === "vertical"
+    ? "flex flex-col gap-y-4 md:gap-y-2"
+    : "flex gap-x-4 md:gap-x-2"}
+>
+  {
+    socialLinks.map((link) => (
+      <li>
+        <a href={link.href} class="text-color-hover">
+          {link.label}
+        </a>
+      </li>
+    ))
+  }
+</ul>
