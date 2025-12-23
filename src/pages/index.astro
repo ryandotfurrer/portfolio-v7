@@ -4,7 +4,6 @@ import { sanityClient } from "sanity:client";
 import Layout from "../layouts/Layout.astro";
 import { socialLinks } from "../lib/social-links";
 import LatestItemsSection from "../components/LatestItemsSection.astro";
-import Tag from "../components/Tag.astro";
 
 const LATEST_POSTS_QUERY = `*[
   _type == "post"
@@ -40,7 +39,7 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
   <div class="space-y-16">
     <header class="space-y-4 md:px-2">
       <div>
-        <h1 class="text-foreground">Ryan Furrer</h1>
+        <h1 class="leading-4 text-foreground">Ryan Furrer</h1>
         <p>Design Engineer at Pragma</p>
       </div>
       <div class="space-y-4">

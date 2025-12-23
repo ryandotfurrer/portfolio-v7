@@ -11,8 +11,10 @@ interface Props {
 const { title, items, basePath } = Astro.props;
 ---
 
-<section class="space-y-4">
-  <h2 class="md:px-2">{title}</h2>
+<section class="space-y-2">
+  <h2 class="small-heading md:px-2">
+    {title}
+  </h2>
   <ul class="flex flex-col gap-px">
     {
       items.map((item) => (
