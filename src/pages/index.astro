@@ -24,11 +24,13 @@ const LATEST_APPEARANCES_QUERY = `*[
 const latestPosts =
   await sanityClient.fetch<SanityDocument[]>(LATEST_POSTS_QUERY);
 
-const latestProjects =
-  await sanityClient.fetch<SanityDocument[]>(LATEST_PROJECTS_QUERY);
+const latestProjects = await sanityClient.fetch<SanityDocument[]>(
+  LATEST_PROJECTS_QUERY,
+);
 
-const latestAppearances =
-  await sanityClient.fetch<SanityDocument[]>(LATEST_APPEARANCES_QUERY);
+const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
+  LATEST_APPEARANCES_QUERY,
+);
 ---
 
 <Layout
@@ -36,22 +38,18 @@ const latestAppearances =
   description="Online home of Ryan Furrer"
 >
   <div class="space-y-16">
-    <header class="space-y-4 px-2">
+    <header class="space-y-4 md:px-2">
       <div>
         <h1 class="text-foreground">Ryan Furrer</h1>
         <p>Design Engineer at Pragma</p>
       </div>
-      <div>
+      <div class="space-y-4">
         <p>
-          Irure aute elit nulla ea esse mollit laborum minim irure minim irure
-          Lorem culpa enim. Lorem amet fugiat ex officia commodo commodo sit in
-          <a href="#">reprehenderit</a> qui excepteur quis. Eu sunt dolor esse ea
-          consectetur Lorem eiusmod. Ea deserunt laboris qui sunt incididunt occaecat
-          irure sint dolore labore reprehenderit voluptate. Nostrud voluptate reprehenderit
-          eiusmod dolor. Adipisicing velit laboris consequat elit quis Lorem qui elit
-          proident. Laboris nulla velit tempor fugiat nisi cupidatat sunt reprehenderit
-          Lorem pariatur commodo. Aliqua occaecat ex consequat qui dolor.
+          I'm a design engineer at Pragma, a software development agency. I'm a
+          big fan of design systems and frontend development. I'm also a big fan
+          of the web platform and the web platform.
         </p>
+        <a href="/about" class="inline-block">Learn more</a>
       </div>
       <div class="space-y-3">
         <p>Find me elsewhere</p>

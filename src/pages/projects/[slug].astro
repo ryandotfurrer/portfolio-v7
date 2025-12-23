@@ -14,7 +14,10 @@ const PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0]{
   ...,
   tags[]->{name, slug}
 }`;
-const project = await sanityClient.fetch<SanityDocument>(PROJECT_QUERY, Astro.params);
+const project = await sanityClient.fetch<SanityDocument>(
+  PROJECT_QUERY,
+  Astro.params,
+);
 
 export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
   const SLUGS_QUERY = `*[_type == "project" && defined(slug.current)]{
@@ -34,7 +37,7 @@ const projectImageUrl = project.image
 ---
 
 <Layout title={project.title} description={project.excerpt}>
-  <div class="space-y-8 px-2">
+  <div class="space-y-8 md:px-2">
     <a href="/projects" class="inline-block">&larr; Back to projects</a>
     <main class="prose prose-neutral dark:prose-invert">
       {projectImageUrl && <img src={projectImageUrl} alt={project.title} />}
@@ -42,14 +45,20 @@ const projectImageUrl = project.image
         <h1 class="mb-1">{project.title}</h1>
         <span>{formatDateLong(project.publishedAt)}</span>
       </header>
-      {Array.isArray(project.description) && <PortableText portableText={project.description} />}
-      {Array.isArray(project.tags) && project.tags.length > 0 && (
-        <div class="flex flex-wrap gap-2 mt-8">
-          {project.tags.map((tag) => (
-            <Tag label={tag.name} />
-          ))}
-        </div>
-      )}
+      {
+        Array.isArray(project.description) && (
+          <PortableText portableText={project.description} />
+        )
+      }
+      {
+        Array.isArray(project.tags) && project.tags.length > 0 && (
+          <div class="mt-8 flex flex-wrap gap-2">
+            {project.tags.map((tag) => (
+              <Tag label={tag.name} />
+            ))}
+          </div>
+        )
+      }
     </main>
   </div>
 </Layout>

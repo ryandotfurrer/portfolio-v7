@@ -34,7 +34,7 @@ const postImageUrl = post.image
 ---
 
 <Layout title={post.title} description={post.excerpt}>
-  <div class="space-y-8 px-2">
+  <div class="space-y-8 md:px-2">
     <a href="/writing" class="inline-block">&larr; Back to writing</a>
     <main class="prose prose-neutral dark:prose-invert">
       {postImageUrl && <img src={postImageUrl} alt={post.title} />}
@@ -43,13 +43,15 @@ const postImageUrl = post.image
         <span>{formatDateLong(post.publishedAt)}</span>
       </header>
       {Array.isArray(post.body) && <PortableText portableText={post.body} />}
-      {Array.isArray(post.tags) && post.tags.length > 0 && (
-        <div class="flex flex-wrap gap-2 mt-8">
-          {post.tags.map((tag) => (
-            <Tag label={tag.name} />
-          ))}
-        </div>
-      )}
+      {
+        Array.isArray(post.tags) && post.tags.length > 0 && (
+          <div class="mt-8 flex flex-wrap gap-2">
+            {post.tags.map((tag) => (
+              <Tag label={tag.name} />
+            ))}
+          </div>
+        )
+      }
     </main>
   </div>
 </Layout>

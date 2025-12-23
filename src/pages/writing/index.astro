@@ -32,7 +32,7 @@ const years = Object.keys(postsByYear)
 
 <Layout>
   <div class="space-y-8">
-    <header class="px-2">
+    <header class="md:px-2">
       <h1>Writing</h1>
     </header>
     <main>
@@ -40,7 +40,7 @@ const years = Object.keys(postsByYear)
         {
           years.map((year) => (
             <section class="space-y-4">
-              <h2 class="number px-2">{year}</h2>
+              <h2 class="number md:px-2">{year}</h2>
               <ul class="flex flex-col gap-px">
                 {postsByYear[year].map((post) => (
                   <li>

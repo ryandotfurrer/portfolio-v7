@@ -14,7 +14,10 @@ const APPEARANCE_QUERY = `*[_type == "appearance" && slug.current == $slug][0]{
   ...,
   tags[]->{name, slug}
 }`;
-const appearance = await sanityClient.fetch<SanityDocument>(APPEARANCE_QUERY, Astro.params);
+const appearance = await sanityClient.fetch<SanityDocument>(
+  APPEARANCE_QUERY,
+  Astro.params,
+);
 
 export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
   const SLUGS_QUERY = `*[_type == "appearance" && defined(slug.current)]{
@@ -34,23 +37,32 @@ const appearanceImageUrl = appearance.image
 ---
 
 <Layout title={appearance.title} description={appearance.excerpt}>
-  <div class="space-y-8 px-2">
+  <div class="space-y-8 md:px-2">
     <a href="/appearances" class="inline-block">&larr; Back to appearances</a>
     <main class="prose prose-neutral dark:prose-invert">
-      {appearanceImageUrl && <img src={appearanceImageUrl} alt={appearance.title} />}
+      {
+        appearanceImageUrl && (
+          <img src={appearanceImageUrl} alt={appearance.title} />
+        )
+      }
       <header>
         <h1 class="mb-1">{appearance.title}</h1>
         <span>{formatDateLong(appearance.publishedAt)}</span>
       </header>
-      {Array.isArray(appearance.description) && <PortableText portableText={appearance.description} />}
-      {Array.isArray(appearance.tags) && appearance.tags.length > 0 && (
-        <div class="flex flex-wrap gap-2 mt-8">
-          {appearance.tags.map((tag) => (
-            <Tag label={tag.name} />
-          ))}
-        </div>
-      )}
+      {
+        Array.isArray(appearance.description) && (
+          <PortableText portableText={appearance.description} />
+        )
+      }
+      {
+        Array.isArray(appearance.tags) && appearance.tags.length > 0 && (
+          <div class="mt-8 flex flex-wrap gap-2">
+            {appearance.tags.map((tag) => (
+              <Tag label={tag.name} />
+            ))}
+          </div>
+        )
+      }
     </main>
   </div>
 </Layout>
-
