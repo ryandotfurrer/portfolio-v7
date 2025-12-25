@@ -7,6 +7,7 @@ import {
 import { sanityClient } from "sanity:client";
 import PortableText from "../../components/sanity/PortableText.astro";
 import Tag from "../../components/Tag.astro";
+import Link from "../../components/Link.astro";
 import Layout from "../../layouts/Layout.astro";
 import { formatDateLong } from "../../utils/date";
 
@@ -35,7 +36,7 @@ const postImageUrl = post.image
 
 <Layout title={post.title} description={post.excerpt}>
   <div class="space-y-8 md:pl-2">
-    <a href="/writing" class="inline-block">&larr; Back to writing</a>
+    <Link href="/writing" IconLeft={true}>Back to writing</Link>
     <main class="prose prose-neutral dark:prose-invert">
       {postImageUrl && <img src={postImageUrl} alt={post.title} />}
       <header>

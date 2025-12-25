@@ -1,7 +1,11 @@
 ---
+import ArrowLeft from "./icons/ArrowLeft.astro";
+import ArrowRight from "./icons/ArrowRight.astro";
+
 interface Props {
   href: string;
-  icon?: boolean;
+  IconLeft?: boolean;
+  IconRight?: boolean;
   class?: string;
   target?: string;
   rel?: string;
@@ -10,7 +14,8 @@ interface Props {
 
 const {
   href,
-  icon = true,
+  IconLeft = false,
+  IconRight = false,
   class: className,
   target,
   rel,
@@ -18,7 +23,7 @@ const {
 } = Astro.props;
 
 const linkClasses = [
-  "group inline-flex items-center gap-x-1 small-heading border-b-0",
+  "group inline-flex items-center gap-x-1 small-heading border-b-0 text-foreground-muted transition-colors hover:text-foreground",
   className,
 ]
   .filter(Boolean)
@@ -38,28 +43,9 @@ if (target === "_blank" && !rel) {
   rel={finalRel}
   {...restProps}
 >
-  <span
-    class="border-b-2 border-foreground/25 transition-colors group-hover:border-foreground/90"
-  >
+  {IconLeft && <ArrowLeft />}
+  <span>
     <slot />
   </span>
-  {
-    icon && (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="3"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="size-4 shrink-0 text-foreground/25 transition-colors group-hover:text-foreground/50"
-        aria-hidden="true"
-      >
-        <path d="m9 18 6-6-6-6" />
-      </svg>
-    )
-  }
+  {IconRight && <ArrowRight />}
 </a>
