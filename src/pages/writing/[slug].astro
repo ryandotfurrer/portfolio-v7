@@ -5,10 +5,10 @@ import {
   type SanityImageSource,
 } from "@sanity/image-url";
 import { sanityClient } from "sanity:client";
-import { formatDateLong } from "../../utils/date";
 import PortableText from "../../components/sanity/PortableText.astro";
 import Tag from "../../components/Tag.astro";
 import Layout from "../../layouts/Layout.astro";
+import { formatDateLong } from "../../utils/date";
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
   ...,
