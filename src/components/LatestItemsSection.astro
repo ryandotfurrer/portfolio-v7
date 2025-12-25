@@ -1,6 +1,7 @@
 ---
 import type { SanityDocument } from "@sanity/client";
 import Item from "./Item.astro";
+import Link from "./Link.astro";
 
 interface Props {
   title: string;
@@ -29,4 +30,5 @@ const { title, items, basePath } = Astro.props;
       ))
     }
   </ul>
+  <Link href={`${basePath}`}>View all</Link>
 </section>
