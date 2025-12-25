@@ -190,4 +190,37 @@
       @apply relative left-1/2 block w-screen max-w-5xl -translate-x-1/2 rounded-lg border;
     }
   }
+
+  /* Traveling highlight hover effect for Item components */
+  ul[data-dir-hover-list="items"] {
+    position: relative;
+  }
+
+  ul[data-dir-hover-list="items"]::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--dir-hover-y, 0);
+    height: var(--dir-hover-h, 0);
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    pointer-events: none;
+    z-index: -1;
+    opacity: var(--dir-hover-opacity, 0);
+    transition: top 0.2s ease, height 0.2s ease, opacity 0.15s ease;
+  }
+
+  /* Reduced motion: disable sliding transitions */
+  @media (prefers-reduced-motion: reduce) {
+    ul[data-dir-hover-list="items"]::before {
+      transition: opacity 0.15s ease;
+    }
+  }
+
+  /* Ensure items are positioned correctly relative to the highlight */
+  a[data-dir-hover="item"] {
+    position: relative;
+  }
 }
