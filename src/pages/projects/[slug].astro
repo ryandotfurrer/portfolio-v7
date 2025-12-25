@@ -9,6 +9,7 @@ import PortableText from "../../components/sanity/PortableText.astro";
 import Tag from "../../components/Tag.astro";
 import Layout from "../../layouts/Layout.astro";
 import { formatDateLong } from "../../utils/date";
+import Link from "../../components/Link.astro";
 
 const PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0]{
   ...,
@@ -38,7 +39,7 @@ const projectImageUrl = project.image
 
 <Layout title={project.title} description={project.excerpt}>
   <div class="space-y-8 md:pl-2">
-    <a href="/projects" class="inline-block">&larr; Back to projects</a>
+    <Link href="/projects" class="inline-block">Back to projects</Link>
     <main class="prose prose-neutral dark:prose-invert">
       {projectImageUrl && <img src={projectImageUrl} alt={project.title} />}
       <header>

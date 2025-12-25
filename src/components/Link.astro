@@ -1,33 +1,13 @@
 ---
-import ArrowLeft from "./icons/ArrowLeft.astro";
-import ArrowRight from "./icons/ArrowRight.astro";
-
 interface Props {
   href: string;
-  IconLeft?: boolean;
-  IconRight?: boolean;
   class?: string;
   target?: string;
   rel?: string;
   [key: string]: any;
 }
 
-const {
-  href,
-  IconLeft = false,
-  IconRight = false,
-  class: className,
-  target,
-  rel,
-  ...restProps
-} = Astro.props;
-
-const linkClasses = [
-  "group inline-flex items-center gap-x-0 hover:gap-x-1 small-heading border-b-0 text-foreground-muted transition-colors hover:text-foreground",
-  className,
-]
-  .filter(Boolean)
-  .join(" ");
+const { href, class: className, target, rel, ...restProps } = Astro.props;
 
 // Handle rel attribute for external links
 let finalRel = rel;
@@ -38,19 +18,11 @@ if (target === "_blank" && !rel) {
 
 <a
   href={href}
-  class={linkClasses}
+  class:list={[
+    "small-heading text-foreground-muted hover:text-foreground",
+    className,
+  ]}
   target={target}
   rel={finalRel}
-  {...restProps}
+  {...restProps}><slot /></a
 >
-  {IconLeft && <ArrowLeft />}
-  <span
-    class:list={[
-      IconLeft &&
-        "-translate-x-4 transition-transform duration-200 ease-out group-hover:translate-x-2",
-    ]}
-  >
-    <slot />
-  </span>
-  {IconRight && <ArrowRight />}
-</a>

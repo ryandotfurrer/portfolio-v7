@@ -36,7 +36,7 @@ const postImageUrl = post.image
 
 <Layout title={post.title} description={post.excerpt}>
   <div class="space-y-8 md:pl-2">
-    <Link href="/writing" IconLeft={true}>Back to writing</Link>
+    <Link href="/writing" class="inline-block">Back to writing</Link>
     <main class="prose prose-neutral dark:prose-invert">
       {postImageUrl && <img src={postImageUrl} alt={post.title} />}
       <header>
