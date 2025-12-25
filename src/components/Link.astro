@@ -23,7 +23,7 @@ const {
 } = Astro.props;
 
 const linkClasses = [
-  "group inline-flex items-center gap-x-1 small-heading border-b-0 text-foreground-muted transition-colors hover:text-foreground",
+  "group inline-flex items-center gap-x-0 hover:gap-x-1 small-heading border-b-0 text-foreground-muted transition-colors hover:text-foreground",
   className,
 ]
   .filter(Boolean)
@@ -44,7 +44,12 @@ if (target === "_blank" && !rel) {
   {...restProps}
 >
   {IconLeft && <ArrowLeft />}
-  <span>
+  <span
+    class:list={[
+      IconLeft &&
+        "-translate-x-4 transition-transform duration-200 ease-out group-hover:translate-x-2",
+    ]}
+  >
     <slot />
   </span>
   {IconRight && <ArrowRight />}
