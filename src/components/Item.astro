@@ -12,6 +12,10 @@ interface Props {
 const { title, href, publishedAt, techStack } = Astro.props;
 
 const formattedDate = publishedAt ? formatDateDotNotation(publishedAt) : null;
+
+const displayedTags = techStack?.slice(0, 3) ?? [];
+const remainingCount =
+  techStack && techStack.length > 3 ? techStack.length - 3 : 0;
 ---
 
 <a
@@ -28,9 +32,10 @@ const formattedDate = publishedAt ? formatDateDotNotation(publishedAt) : null;
       techStack && techStack.length > 0 ? (
         <>
           <div class="flex items-center gap-1">
-            {techStack.map((tech) => (
+            {displayedTags.map((tech) => (
               <Tag label={tech} />
             ))}
+            {remainingCount > 0 && <Tag label={`+${remainingCount} more`} />}
           </div>
         </>
       ) : (
