@@ -38,7 +38,7 @@ const projectImageUrl = project.image
 ---
 
 <Layout title={project.title} description={project.excerpt}>
-  <div class="space-y-8 md:pl-2">
+  <div class="space-y-8 md:px-2">
     <Link href="/projects" class="inline-block">Back to projects</Link>
     <main class="prose prose-neutral dark:prose-invert">
       {projectImageUrl && <img src={projectImageUrl} alt={project.title} />}

@@ -32,7 +32,7 @@ const years = Object.keys(projectsByYear)
 
 <Layout>
   <div class="space-y-8">
-    <header class="md:pl-2">
+    <header class="md:px-2">
       <h1>Projects</h1>
     </header>
     <main>
@@ -40,7 +40,7 @@ const years = Object.keys(projectsByYear)
         {
           years.map((year) => (
             <section class="space-y-4">
-              <h2 class="small-heading font-mono text-sm md:pl-2">{year}</h2>
+              <h2 class="small-heading font-mono text-sm md:px-2">{year}</h2>
               <ul class="flex flex-col gap-px">
                 {projectsByYear[year].map((project) => (
                   <li>
