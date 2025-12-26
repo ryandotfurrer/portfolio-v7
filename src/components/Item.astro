@@ -1,5 +1,5 @@
 ---
-import { formatDateDotNotation } from "../utils/date";
+import { formatDateDotNotation } from "@/utils/date";
 import Tag from "./Tag.astro";
 
 interface Props {
@@ -35,7 +35,7 @@ const formattedDate = publishedAt ? formatDateDotNotation(publishedAt) : null;
         </>
       ) : (
         formattedDate && (
-          <div class="custom-font-mono w-fit">
+          <div class="font-mono-custom w-fit">
             <span class="transition-colors group-hover:text-foreground">
               {formattedDate}
             </span>

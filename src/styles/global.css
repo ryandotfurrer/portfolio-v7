@@ -158,7 +158,7 @@
     @apply border-b-2 border-foreground/25 text-foreground transition-all hover:border-foreground/90;
   }
 
-  .custom-font-mono {
+  .font-mono-custom {
     @apply font-mono text-sm font-thin tracking-[-0.03em] tabular-nums;
   }
 
@@ -209,7 +209,10 @@
     pointer-events: none;
     z-index: -1;
     opacity: var(--dir-hover-opacity, 0);
-    transition: top 0.2s ease, height 0.2s ease, opacity 0.15s ease;
+    transition:
+      top 0.2s ease,
+      height 0.2s ease,
+      opacity 0.15s ease;
   }
 
   /* Reduced motion: disable sliding transitions */

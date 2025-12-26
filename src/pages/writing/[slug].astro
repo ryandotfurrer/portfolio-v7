@@ -1,15 +1,14 @@
 ---
+import Link from "@/components/Link.astro";
+import PortableText from "@/components/sanity/PortableText.astro";
+import Layout from "@/layouts/Layout.astro";
+import { formatDateLong } from "@/utils/date";
 import type { SanityDocument } from "@sanity/client";
 import {
   createImageUrlBuilder,
   type SanityImageSource,
 } from "@sanity/image-url";
 import { sanityClient } from "sanity:client";
-import PortableText from "../../components/sanity/PortableText.astro";
-import Tag from "../../components/Tag.astro";
-import Link from "../../components/Link.astro";
-import Layout from "../../layouts/Layout.astro";
-import { formatDateLong } from "../../utils/date";
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
   ...,
@@ -41,10 +40,12 @@ const postImageUrl = post.image
       {postImageUrl && <img src={postImageUrl} alt={post.title} />}
       <header>
         <h1 class="mb-1">{post.title}</h1>
-        <span>{formatDateLong(post.publishedAt)}</span>
+        <span class="font-mono-custom font-medium"
+          >{formatDateLong(post.publishedAt)}</span
+        >
       </header>
       {Array.isArray(post.body) && <PortableText portableText={post.body} />}
-      {
+      <!-- {
         Array.isArray(post.tags) && post.tags.length > 0 && (
           <div class="mt-8 flex flex-wrap gap-2">
             {post.tags.map((tag) => (
@@ -52,7 +53,7 @@ const postImageUrl = post.image
             ))}
           </div>
         )
-      }
+      } -->
     </main>
   </div>
 </Layout>

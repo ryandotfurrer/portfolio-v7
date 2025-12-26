@@ -1,15 +1,14 @@
 ---
+import Link from "@/components/Link.astro";
+import PortableText from "@/components/sanity/PortableText.astro";
+import Layout from "@/layouts/Layout.astro";
+import { formatDateLong } from "@/utils/date";
 import type { SanityDocument } from "@sanity/client";
 import {
   createImageUrlBuilder,
   type SanityImageSource,
 } from "@sanity/image-url";
 import { sanityClient } from "sanity:client";
-import { formatDateLong } from "../../utils/date";
-import PortableText from "../../components/sanity/PortableText.astro";
-import Tag from "../../components/Tag.astro";
-import Layout from "../../layouts/Layout.astro";
-import Link from "../../components/Link.astro";
 
 const APPEARANCE_QUERY = `*[_type == "appearance" && slug.current == $slug][0]{
   ...,
@@ -48,14 +47,16 @@ const appearanceImageUrl = appearance.image
       }
       <header>
         <h1 class="mb-1">{appearance.title}</h1>
-        <span>{formatDateLong(appearance.publishedAt)}</span>
+        <span class="font-mono-custom font-medium"
+          >{formatDateLong(appearance.publishedAt)}</span
+        >
       </header>
       {
         Array.isArray(appearance.description) && (
           <PortableText portableText={appearance.description} />
         )
       }
-      {
+      <!-- {
         Array.isArray(appearance.tags) && appearance.tags.length > 0 && (
           <div class="mt-8 flex flex-wrap gap-2">
             {appearance.tags.map((tag) => (
@@ -63,7 +64,7 @@ const appearanceImageUrl = appearance.image
             ))}
           </div>
         )
-      }
+      } -->
     </main>
   </div>
 </Layout>

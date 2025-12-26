@@ -22,6 +22,11 @@ export default defineConfig({
   vite: {
     // @ts-expect-error - Vite version mismatch between Astro (v6) and @tailwindcss/vite (v7)
     // The plugin works at runtime despite the type incompatibility
+    resolve: {
+      alias: {
+        "@": new URL("./src", import.meta.url).pathname,
+      },
+    },
     plugins: [tailwindcss()],
   },
 });
