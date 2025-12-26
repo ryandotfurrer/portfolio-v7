@@ -115,6 +115,9 @@ let initialized = false;
  * Actually initialize the event listeners
  */
 function initializeListeners(): void {
+  // Mark body so CSS fallback doesn't apply when JS is active
+  document.body.setAttribute("data-dir-hover-active", "");
+
   document.addEventListener("pointerover", handlePointerOver, true);
   document.addEventListener("pointerleave", handlePointerLeave, true);
   document.addEventListener("focusin", handleFocusIn, true);

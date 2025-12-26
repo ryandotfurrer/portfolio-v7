@@ -4,7 +4,6 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 import Footer from "../components/Footer.astro";
 import Navbar from "../components/Navbar.astro";
 import "../styles/global.css";
-import dirHoverUrl from "../scripts/dir-hover.ts?url";
 
 interface Props {
   title?: string;
@@ -30,6 +29,8 @@ const { title = "Ryan Furrer", description } = Astro.props;
     <Analytics />
     <Footer />
     <SpeedInsights />
-    <script type="module" src={dirHoverUrl}></script>
+    <script>
+      import "../scripts/dir-hover";
+    </script>
   </body>
 </html>
