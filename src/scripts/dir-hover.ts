@@ -49,6 +49,9 @@ function hideHighlight(list: HTMLUListElement): void {
  * Handle pointer over events
  */
 function handlePointerOver(e: PointerEvent): void {
+  // Only respond to mouse/pen, not touch (avoids hover on mobile tap)
+  if (e.pointerType === "touch") return;
+
   const item = findItemElement(e.target);
   if (!item) return;
 

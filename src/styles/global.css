@@ -224,9 +224,11 @@
     position: relative;
   }
 
-  /* CSS fallback hover effect when JS hasn't initialized */
-  body:not([data-dir-hover-active]) a[data-dir-hover="item"]:hover {
-    background-color: var(--card);
-    border-color: var(--border);
+  /* CSS fallback hover effect when JS hasn't initialized (desktop only) */
+  @media (hover: hover) {
+    body:not([data-dir-hover-active]) a[data-dir-hover="item"]:hover {
+      background-color: var(--card);
+      border-color: var(--border);
+    }
   }
 }
