@@ -44,9 +44,16 @@ const urlFor = (source: SanityImageSource) =>
 const appearanceImageUrl = appearance.headerImage
   ? urlFor(appearance.headerImage)?.width(550).height(310).url()
   : null;
+const appearanceOgImageUrl = appearance.ogImage
+  ? urlFor(appearance.ogImage)?.width(1200).height(630).url()
+  : undefined;
 ---
 
-<Layout title={appearance.title} description={appearance.description}>
+<Layout
+  title={appearance.title}
+  description={appearance.description}
+  ogImage={appearanceOgImageUrl}
+>
   <div class="space-y-8 md:px-2">
     <Link href="/appearances" class="inline-block">Back to appearances</Link>
     <main class="prose prose-neutral dark:prose-invert">

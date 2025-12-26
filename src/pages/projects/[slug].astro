@@ -42,9 +42,16 @@ const urlFor = (source: SanityImageSource) =>
 const projectImageUrl = project.headerImage
   ? urlFor(project.headerImage)?.width(550).height(310).url()
   : null;
+const projectOgImageUrl = project.ogImage
+  ? urlFor(project.ogImage)?.width(1200).height(630).url()
+  : undefined;
 ---
 
-<Layout title={project.title} description={project.description}>
+<Layout
+  title={project.title}
+  description={project.description}
+  ogImage={projectOgImageUrl}
+>
   <div class="space-y-8 md:px-2">
     <Link href="/projects" class="inline-block">Back to projects</Link>
     <main class="prose prose-neutral dark:prose-invert">
