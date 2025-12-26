@@ -31,12 +31,12 @@ const urlFor = (source: SanityImageSource) =>
   projectId && dataset
     ? createImageUrlBuilder({ projectId, dataset }).image(source)
     : null;
-const appearanceImageUrl = appearance.image
-  ? urlFor(appearance.image)?.width(550).height(310).url()
+const appearanceImageUrl = appearance.headerImage
+  ? urlFor(appearance.headerImage)?.width(550).height(310).url()
   : null;
 ---
 
-<Layout title={appearance.title} description={appearance.excerpt}>
+<Layout title={appearance.title} description={appearance.description}>
   <div class="space-y-8 md:px-2">
     <Link href="/appearances" class="inline-block">Back to appearances</Link>
     <main class="prose prose-neutral dark:prose-invert">
@@ -47,9 +47,25 @@ const appearanceImageUrl = appearance.image
       }
       <header>
         <h1 class="mb-1">{appearance.title}</h1>
-        <span class="font-mono-custom font-medium"
-          >{formatDateLong(appearance.publishedAt)}</span
-        >
+        {
+          appearance.publishedAt && !appearance.updatedAt && (
+            <span class="font-mono-custom font-medium">
+              {formatDateLong(appearance.publishedAt)}
+            </span>
+          )
+        }
+        {
+          appearance.updatedAt && (
+            <div class="flex flex-col gap-y-1">
+              <span class="font-mono-custom font-medium">
+                Originally published: {formatDateLong(appearance.publishedAt)}
+              </span>
+              <span class="font-mono-custom w-fit bg-primary/30 font-medium text-foreground">
+                Updated: {formatDateLong(appearance.updatedAt)}
+              </span>
+            </div>
+          )
+        }
       </header>
       {
         Array.isArray(appearance.description) && (

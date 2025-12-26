@@ -31,21 +31,37 @@ const urlFor = (source: SanityImageSource) =>
   projectId && dataset
     ? createImageUrlBuilder({ projectId, dataset }).image(source)
     : null;
-const projectImageUrl = project.image
-  ? urlFor(project.image)?.width(550).height(310).url()
+const projectImageUrl = project.headerImage
+  ? urlFor(project.headerImage)?.width(550).height(310).url()
   : null;
 ---
 
-<Layout title={project.title} description={project.excerpt}>
+<Layout title={project.title} description={project.description}>
   <div class="space-y-8 md:px-2">
     <Link href="/projects" class="inline-block">Back to projects</Link>
     <main class="prose prose-neutral dark:prose-invert">
       {projectImageUrl && <img src={projectImageUrl} alt={project.title} />}
       <header>
-        <h1 class="mb-1">{project.title}</h1>
-        <span class="font-mono-custom font-medium"
-          >{formatDateLong(project.publishedAt)}</span
-        >
+        <h1 class="mb-2">{project.title}</h1>
+        {
+          project.publishedAt && !project.updatedAt && (
+            <span class="font-mono-custom font-medium">
+              {formatDateLong(project.publishedAt)}
+            </span>
+          )
+        }
+        {
+          project.updatedAt && (
+            <div class="flex flex-col gap-y-1">
+              <span class="font-mono-custom font-medium">
+                Originally published: {formatDateLong(project.publishedAt)}
+              </span>
+              <span class="font-mono-custom w-fit bg-primary/30 font-medium text-foreground">
+                Updated: {formatDateLong(project.updatedAt)}
+              </span>
+            </div>
+          )
+        }
       </header>
       {
         Array.isArray(project.description) && (

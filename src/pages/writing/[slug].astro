@@ -28,21 +28,37 @@ const urlFor = (source: SanityImageSource) =>
   projectId && dataset
     ? createImageUrlBuilder({ projectId, dataset }).image(source)
     : null;
-const postImageUrl = post.image
-  ? urlFor(post.image)?.width(550).height(310).url()
+const postImageUrl = post.headerImage
+  ? urlFor(post.headerImage)?.width(550).height(310).url()
   : null;
 ---
 
-<Layout title={post.title} description={post.excerpt}>
+<Layout title={post.title} description={post.description}>
   <div class="space-y-8 md:px-2">
     <Link href="/writing" class="inline-block">Back to writing</Link>
     <main class="prose prose-neutral dark:prose-invert">
       {postImageUrl && <img src={postImageUrl} alt={post.title} />}
       <header>
         <h1 class="mb-1">{post.title}</h1>
-        <span class="font-mono-custom font-medium"
-          >{formatDateLong(post.publishedAt)}</span
-        >
+        {
+          post.publishedAt && !post.updatedAt && (
+            <span class="font-mono-custom font-medium">
+              {formatDateLong(post.publishedAt)}
+            </span>
+          )
+        }
+        {
+          post.updatedAt && (
+            <div class="flex flex-col gap-y-1">
+              <span class="font-mono-custom font-medium">
+                Originally published: {formatDateLong(post.publishedAt)}
+              </span>
+              <span class="font-mono-custom w-fit bg-primary/30 font-medium text-foreground">
+                Updated: {formatDateLong(post.updatedAt)}
+              </span>
+            </div>
+          )
+        }
       </header>
       {Array.isArray(post.body) && <PortableText portableText={post.body} />}
       <!-- {
