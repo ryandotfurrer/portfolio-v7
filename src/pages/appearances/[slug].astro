@@ -3,6 +3,7 @@ import Link from "@/components/Link.astro";
 import PortableText from "@/components/sanity/PortableText.astro";
 import Layout from "@/layouts/Layout.astro";
 import { formatDateLong } from "@/utils/date";
+import { textToPortableTextBlock } from "@/lib/utils";
 import type { SanityDocument } from "@sanity/client";
 import {
   createImageUrlBuilder,
@@ -18,6 +19,15 @@ const appearance = await sanityClient.fetch<SanityDocument>(
   APPEARANCE_QUERY,
   Astro.params,
 );
+
+// Prepend description as first paragraph in body
+let bodyWithDescription = Array.isArray(appearance.body)
+  ? [...appearance.body]
+  : [];
+if (appearance.description && typeof appearance.description === "string") {
+  const descriptionBlock = textToPortableTextBlock(appearance.description);
+  bodyWithDescription = [descriptionBlock, ...bodyWithDescription];
+}
 
 export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
   const SLUGS_QUERY = `*[_type == "appearance" && defined(slug.current)]{
@@ -68,8 +78,8 @@ const appearanceImageUrl = appearance.headerImage
         }
       </header>
       {
-        Array.isArray(appearance.description) && (
-          <PortableText portableText={appearance.description} />
+        bodyWithDescription.length > 0 && (
+          <PortableText portableText={bodyWithDescription} />
         )
       }
       <!-- {
