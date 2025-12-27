@@ -1,6 +1,7 @@
 ---
 import Link from "@/components/Link.astro";
 import PortableText from "@/components/sanity/PortableText.astro";
+import Tag from "@/components/Tag.astro";
 import Layout from "@/layouts/Layout.astro";
 import { formatDateLong } from "@/utils/date";
 import { textToPortableTextBlock } from "@/lib/utils";
@@ -77,6 +78,44 @@ const projectOgImageUrl = project.ogImage
             </div>
           )
         }
+        <div class="mt-4 flex flex-col gap-4">
+          {
+            Array.isArray(project.techStack) &&
+              project.techStack.length > 0 && (
+                <div class="flex flex-wrap gap-2">
+                  {project.techStack.map((tech) => (
+                    <Tag label={tech} />
+                  ))}
+                </div>
+              )
+          }
+          {
+            (project.projectUrl || project.githubUrl) && (
+              <div class="flex flex-wrap gap-4">
+                {project.projectUrl && (
+                  <a
+                    href={project.projectUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-sm"
+                  >
+                    Live Site
+                  </a>
+                )}
+                {project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-sm"
+                  >
+                    GitHub
+                  </a>
+                )}
+              </div>
+            )
+          }
+        </div>
       </header>
       {
         bodyWithDescription.length > 0 && (
