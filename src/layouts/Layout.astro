@@ -2,6 +2,7 @@
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Footer from "@/components/Footer.astro";
+import Head from "@/components/Head.astro";
 import Navbar from "@/components/Navbar.astro";
 import "@/styles/global.css";
 
@@ -22,29 +23,7 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
 
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link
-      rel="preload"
-      href="/assets/fonts/Geist[wght].woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/assets/fonts/Geist-Italic[wght].woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/assets/fonts/GeistMono[wght].woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+    <Head title={title} description={description} ogImage={ogImage} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
