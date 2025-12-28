@@ -1,24 +1,77 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+
+/* colors from: https://parade.com/astrology/pantone-color-birth-months
+January: Pantone 19-4052
+Feburary: Pantone 18-3838
+March: Pantone 15-0343
+April: Pantone 16-1546
+May: Pantone 13-1520
+June: Pantone 15-3919
+July: Pantone 18-1750
+August: Pantone 13-0647
+September: Pantone 18-1438
+October: Pantone 13-1023
+November: Pantone 17-3938
+December: Pantone 11-4201
+*/
 ---
 
 <Layout title="Now" description="What I'm doing now">
   <div class="space-y-8">
     <header class="md:px-2">
-      <h1>Now</h1>
+      <h1 class="text-foreground">Now</h1>
     </header>
-    <main>
-      <p class="md:px-2">
-        Mollit ex eiusmod excepteur irure minim proident ipsum fugiat magna
-        cillum esse officia et. Ipsum magna officia incididunt ut reprehenderit
-        consectetur ullamco magna dolore excepteur ad dolor duis deserunt.
-        Mollit laboris nostrud ut veniam sit enim enim ut consequat id do aliqua
-        labore proident ea. Anim occaecat ipsum commodo proident quis qui aute
-        sit amet qui officia. Nostrud excepteur pariatur occaecat aute irure
-        tempor ad non. Voluptate sint ullamco ex fugiat irure magna adipisicing.
-        Sint ex aliquip pariatur ut. Fugiat pariatur nisi nulla nulla id
-        deserunt dolor sunt labore.
-      </p>
+    <main class="space-y-8 px-2">
+      <section class="space-y-2">
+        <div class="my-0 h-1 w-4 bg-[#34558b]"></div>
+        <span class="font-mono-custom inline-block font-medium"
+          >January 1, 2026</span
+        >
+        <p>
+          Focusing on both my mental and physical health, giving it all at my
+          job, and moving into a new apartment next year. I'm setting up the
+          systems now to help me stay on track and meet my goals.
+        </p>
+        <section>
+          <ul class="space-y-1">
+            <li>
+              <span class="font-medium text-foreground">Watching:</span>
+              <span
+                ><a href="https://www.youtube.com/watch?v=uXr9Ha9qRHE"
+                  >Dan Da Dan (Season 2)</a
+                ></span
+              >
+            </li>
+            <li>
+              <span class="font-medium text-foreground">Reading:</span>
+              <span
+                ><a
+                  href="https://store.dailystoic.com/collections/all-books/products/the-obstacle-is-the-way-expanded-10th-anniversary-edition"
+                  >The Obstacle is the Way by Ryan Holiday</a
+                ></span
+              >
+            </li>
+            <li>
+              <span class="font-medium text-foreground">Playing:</span>
+              <span
+                ><a href="https://www.expedition33.com/"
+                  >Clair Obscur: Expedition 33</a
+                ></span
+              >
+            </li>
+            <li>
+              <span class="font-medium text-foreground">Latest Obsession:</span>
+              <span
+                ><a
+                  href="https://www.youtube.com/watch?v=jH3xpS7Q_3E&list=OLAK5uy_k_hE5HhMiwlHuzdS7R17Yk8w68ilnSrMw&index=2"
+                  >Final Fantasy VII Remake Acoustic Arrangements</a
+                ></span
+              >
+            </li>
+          </ul>
+        </section>
+      </section>
     </main>
   </div>
 </Layout>
