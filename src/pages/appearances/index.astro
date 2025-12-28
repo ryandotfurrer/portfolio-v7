@@ -29,12 +29,16 @@ const appearancesByYear = appearances.reduce(
 const years = Object.keys(appearancesByYear)
   .map(Number)
   .sort((a, b) => b - a);
+
+const description =
+  "A collection of my appearances on podcasts, talks, and other media";
 ---
 
-<Layout>
+<Layout title="Appearances — Ryan Furrer" description={description}>
   <div class="space-y-8">
     <header class="md:px-2">
-      <h1>Appearances</h1>
+      <h1 class="text-foreground">Appearances</h1>
+      <span>{description}</span>
     </header>
     <main>
       <div class="space-y-8">

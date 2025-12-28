@@ -28,12 +28,15 @@ const projectsByYear = projects.reduce(
 const years = Object.keys(projectsByYear)
   .map(Number)
   .sort((a, b) => b - a);
+
+const description = "A collection of my projects, code snippets, and more";
 ---
 
 <Layout>
   <div class="space-y-8">
     <header class="md:px-2">
-      <h1>Projects</h1>
+      <h1 class="text-foreground">Work</h1>
+      <span>{description}</span>
     </header>
     <main>
       <div class="space-y-8">
@@ -46,7 +49,7 @@ const years = Object.keys(projectsByYear)
                   <li>
                     <Item
                       title={project.title}
-                      href={`/projects/${project.slug.current}`}
+                      href={`/work/${project.slug.current}`}
                       techStack={project.techStack}
                     />
                   </li>

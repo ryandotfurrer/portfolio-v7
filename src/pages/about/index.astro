@@ -1,17 +1,38 @@
 ---
+import Signature from "@/components/Signature.astro";
 import Layout from "@/layouts/Layout.astro";
+
+const description = "Learn more about Ryan Furrer";
 ---
 
-<Layout title="About — Ryan Furrer" description="Learn more about Ryan Furrer">
+<Layout title="About — Ryan Furrer" description={description}>
   <div class="space-y-8 md:px-2">
     <header>
-      <h1>About</h1>
+      <h1 class="text-foreground">About</h1>
+      <span>{description}</span>
     </header>
-    <main>
+    <main class="space-y-4">
       <p>
-        I'm a frontend engineer and designer who loves to build things with a
-        focus on design, accessibility, and performance.
+        I'm Ryan Furrer — a Frontend Engineer who cares deeply about the
+        details: how something looks, how it feels, and whether it's accessible
+        to everyone. I thrive on small, fast-moving teams where we can ship
+        often, iterate quickly, and actually see the impact of our work.
       </p>
+      <p>
+        I believe great products come from sweating the details and caring about
+        the craft. I'm also always looking for new challenges and opportunities
+        to grow.
+      </p>
+      <p>
+        When I'm not writing code, you'll probably find me tinkering with side
+        projects, writing about what I'm learning, or exploring new tools and
+        technologies.
+      </p>
+      <p>
+        Or, if I need some downtime I'll fire up a game or continue watching of
+        the any shows/anime I'm behind on watching.
+      </p>
+      <Signature />
     </main>
   </div>
 </Layout>

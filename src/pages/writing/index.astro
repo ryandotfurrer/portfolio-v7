@@ -28,12 +28,15 @@ const postsByYear = posts.reduce(
 const years = Object.keys(postsByYear)
   .map(Number)
   .sort((a, b) => b - a);
+
+const description = "Thoughts, ramblings, and technical writings";
 ---
 
-<Layout>
+<Layout title="Writing — Ryan Furrer" description={description}>
   <div class="space-y-8">
     <header class="md:px-2">
-      <h1>Writing</h1>
+      <h1 class="text-foreground">Writing</h1>
+      <span>{description}</span>
     </header>
     <main>
       <div class="space-y-8">

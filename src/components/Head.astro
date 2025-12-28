@@ -38,6 +38,13 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
     type="font/woff2"
     crossorigin
   />
+  <link
+    rel="preload"
+    href="/assets/fonts/PermanentMarker-Regular.ttf"
+    as="font"
+    type="font/ttf"
+    crossorigin
+  />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <title>{title}</title>
   {description && <meta name="description" content={description} />}
