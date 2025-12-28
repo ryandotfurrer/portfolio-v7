@@ -74,7 +74,7 @@
 :root {
   --background: var(--color-neutral-100);
   --foreground: var(--color-neutral-900);
-  --foreground-muted: var(--color-neutral-600);
+  --foreground-muted: oklch(43.9% 0 0 / 85%);
   --card: var(--color-neutral-50);
   --card-foreground: var(--color-neutral-900);
   --card-foreground-muted: var(--color-neutral-600);
@@ -82,8 +82,7 @@
   --popover-foreground: var(--color-neutral-900);
   --popover-foreground-muted: var(--color-neutral-600);
   /* custom red-orange */
-  /* --primary: oklch(0.625 0.216 32.915); */
-  --primary: var(--color-rose-500);
+  --primary: oklch(0.625 0.216 32.915);
   --primary-foreground: var(--color-neutral-50);
   --secondary: oklch(0.967 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
@@ -122,8 +121,7 @@
     --card-foreground-muted: var(--color-neutral-400);
     --popover: var(--color-neutral-950);
     --popover-foreground: oklch(0.985 0 0);
-    /* --primary: oklch(0.637 0.237 25.331); */
-    --primary: var(--color-rose-500);
+    --primary: oklch(0.637 0.237 25.331);
     --primary-foreground: oklch(0.971 0.013 17.38);
     --secondary: oklch(0.274 0.006 286.033);
     --secondary-foreground: oklch(0.985 0 0);
