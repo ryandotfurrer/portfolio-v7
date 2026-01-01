@@ -12,6 +12,12 @@ const {
 } = Astro.props;
 
 const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const defaultOgImage = new URL("/og-image.png", Astro.site).toString();
+const ogImageUrl = ogImage
+  ? ogImage.startsWith("http")
+    ? ogImage
+    : new URL(ogImage, Astro.site).toString()
+  : defaultOgImage;
 ---
 
 <head>
@@ -54,10 +60,10 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
   {description && <meta property="og:description" content={description} />}
   <meta property="og:type" content="website" />
   <meta property="og:url" content={ogUrl} />
-  {ogImage && <meta property="og:image" content={ogImage} />}
+  <meta property="og:image" content={ogImageUrl} />
   {/* Twitter Card meta tags */}
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   {description && <meta name="twitter:description" content={description} />}
-  {ogImage && <meta name="twitter:image" content={ogImage} />}
+  <meta name="twitter:image" content={ogImageUrl} />
 </head>
