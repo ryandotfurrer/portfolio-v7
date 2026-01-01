@@ -1,4 +1,6 @@
 ---
+import logo from "@/assets/logo.svg";
+
 const navItems = [
   {
     label: "Writing",
@@ -19,14 +21,19 @@ const navItems = [
   <div class="flex items-center justify-between">
     <a
       href="/"
-      class="font-semibold text-foreground transition-colors hover:text-primary"
-      >RF</a
+      name="go to home page"
+      class="saturate-0 transition-all hover:saturate-100 focus:saturate-100"
+      ><img src={logo.src} alt="Ryan Furrer" class="size-8" /></a
     >
     <ul class="flex gap-4 text-sm">
       {
         navItems.map((item) => (
           <li>
-            <a href={item.href} class="text-color-hover">
+            <a
+              href={item.href}
+              name={`go to ${item.label.toLowerCase()} page`}
+              class="text-color-hover focus:text-foreground"
+            >
               {item.label}
             </a>
           </li>

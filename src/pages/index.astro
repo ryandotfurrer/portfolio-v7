@@ -43,7 +43,7 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
           at the crossroads of design and engineering.
         </p>
       </div>
-      <div class="space-y-2 font-medium">
+      <div class="mb-6 space-y-2 font-medium">
         <p>
           Currently I am a Design Engineer and part of the engineering team at <a
             href="https://pragma.gg">Pragma</a
@@ -56,6 +56,7 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
           and iterating quickly. Design and accessibility matter to me, so I
           make sure they're baked in from day one.
         </p>
+        <Link href="/about">Learn more about me</Link>
       </div>
 
       <div class="space-y-2">
@@ -72,11 +73,7 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
       items={latestPosts}
       basePath="/writing"
     />
-    <LatestItemsSection
-      title="Work"
-      items={latestProjects}
-      basePath="/work"
-    />
+    <LatestItemsSection title="Work" items={latestProjects} basePath="/work" />
     <LatestItemsSection
       title="Appearances"
       items={latestAppearances}
