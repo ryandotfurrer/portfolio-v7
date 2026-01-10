@@ -141,7 +141,11 @@
 
   a:not(nav a, footer a, .text-color-hover) {
     font-weight: 600;
+    transition-property: color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
     &:hover {
+      color: var(--color-accent);
       text-decoration: underline;
     }
   }
@@ -209,7 +213,11 @@
     color: inherit !important;
     font-weight: 600 !important;
     text-decoration: none !important;
+    transition-property: color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
     &:hover {
+      color: var(--color-accent) !important;
       text-decoration: underline !important;
     }
   }
