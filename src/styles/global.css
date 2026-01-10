@@ -214,6 +214,12 @@
     }
   }
 
+  .prose b,
+  .prose strong {
+    font-weight: 600 !important;
+    color: var(--color-accent) !important;
+  }
+
   .prose img {
     position: relative;
     left: 50%;
