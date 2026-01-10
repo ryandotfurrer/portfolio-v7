@@ -165,7 +165,7 @@
   .font-mono-custom {
     font-family: var(--font-mono);
     font-size: 0.875rem;
-    font-weight: 100;
+    font-weight: 400;
     letter-spacing: -0.03em;
     font-variant-numeric: tabular-nums;
   }

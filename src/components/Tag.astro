@@ -11,12 +11,12 @@ const { label, href } = Astro.props;
   href ? (
     <a
       href={href}
-      class="font-mono-custom rounded-md bg-card p-1 text-xs lowercase no-underline"
+      class="font-mono-custom rounded-md bg-card p-1 text-xs text-foreground lowercase no-underline group-hover/item:text-foreground"
     >
       {label}
     </a>
   ) : (
-    <span class="font-mono-custom rounded-md bg-card p-1 text-xs lowercase">
+    <span class="font-mono-custom rounded-md bg-card p-1 text-xs lowercase group-hover/item:text-foreground">
       {label}
     </span>
   )
