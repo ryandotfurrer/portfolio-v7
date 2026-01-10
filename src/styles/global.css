@@ -39,9 +39,9 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-foreground-muted: var(--foreground-muted);
-  --font-sans: "Geist", "Inter", sans-serif;
-  --font-mono: "Geist Mono", monospace;
-  --font-cursive: "Permanent Marker", cursive;
+  --font-sans: "Geist", "Inter", ui-sans-serif, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+  --font-cursive: "Permanent Marker", ui-cursive, cursive;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -59,7 +59,7 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
+  /* --color-accent-foreground: var(--accent-foreground); */
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
@@ -81,12 +81,12 @@
 }
 
 :root {
-  --background: var(--color-neutral-100);
-  --foreground: var(--color-neutral-900);
-  --foreground-muted: oklch(43.9% 0 0 / 85%);
-  --card: var(--color-neutral-50);
-  --card-foreground: var(--color-neutral-900);
-  --card-foreground-muted: var(--color-neutral-600);
+  --background: #f5f5f7;
+  --foreground: #1d1d1f;
+  --foreground-muted: #6e6e73;
+  --card: #ffffff;
+  --card-foreground: #1d1d1f;
+  --card-foreground-muted: #6e6e73;
   --popover: var(--color-neutral-100);
   --popover-foreground: var(--color-neutral-900);
   --popover-foreground-muted: var(--color-neutral-600);
@@ -97,64 +97,39 @@
   --secondary-foreground: oklch(0.21 0.006 285.885);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  /* custom red-orange */
-  --accent: oklch(0.625 0.216 32.915);
-  --accent-foreground: var(--color-neutral-50);
+  --accent: #1d1d1f;
   --destructive: oklch(0.58 0.22 27);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
-  /* --chart-1: oklch(0.808 0.114 19.571);
-  --chart-2: oklch(0.637 0.237 25.331);
-  --chart-3: oklch(0.577 0.245 27.325);
-  --chart-4: oklch(0.505 0.213 27.518);
-  --chart-5: oklch(0.444 0.177 26.899); */
   --radius: 0.625rem;
-  /* --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.577 0.245 27.325);
-  --sidebar-primary-foreground: oklch(0.971 0.013 17.38);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0); */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: var(--color-neutral-950);
-    --foreground: var(--color-neutral-50);
-    --foreground-muted: var(--color-neutral-400);
-    --card: oklch(0.205 0 0);
-    --card-foreground: var(--color-neutral-50);
-    --card-foreground-muted: var(--color-neutral-400);
-    --popover: var(--color-neutral-950);
-    --popover-foreground: oklch(0.985 0 0);
+    --background: #000000;
+    --foreground: #f5f5f7;
+    --foreground-muted: #86868b;
+    --card: #1d1d1f;
+    --card-foreground: #f5f5f7;
+    --card-foreground-muted: #86868b;
+    --popover: #1d1d1f;
+    --popover-foreground: #f5f5f7;
+    --popover-foreground-muted: #86868b;
+
+    /* custom red-orange */
     --primary: oklch(0.625 0.216 32.915);
-    --primary-foreground: var(--color-neutral-50);
+    --primary-foreground: #f5f5f7;
     --secondary: oklch(0.274 0.006 286.033);
     --secondary-foreground: oklch(0.985 0 0);
     --muted: oklch(0.269 0 0);
     --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.371 0 0);
-    --accent-foreground: oklch(0.985 0 0);
+    --accent: #f5f5f7;
+    /* --accent-foreground: oklch(0.985 0 0); */
     --destructive: oklch(0.704 0.191 22.216);
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
     --ring: oklch(0.556 0 0);
-    /* --chart-1: oklch(0.808 0.114 19.571);
-    --chart-2: oklch(0.637 0.237 25.331);
-    --chart-3: oklch(0.577 0.245 27.325);
-    --chart-4: oklch(0.505 0.213 27.518);
-    --chart-5: oklch(0.444 0.177 26.899); */
-    /* --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.637 0.237 25.331);
-    --sidebar-primary-foreground: oklch(0.971 0.013 17.38);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0); */
   }
 }
 
@@ -165,17 +140,10 @@
   }
 
   a:not(nav a, footer a, .text-color-hover) {
-    border-bottom-width: 2px;
-    border-bottom-color: color-mix(
-      in oklch,
-      var(--color-foreground) 25%,
-      transparent
-    );
-    color: var(--color-foreground);
-    --tw-ring-offset-width: 0.25rem;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
+    font-weight: 600;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   a:not(nav a, footer a, .text-color-hover):hover {
@@ -197,7 +165,7 @@
   .font-mono-custom {
     font-family: var(--font-mono);
     font-size: 0.875rem;
-    font-weight: 100;
+    font-weight: 400;
     letter-spacing: -0.03em;
     font-variant-numeric: tabular-nums;
   }
@@ -238,26 +206,18 @@
   }
 
   .prose a {
-    border-bottom-width: 2px;
-    border-bottom-color: color-mix(
-      in oklch,
-      var(--color-foreground) 25%,
-      transparent
-    );
-    font-weight: 400 !important;
-    color: var(--color-foreground) !important;
+    color: inherit !important;
+    font-weight: 600 !important;
     text-decoration: none !important;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
+    &:hover {
+      text-decoration: underline !important;
+    }
   }
 
-  .prose a:hover {
-    border-bottom-color: color-mix(
-      in oklch,
-      var(--color-foreground) 90%,
-      transparent
-    );
+  .prose b,
+  .prose strong {
+    font-weight: 600 !important;
+    color: var(--color-accent) !important;
   }
 
   .prose img {

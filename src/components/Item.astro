@@ -21,11 +21,13 @@ const remainingCount =
 <a
   href={href}
   data-dir-hover="item"
-  class="group block rounded-md border border-transparent py-1 no-underline transition-all hover:text-foreground md:p-2"
+  class="group/item block rounded-md border border-transparent py-1 font-normal no-underline transition-all group-hover/item:text-foreground md:p-2"
 >
   <div class="w-full items-center justify-between gap-4 md:flex">
     <div class="w-fit text-foreground md:text-foreground-muted">
-      <h3 class="transition-colors group-hover:text-foreground">{title}</h3>
+      <h3 class="transition-colors group-hover/item:text-foreground">
+        {title}
+      </h3>
     </div>
     <div class="hidden min-w-4 flex-1 border-b md:block"></div>
     {
@@ -41,7 +43,7 @@ const remainingCount =
       ) : (
         formattedDate && (
           <div class="font-mono-custom w-fit">
-            <span class="transition-colors group-hover:text-foreground">
+            <span class="transition-colors group-hover/item:text-foreground">
               {formattedDate}
             </span>
           </div>
