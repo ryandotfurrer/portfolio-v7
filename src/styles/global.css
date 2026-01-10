@@ -140,17 +140,10 @@
   }
 
   a:not(nav a, footer a, .text-color-hover) {
-    border-bottom-width: 2px;
-    border-bottom-color: color-mix(
-      in oklch,
-      var(--color-foreground) 25%,
-      transparent
-    );
-    color: var(--color-foreground);
-    --tw-ring-offset-width: 0.25rem;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
+    font-weight: 600;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   a:not(nav a, footer a, .text-color-hover):hover {
@@ -213,26 +206,12 @@
   }
 
   .prose a {
-    border-bottom-width: 2px;
-    border-bottom-color: color-mix(
-      in oklch,
-      var(--color-foreground) 25%,
-      transparent
-    );
-    font-weight: 400 !important;
-    color: var(--color-foreground) !important;
+    color: inherit !important;
+    font-weight: 600 !important;
     text-decoration: none !important;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-  }
-
-  .prose a:hover {
-    border-bottom-color: color-mix(
-      in oklch,
-      var(--color-foreground) 90%,
-      transparent
-    );
+    &:hover {
+      text-decoration: underline !important;
+    }
   }
 
   .prose img {
