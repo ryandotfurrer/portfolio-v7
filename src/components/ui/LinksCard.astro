@@ -1,0 +1,26 @@
+---
+interface Props {
+  href?: string;
+}
+
+const { href } = Astro.props;
+---
+
+// TODO: Add variant for social links that include colored logo/icon and are
+used in a 2x2 grid with an aspect ratio of 1:1.
+{
+  href ? (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block rounded-lg border bg-card p-2 transition-shadow hover:border-inherit hover:no-underline hover:shadow-sm"
+    >
+      <slot />
+    </a>
+  ) : (
+    <div class="rounded-lg border bg-card p-2 transition-shadow hover:border-inherit hover:no-underline hover:shadow-sm">
+      <slot />
+    </div>
+  )
+}

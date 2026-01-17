@@ -1,41 +1,129 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import SocialLinks from "@/components/SocialLinks.astro";
+import LinksCard from "@/components/ui/LinksCard.astro";
+import { sanityClient } from "sanity:client";
+import type { SanityDocument } from "@sanity/client";
+import { urlForImage } from "@/sanity/lib/url-for-image";
+
+const LATEST_POSTS_QUERY = `*[
+  _type == "post"
+  && defined(slug.current)
+]|order(publishedAt desc)[0]{_id, title, slug, ogImage}`;
+
+const LATEST_PROJECTS_QUERY = `*[
+  _type == "project"
+  && defined(slug.current)
+]|order(publishedAt desc)[0]{_id, title, slug, ogImage}`;
+
+const LATEST_APPEARANCES_QUERY = `*[
+  _type == "appearance"
+  && defined(slug.current)
+]|order(publishedAt desc)[0]{_id, title, slug, ogImage}`;
+
+const latestPost = await sanityClient.fetch<SanityDocument>(LATEST_POSTS_QUERY);
+
+const latestProject = await sanityClient.fetch<SanityDocument>(
+  LATEST_PROJECTS_QUERY,
+);
+
+const latestAppearance = await sanityClient.fetch<SanityDocument>(
+  LATEST_APPEARANCES_QUERY,
+);
+
+const latestPostOgImageUrl = latestPost.ogImage
+  ? urlForImage(latestPost.ogImage).url()
+  : undefined;
+const latestProjectOgImageUrl = latestProject.ogImage
+  ? urlForImage(latestProject.ogImage).url()
+  : undefined;
+const latestAppearanceOgImageUrl = latestAppearance.ogImage
+  ? urlForImage(latestAppearance.ogImage).url()
+  : undefined;
 
 const description = "A collection of links to my work, writing, and more";
-const shortBio =
-  "I'm a frontend engineer who loves creating accessible, fast, and delightful user experiences.";
+const shortBio = `Frontend Engineer
+Designer
+Creator`;
 ---
 
-<Layout title="Links — Ryan Furrer" description={description} noNavbar noFooter maxWidth="sm">
-  <div class="space-y-16 p-4">
-    <header class="space-y-2">
-      <h1 class="text-foreground">Ryan Furrer</h1>
-      <p>{shortBio}</p>
+<Layout
+  title="Links — Ryan Furrer"
+  description={description}
+  noNavbar
+  noFooter
+  maxWidth="sm"
+>
+  <div class="space-y-16">
+    <header class="space-y-8">
+      <div class="flex items-center gap-8">
+        <div class="rounded-full">
+          <img src="/favicon.svg" alt="Ryan Furrer" class="size-full" />
+        </div>
+        <div class="space-y-2">
+          <h1 class="text-4xl font-semibold tracking-tight text-foreground">
+            Ryan Furrer
+          </h1>
+          <p class="text-lg/5 font-medium text-pretty whitespace-pre-line">
+            {shortBio}
+          </p>
+        </div>
+      </div>
     </header>
     <main class="space-y-16">
-      <section>
+      <section class="space-y-4">
         <h2>Connect with me</h2>
         <SocialLinks orientation="vertical" />
       </section>
-      <section>
+      <section class="space-y-4">
         <h2>My Latest Work</h2>
-            <div class="grid grid-cols-1 gap-4 ">
-                <div class="rounded bg-card p-4">
-                    <span class="small-heading">writing</span>
-                    <h3 class="sr-only">Content Title</h3>
-                    <p>https://x.com/ryandotfurrer</p>
+        <div class="grid grid-cols-1 gap-4">
+          <LinksCard href={`/writing/${latestPost.slug.current}`}>
+            <header class="flex items-center pt-1 pb-2">
+              <p class="small-heading leading-none">writing</p>
+              <h3 class="sr-only">{latestPost.title}</h3>
+            </header>
+            {
+              latestPostOgImageUrl && (
+                <div class="overflow-hidden rounded-md">
+                  <img src={latestPostOgImageUrl} alt={latestPost.title} />
                 </div>
-                <div class="rounded bg-card p-4">
-                    <span class="small-heading">work</span>
-                    <h3 class="sr-only">Content Title</h3>
-                    <p>https://www.linkedin.com/in/ryanfurrer/</p>
+              )
+            }
+          </LinksCard>
+          <LinksCard href={`/work/${latestProject.slug.current}`}>
+            <header class="flex items-center pt-1 pb-2">
+              <p class="small-heading leading-none">work</p>
+              <h3 class="sr-only">{latestProject.title}</h3>
+            </header>
+            {
+              latestProjectOgImageUrl && (
+                <div class="overflow-hidden rounded-md">
+                  <img
+                    src={latestProjectOgImageUrl}
+                    alt={latestProject.title}
+                  />
                 </div>
-                <div class="rounded bg-card p-4">
-                    <span class="small-heading">appearance</span>
-                    <h3 class="sr-only">Content Title</h3>
-                    <p>https://github.com/ryandotfurrer</p>
-            </div>
+              )
+            }
+          </LinksCard>
+          <LinksCard href={`/appearances/${latestAppearance.slug.current}`}>
+            <header class="flex items-center pt-1 pb-2">
+              <p class="small-heading leading-none">appearance</p>
+              <h3 class="sr-only">{latestAppearance.title}</h3>
+            </header>
+            {
+              latestAppearanceOgImageUrl && (
+                <div class="overflow-hidden rounded-md">
+                  <img
+                    src={latestAppearanceOgImageUrl}
+                    alt={latestAppearance.title}
+                  />
+                </div>
+              )
+            }
+          </LinksCard>
+        </div>
       </section>
     </main>
   </div>
