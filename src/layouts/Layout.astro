@@ -10,12 +10,18 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  noNavbar?: boolean;
+  noFooter?: boolean;
+  maxWidth?: "sm" | "lg"
 }
 
 const {
   title = "Ryan Furrer — Frontend Engineer and Designer",
   description = "Frontend engineer focused on crafting accessible, fast, and delightful user experiences.",
   ogImage,
+  noNavbar = false,
+  noFooter = false,
+  maxWidth = "lg"
 } = Astro.props;
 
 const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
@@ -40,12 +46,12 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
     {ogImage && <meta name="twitter:image" content={ogImage} />}
   </head>
   <body
-    class="mx-auto max-w-2xl space-y-16 bg-background px-4 py-8 text-foreground-muted antialiased lg:px-0"
+    class:list={["mx-auto", "space-y-16", "bg-background", "px-4", "py-8", "text-foreground-muted", "antialiased", "lg:px-0", maxWidth === "sm" ? "max-w-sm" : "max-w-2xl"]}
   >
-    <Navbar />
+    {!noNavbar && <Navbar />}
     <slot />
     <Analytics />
-    <Footer />
+    {!noFooter && <Footer />}
     <SpeedInsights />
     <script>
       import "@/scripts/dir-hover";

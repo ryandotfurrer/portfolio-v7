@@ -1,0 +1,42 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import SocialLinks from "@/components/SocialLinks.astro";
+
+const description = "A collection of links to my work, writing, and more";
+const shortBio =
+  "I'm a frontend engineer who loves creating accessible, fast, and delightful user experiences.";
+---
+
+<Layout title="Links — Ryan Furrer" description={description} noNavbar noFooter maxWidth="sm">
+  <div class="space-y-16 p-4">
+    <header class="space-y-2">
+      <h1 class="text-foreground">Ryan Furrer</h1>
+      <p>{shortBio}</p>
+    </header>
+    <main class="space-y-16">
+      <section>
+        <h2>Connect with me</h2>
+        <SocialLinks orientation="vertical" />
+      </section>
+      <section>
+        <h2>My Latest Work</h2>
+            <div class="grid grid-cols-1 gap-4 ">
+                <div class="rounded bg-card p-4">
+                    <span class="small-heading">writing</span>
+                    <h3 class="sr-only">Content Title</h3>
+                    <p>https://x.com/ryandotfurrer</p>
+                </div>
+                <div class="rounded bg-card p-4">
+                    <span class="small-heading">work</span>
+                    <h3 class="sr-only">Content Title</h3>
+                    <p>https://www.linkedin.com/in/ryanfurrer/</p>
+                </div>
+                <div class="rounded bg-card p-4">
+                    <span class="small-heading">appearance</span>
+                    <h3 class="sr-only">Content Title</h3>
+                    <p>https://github.com/ryandotfurrer</p>
+            </div>
+      </section>
+    </main>
+  </div>
+</Layout>
