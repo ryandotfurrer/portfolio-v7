@@ -14,12 +14,18 @@ interface Props {
   noNavbar?: boolean;
   noFooter?: boolean;
   maxWidth?: "sm" | "lg"
+  noNavbar?: boolean;
+  noFooter?: boolean;
+  maxWidth?: "sm" | "lg"
 }
 
 const {
   title = "Ryan Furrer — Frontend Engineer and Designer",
   description = "Frontend engineer focused on crafting accessible, fast, and delightful user experiences.",
   ogImage,
+  noNavbar = false,
+  noFooter = false,
+  maxWidth = "lg"
   noNavbar = false,
   noFooter = false,
   maxWidth = "lg"
