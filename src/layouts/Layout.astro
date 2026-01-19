@@ -4,6 +4,7 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 import Footer from "@/components/Footer.astro";
 import Head from "@/components/Head.astro";
 import Navbar from "@/components/Navbar.astro";
+import { cn } from "@/lib/utils";
 import "@/styles/global.css";
 
 interface Props {
@@ -46,7 +47,10 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
     {ogImage && <meta name="twitter:image" content={ogImage} />}
   </head>
   <body
-    class:list={["mx-auto", "space-y-16", "bg-background", "px-4", "py-8", "text-foreground-muted", "antialiased", "lg:px-0", maxWidth === "sm" ? "max-w-sm" : "max-w-2xl"]}
+    class={cn(
+      "mx-auto space-y-16 bg-background px-4 py-8 text-foreground-muted antialiased lg:px-0",
+      maxWidth === "sm" ? "max-w-sm" : "max-w-2xl"
+    )}
   >
     {!noNavbar && <Navbar />}
     <slot />

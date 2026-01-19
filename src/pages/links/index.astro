@@ -11,60 +11,37 @@ import YoutubeIcon from "@/assets/icons/youtube.svg";
 import LinkedinIcon from "@/assets/icons/linkedin2.svg";
 import GithubIcon from "@/assets/icons/github.svg";
 import Button from "@/components/ui/Button.astro";
+import { formatFollowerCount, getColorClasses } from "./utils";
 
-const LATEST_POSTS_QUERY = `*[
-  _type == "post"
-  && defined(slug.current)
-]|order(publishedAt desc)[0]{_id, title, slug, ogImage}`;
+const LATEST_CONTENT_QUERY = `{
+  "post": *[_type == "post" && defined(slug.current)]|order(publishedAt desc)[0]{_id, title, slug, ogImage},
+  "project": *[_type == "project" && defined(slug.current)]|order(publishedAt desc)[0]{_id, title, slug, ogImage},
+  "appearance": *[_type == "appearance" && defined(slug.current)]|order(publishedAt desc)[0]{_id, title, slug, ogImage}
+}`;
 
-const LATEST_PROJECTS_QUERY = `*[
-  _type == "project"
-  && defined(slug.current)
-]|order(publishedAt desc)[0]{_id, title, slug, ogImage}`;
+const latestContent = await sanityClient.fetch<{
+  post: SanityDocument;
+  project: SanityDocument;
+  appearance: SanityDocument;
+}>(LATEST_CONTENT_QUERY);
 
-const LATEST_APPEARANCES_QUERY = `*[
-  _type == "appearance"
-  && defined(slug.current)
-]|order(publishedAt desc)[0]{_id, title, slug, ogImage}`;
+const {
+  post: latestPost,
+  project: latestProject,
+  appearance: latestAppearance,
+} = latestContent;
 
-const latestPost = await sanityClient.fetch<SanityDocument>(LATEST_POSTS_QUERY);
+const getOgImageUrl = (item: SanityDocument) =>
+  item?.ogImage ? urlForImage(item.ogImage).url() : undefined;
 
-const latestProject = await sanityClient.fetch<SanityDocument>(
-  LATEST_PROJECTS_QUERY,
-);
-
-const latestAppearance = await sanityClient.fetch<SanityDocument>(
-  LATEST_APPEARANCES_QUERY,
-);
-
-const latestPostOgImageUrl = latestPost.ogImage
-  ? urlForImage(latestPost.ogImage).url()
-  : undefined;
-const latestProjectOgImageUrl = latestProject.ogImage
-  ? urlForImage(latestProject.ogImage).url()
-  : undefined;
-const latestAppearanceOgImageUrl = latestAppearance.ogImage
-  ? urlForImage(latestAppearance.ogImage).url()
-  : undefined;
+const latestPostOgImageUrl = getOgImageUrl(latestPost);
+const latestProjectOgImageUrl = getOgImageUrl(latestProject);
+const latestAppearanceOgImageUrl = getOgImageUrl(latestAppearance);
 
 const description = "A collection of links to my work, writing, and more";
 const shortBio = `Frontend Engineer
 Designer
 Creator`;
-
-function getColorClasses(color: string): string {
-  const colorMap: Record<string, string> = {
-    zinc: "bg-zinc-500/10 text-zinc-950 dark:text-zinc-50 dark:bg-zinc-500/20 border-zinc-500/50 dark:border-zinc-400/50",
-    blue: "bg-blue-500/10 text-blue-950 dark:text-blue-50 dark:bg-blue-500/20 border-blue-500/50 dark:border-blue-400/50",
-    violet:
-      "bg-violet-500/10 text-violet-950 dark:text-violet-50 dark:bg-violet-500/20 border-violet-500/50 dark:border-violet-400/50",
-    rose: "bg-rose-500/10 text-rose-950 dark:text-rose-50 dark:bg-rose-500/20 border-rose-500/50 dark:border-rose-400/50",
-    slate:
-      "bg-slate-500/10 text-slate-950 dark:text-slate-50 dark:bg-slate-500/20 border-slate-500/50 dark:border-slate-400/50",
-    sky: "bg-sky-500/10 text-sky-950 dark:text-sky-50 dark:bg-sky-500/20 border-sky-500/50 dark:border-sky-400/50",
-  };
-  return colorMap[color] || colorMap.zinc;
-}
 
 const socialLinks = [
   {
@@ -128,13 +105,6 @@ const socialLinks = [
     actionLabel: "Follow",
   },
 ];
-
-function formatFollowerCount(count: number): string {
-  if (count >= 1000) {
-    return `${(count / 1000).toFixed(1)}K`;
-  }
-  return count.toString();
-}
 ---
 
 <Layout
