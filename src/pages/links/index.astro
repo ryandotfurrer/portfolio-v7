@@ -1,10 +1,16 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import SocialLinks from "@/components/SocialLinks.astro";
 import LinksCard from "@/components/ui/LinksCard.astro";
 import { sanityClient } from "sanity:client";
 import type { SanityDocument } from "@sanity/client";
 import { urlForImage } from "@/sanity/lib/url-for-image";
+import XIcon from "@/assets/icons/x.svg";
+import BlueskyIcon from "@/assets/icons/bluesky.svg";
+import TwitchIcon from "@/assets/icons/twitch.svg";
+import YoutubeIcon from "@/assets/icons/youtube.svg";
+import LinkedinIcon from "@/assets/icons/linkedin2.svg";
+import GithubIcon from "@/assets/icons/github.svg";
+import Button from "@/components/ui/Button.astro";
 
 const LATEST_POSTS_QUERY = `*[
   _type == "post"
@@ -45,6 +51,83 @@ const description = "A collection of links to my work, writing, and more";
 const shortBio = `Frontend Engineer
 Designer
 Creator`;
+
+function getColorClasses(color: string): string {
+  const colorMap: Record<string, string> = {
+    zinc: "bg-zinc-500/10 text-zinc-950 dark:text-zinc-50 dark:bg-zinc-500/20 border-zinc-500/50 dark:border-zinc-400/50",
+    blue: "bg-blue-500/10 text-blue-950 dark:text-blue-50 dark:bg-blue-500/20 border-blue-500/50 dark:border-blue-400/50",
+    violet:
+      "bg-violet-500/10 text-violet-950 dark:text-violet-50 dark:bg-violet-500/20 border-violet-500/50 dark:border-violet-400/50",
+    rose: "bg-rose-500/10 text-rose-950 dark:text-rose-50 dark:bg-rose-500/20 border-rose-500/50 dark:border-rose-400/50",
+    slate:
+      "bg-slate-500/10 text-slate-950 dark:text-slate-50 dark:bg-slate-500/20 border-slate-500/50 dark:border-slate-400/50",
+    sky: "bg-sky-500/10 text-sky-950 dark:text-sky-50 dark:bg-sky-500/20 border-sky-500/50 dark:border-sky-400/50",
+  };
+  return colorMap[color] || colorMap.zinc;
+}
+
+const socialLinks = [
+  {
+    label: "Twitter/X",
+    href: "https://x.com/ryandotfurrer",
+    followerCount: 970,
+    color: "zinc",
+    icon: XIcon,
+    iconFill: "fill-white",
+    iconBackground: "bg-zinc-950",
+    actionLabel: "Follow",
+  },
+  {
+    label: "Bluesky",
+    href: "https://bsky.app/profile/ryandotfurrer.bsky.social",
+    followerCount: 764,
+    color: "sky",
+    icon: BlueskyIcon,
+    iconFill: "fill-white",
+    iconBackground: "bg-sky-500",
+    actionLabel: "Follow",
+  },
+  {
+    label: "Twitch",
+    href: "https://www.twitch.tv/ryandotfurrer",
+    followerCount: 178,
+    color: "violet",
+    icon: TwitchIcon,
+    iconFill: "fill-white",
+    iconBackground: "bg-violet-600",
+    actionLabel: "Follow",
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@ryandotfurrer",
+    followerCount: 46,
+    color: "rose",
+    icon: YoutubeIcon,
+    iconFill: "fill-white",
+    iconBackground: "bg-rose-600",
+    actionLabel: "Subscribe",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/ryanfurrer/",
+    followerCount: 1918,
+    color: "blue",
+    icon: LinkedinIcon,
+    iconFill: "fill-white stroke-none",
+    iconBackground: "bg-blue-600",
+    actionLabel: "Follow",
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/ryandotfurrer",
+    followerCount: 59,
+    color: "zinc",
+    icon: GithubIcon,
+    iconFill: "fill-white",
+    iconBackground: "bg-zinc-950",
+    actionLabel: "Follow",
+  },
+];
 ---
 
 <Layout
@@ -73,7 +156,46 @@ Creator`;
     <main class="space-y-16">
       <section class="space-y-4">
         <h2>Connect with me</h2>
-        <SocialLinks orientation="vertical" />
+        <div class="grid grid-cols-2 gap-4">
+          {
+            socialLinks.map((link) => {
+              const IconComponent = link.icon;
+              return (
+                <LinksCard
+                  href={link.href}
+                  variant="square"
+                  class={getColorClasses(link.color)}
+                >
+                  <div class="flex h-full flex-col justify-between">
+                    <div class="flex flex-col gap-2">
+                      <IconComponent
+                        class:list={[
+                          "squircle size-8 rounded-xl p-2",
+                          link.iconFill,
+                          link.iconBackground,
+                        ]}
+                      />
+                      <h3 class="small-heading leading-none">{link.label}</h3>
+                    </div>
+                    <div class="font-mono-custom flex w-fit gap-0 text-4xl text-foreground *:w-fit">
+                      <span>{link.followerCount}</span>
+                      <span class="text-xs">f</span>
+                    </div>
+                    <div>
+                      <Button
+                        variant="link"
+                        size="sm"
+                        class="pointer-events-none h-auto px-0 py-0 text-inherit"
+                      >
+                        {link.actionLabel}
+                      </Button>
+                    </div>
+                  </div>
+                </LinksCard>
+              );
+            })
+          }
+        </div>
       </section>
       <section class="space-y-4">
         <h2>My Latest Work</h2>

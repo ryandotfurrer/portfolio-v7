@@ -1,24 +1,28 @@
 ---
+import { cn } from "@/lib/utils";
+
 interface Props {
   href?: string;
+  variant?: "default" | "square";
+  class?: string;
 }
 
-const { href } = Astro.props;
+const { href, variant = "default", class: className } = Astro.props;
+
+const baseClasses =
+  "block rounded-lg border bg-card p-2 transition-shadow  hover:no-underline hover:shadow-sm";
+const variantClasses =
+  variant === "square" ? "aspect-square squircle rounded-4xl p-4" : "";
+const classes = cn(baseClasses, variantClasses, className);
 ---
 
-<!-- TODO: Add variant for social links that include colored logo/icon and are used
-in a 2x2 grid with an aspect ratio of 1:1. -->{
+{
   href ? (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="block rounded-lg border bg-card p-2 transition-shadow hover:border-inherit hover:no-underline hover:shadow-sm"
-    >
+    <a href={href} target="_blank" rel="noopener noreferrer" class={classes}>
       <slot />
     </a>
   ) : (
-    <div class="rounded-lg border bg-card p-2 transition-shadow hover:border-inherit hover:no-underline hover:shadow-sm">
+    <div class={classes}>
       <slot />
     </div>
   )
