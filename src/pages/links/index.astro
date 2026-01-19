@@ -128,6 +128,13 @@ const socialLinks = [
     actionLabel: "Follow",
   },
 ];
+
+function formatFollowerCount(count: number): string {
+  if (count >= 1000) {
+    return `${(count / 1000).toFixed(1)}K`;
+  }
+  return count.toString();
+}
 ---
 
 <Layout
@@ -177,9 +184,8 @@ const socialLinks = [
                       />
                       <h3 class="small-heading leading-none">{link.label}</h3>
                     </div>
-                    <div class="font-mono-custom flex w-fit gap-0 text-4xl text-foreground *:w-fit">
-                      <span>{link.followerCount}</span>
-                      <span class="text-xs">f</span>
+                    <div class="font-mono-custom mt-3 text-4xl text-foreground">
+                      <span>{formatFollowerCount(link.followerCount)}</span>
                     </div>
                     <div>
                       <Button
