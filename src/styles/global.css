@@ -150,15 +150,8 @@
     }
   }
 
-  a:not(nav a, footer a, .text-color-hover):hover {
-    border-bottom-color: color-mix(
-      in oklch,
-      var(--color-foreground) 90%,
-      transparent
-    );
-  }
-
-  a:not(nav a, footer a, .text-color-hover):focus {
+  a:not(nav a, footer a, .text-color-hover, .links-card):hover,
+  a:not(nav a, footer a, .text-color-hover, .links-card):focus {
     border-bottom-color: color-mix(
       in oklch,
       var(--color-foreground) 90%,

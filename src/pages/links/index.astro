@@ -10,8 +10,8 @@ import TwitchIcon from "@/assets/icons/twitch.svg";
 import YoutubeIcon from "@/assets/icons/youtube.svg";
 import LinkedinIcon from "@/assets/icons/linkedin2.svg";
 import GithubIcon from "@/assets/icons/github.svg";
-import Button from "@/components/ui/Button.astro";
 import { formatFollowerCount, getColorClasses } from "./utils";
+import { cn } from "@/lib/utils";
 
 const LATEST_CONTENT_QUERY = `{
   "post": *[_type == "post" && defined(slug.current)]|order(publishedAt desc)[0]{_id, title, slug, ogImage},
@@ -37,6 +37,27 @@ const getOgImageUrl = (item: SanityDocument) =>
 const latestPostOgImageUrl = getOgImageUrl(latestPost);
 const latestProjectOgImageUrl = getOgImageUrl(latestProject);
 const latestAppearanceOgImageUrl = getOgImageUrl(latestAppearance);
+
+const latestContentItems = [
+  {
+    type: "writing",
+    path: "writing",
+    item: latestPost,
+    ogImageUrl: latestPostOgImageUrl,
+  },
+  {
+    type: "work",
+    path: "work",
+    item: latestProject,
+    ogImageUrl: latestProjectOgImageUrl,
+  },
+  {
+    type: "appearance",
+    path: "appearances",
+    item: latestAppearance,
+    ogImageUrl: latestAppearanceOgImageUrl,
+  },
+];
 
 const description = "A collection of links to my work, writing, and more";
 const shortBio = `Frontend Engineer
@@ -87,7 +108,7 @@ const socialLinks = [
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/ryanfurrer/",
-    followerCount: 1918,
+    followerCount: 1920,
     color: "blue",
     icon: LinkedinIcon,
     iconFill: "fill-white stroke-none",
@@ -154,17 +175,23 @@ const socialLinks = [
                       />
                       <h3 class="small-heading leading-none">{link.label}</h3>
                     </div>
-                    <div class="font-mono-custom mt-3 text-4xl text-foreground">
+                    <div
+                      class={cn(
+                        getColorClasses(link.color),
+                        "font-mono-custom mt-1 bg-transparent! text-4xl dark:text-foreground!",
+                      )}
+                    >
                       <span>{formatFollowerCount(link.followerCount)}</span>
                     </div>
                     <div>
-                      <Button
-                        variant="link"
-                        size="sm"
-                        class="pointer-events-none h-auto px-0 py-0 text-inherit"
+                      <span
+                        class={cn(
+                          "squircle pointer-events-none inline-flex h-auto items-center justify-center rounded-lg px-2 py-1 text-xs font-medium text-inherit transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
+                          getColorClasses(link.color),
+                        )}
                       >
                         {link.actionLabel}
-                      </Button>
+                      </span>
                     </div>
                   </div>
                 </LinksCard>
@@ -176,51 +203,21 @@ const socialLinks = [
       <section class="space-y-4">
         <h2>My Latest Work</h2>
         <div class="grid grid-cols-1 gap-4">
-          <LinksCard href={`/writing/${latestPost.slug.current}`}>
-            <header class="flex items-center pt-1 pb-2">
-              <p class="small-heading leading-none">writing</p>
-              <h3 class="sr-only">{latestPost.title}</h3>
-            </header>
-            {
-              latestPostOgImageUrl && (
-                <div class="overflow-hidden rounded-md">
-                  <img src={latestPostOgImageUrl} alt={latestPost.title} />
-                </div>
-              )
-            }
-          </LinksCard>
-          <LinksCard href={`/work/${latestProject.slug.current}`}>
-            <header class="flex items-center pt-1 pb-2">
-              <p class="small-heading leading-none">work</p>
-              <h3 class="sr-only">{latestProject.title}</h3>
-            </header>
-            {
-              latestProjectOgImageUrl && (
-                <div class="overflow-hidden rounded-md">
-                  <img
-                    src={latestProjectOgImageUrl}
-                    alt={latestProject.title}
-                  />
-                </div>
-              )
-            }
-          </LinksCard>
-          <LinksCard href={`/appearances/${latestAppearance.slug.current}`}>
-            <header class="flex items-center pt-1 pb-2">
-              <p class="small-heading leading-none">appearance</p>
-              <h3 class="sr-only">{latestAppearance.title}</h3>
-            </header>
-            {
-              latestAppearanceOgImageUrl && (
-                <div class="overflow-hidden rounded-md">
-                  <img
-                    src={latestAppearanceOgImageUrl}
-                    alt={latestAppearance.title}
-                  />
-                </div>
-              )
-            }
-          </LinksCard>
+          {
+            latestContentItems.map((content) => (
+              <LinksCard href={`/${content.path}/${content.item.slug.current}`}>
+                <header class="flex items-center pt-1 pb-2">
+                  <p class="small-heading leading-none">{content.type}</p>
+                  <h3 class="sr-only">{content.item.title}</h3>
+                </header>
+                {content.ogImageUrl && (
+                  <div class="overflow-hidden rounded-md">
+                    <img src={content.ogImageUrl} alt={content.item.title} />
+                  </div>
+                )}
+              </LinksCard>
+            ))
+          }
         </div>
       </section>
     </main>
