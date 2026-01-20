@@ -33,17 +33,18 @@ const {
 
 // Base styles applied to all variants
 const baseClasses =
-  "inline-flex items-center squircle justify-center rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex items-center squircle justify-center rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 no-underline w-full";
 
 // Variant styles
 const variants = {
   default: "bg-primary text-primary-foreground hover:bg-primary/90",
+  secondary:
+    "bg-card text-secondary-foreground hover:bg-primary hover:text-primary-foreground",
   outline:
-    "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
-  secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-  ghost: "hover:bg-accent hover:text-accent-foreground",
+    "border border-input bg-transparent hover:bg-card text-foreground-muted hover:text-foreground",
+  ghost: "hover:bg-accent hover:text-background",
   destructive: "bg-destructive text-primary-foreground hover:bg-destructive/90",
-  link: "text-primary underline-offset-4 hover:underline",
+  link: "text-foreground underline-offset-4 hover:underline",
 };
 
 // Size styles
