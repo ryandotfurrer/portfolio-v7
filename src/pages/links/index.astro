@@ -21,9 +21,9 @@ const LATEST_CONTENT_QUERY = `{
 }`;
 
 const latestContent = await sanityClient.fetch<{
-  post: SanityDocument;
-  project: SanityDocument;
-  appearance: SanityDocument;
+  post: SanityDocument | null;
+  project: SanityDocument | null;
+  appearance: SanityDocument | null;
 }>(LATEST_CONTENT_QUERY);
 
 const {
@@ -32,7 +32,7 @@ const {
   appearance: latestAppearance,
 } = latestContent;
 
-const getOgImageUrl = (item: SanityDocument) =>
+const getOgImageUrl = (item: SanityDocument | null) =>
   item?.ogImage ? urlForImage(item.ogImage).url() : undefined;
 
 const latestPostOgImageUrl = getOgImageUrl(latestPost);
@@ -58,7 +58,10 @@ const latestContentItems = [
     item: latestAppearance,
     ogImageUrl: latestAppearanceOgImageUrl,
   },
-];
+].filter(
+  (content): content is typeof content & { item: SanityDocument } =>
+    content.item !== null,
+);
 
 const description = "A collection of links to my work, writing, and more";
 const shortBio = `Frontend Engineer
@@ -179,7 +182,7 @@ const socialLinks = [
                     <div
                       class={cn(
                         getColorClasses(link.color),
-                        "font-mono-custom mt-1 bg-transparent! text-4xl dark:text-foreground!",
+                        "font-mono-custom mt-1 bg-transparent! text-4xl dark:text-white!",
                       )}
                     >
                       <span>{formatFollowerCount(link.followerCount)}</span>
@@ -201,26 +204,30 @@ const socialLinks = [
           }
         </div>
       </section>
-      <section class="space-y-4">
-        <h2>My Latest Work</h2>
-        <div class="grid grid-cols-1 gap-4">
-          {
-            latestContentItems.map((content) => (
-              <LinksCard href={`/${content.path}/${content.item.slug.current}`}>
-                <header class="flex items-center pt-1 pb-2">
-                  <p class="small-heading leading-none">{content.type}</p>
-                  <h3 class="sr-only">{content.item.title}</h3>
-                </header>
-                {content.ogImageUrl && (
-                  <div class="overflow-hidden rounded-md">
-                    <img src={content.ogImageUrl} alt={content.item.title} />
-                  </div>
-                )}
-              </LinksCard>
-            ))
-          }
-        </div>
-      </section>
+      {
+        latestContentItems.length > 0 && (
+          <section class="space-y-4">
+            <h2>My Latest Work</h2>
+            <div class="grid grid-cols-1 gap-4">
+              {latestContentItems.map((content) => (
+                <LinksCard
+                  href={`/${content.path}/${content.item.slug.current}`}
+                >
+                  <header class="flex items-center pt-1 pb-2">
+                    <p class="small-heading leading-none">{content.type}</p>
+                    <h3 class="sr-only">{content.item.title}</h3>
+                  </header>
+                  {content.ogImageUrl && (
+                    <div class="overflow-hidden rounded-md">
+                      <img src={content.ogImageUrl} alt={content.item.title} />
+                    </div>
+                  )}
+                </LinksCard>
+              ))}
+            </div>
+          </section>
+        )
+      }
     </main>
   </div>
 </Layout>
