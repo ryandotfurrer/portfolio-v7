@@ -1,0 +1,31 @@
+---
+import { cn } from "@/lib/utils";
+
+interface Props {
+  href?: string;
+  variant?: "default" | "square";
+  class?: string;
+}
+
+const { href, variant = "default", class: className } = Astro.props;
+
+const baseClasses =
+  "block rounded-lg border bg-card p-2 transition-all duration-200 ease-in-out active:scale-97 links-card no-underline  ";
+const variantClasses =
+  variant === "square"
+    ? "aspect-square squircle rounded-4xl p-4 hover:saturate-150 dark:hover:brightness-105 dark:focus:brightness-105 focus:saturate-150 ring-offset-4 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus:scale-102 focus-visible:ring-ring focus-visible:ring-offset-2"
+    : "hover:shadow-sm ";
+const classes = cn(baseClasses, variantClasses, className);
+---
+
+{
+  href ? (
+    <a href={href} target="_blank" rel="noopener noreferrer" class={classes}>
+      <slot />
+    </a>
+  ) : (
+    <div class={classes}>
+      <slot />
+    </div>
+  )
+}
