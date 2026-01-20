@@ -12,6 +12,7 @@ import LinkedinIcon from "@/assets/icons/linkedin2.svg";
 import GithubIcon from "@/assets/icons/github.svg";
 import { formatFollowerCount, getColorClasses } from "./utils";
 import { cn } from "@/lib/utils";
+import profilePicture from "@/assets/profile-picture.webp";
 
 const LATEST_CONTENT_QUERY = `{
   "post": *[_type == "post" && defined(slug.current)]|order(publishedAt desc)[0]{_id, title, slug, ogImage},
@@ -137,12 +138,12 @@ const socialLinks = [
 >
   <div class="space-y-16">
     <header class="space-y-8">
-      <div class="flex items-center gap-8">
-        <div class="rounded-full">
-          <img src="/favicon.svg" alt="Ryan Furrer" class="size-full" />
+      <div class="jusftify-center flex items-center gap-8">
+        <div class="size-full max-w-36 overflow-hidden rounded-full">
+          <img src={profilePicture.src} alt="Ryan Furrer" class="" />
         </div>
         <div class="space-y-2">
-          <h1 class="text-4xl font-semibold tracking-tight text-foreground">
+          <h1 class="text-3xl font-semibold tracking-tight text-foreground">
             Ryan Furrer
           </h1>
           <p class="text-lg/5 font-medium text-pretty whitespace-pre-line">
