@@ -1,0 +1,16 @@
+{
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "redirects": [
+      {
+        "source": "/:path(.*)",
+        "has": [
+          {
+            "type": "host",
+            "value": "links.ryanfurrer.com"
+          }
+        ],
+        "destination": "https://ryanfurrer.com/links",
+        "permanent": true
+      }
+    ]
+  }

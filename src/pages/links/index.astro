@@ -1,0 +1,233 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import LinksCard from "@/components/ui/LinksCard.astro";
+import { sanityClient } from "sanity:client";
+import type { SanityDocument } from "@sanity/client";
+import { urlForImage } from "@/sanity/lib/url-for-image";
+import XIcon from "@/assets/icons/x.svg";
+import BlueskyIcon from "@/assets/icons/bluesky.svg";
+import TwitchIcon from "@/assets/icons/twitch.svg";
+import YoutubeIcon from "@/assets/icons/youtube.svg";
+import LinkedinIcon from "@/assets/icons/linkedin2.svg";
+import GithubIcon from "@/assets/icons/github.svg";
+import { formatFollowerCount, getColorClasses } from "./utils";
+import { cn } from "@/lib/utils";
+import profilePicture from "@/assets/profile-picture.webp";
+
+const LATEST_CONTENT_QUERY = `{
+  "post": *[_type == "post" && defined(slug.current)]|order(publishedAt desc)[0]{_id, title, slug, ogImage},
+  "project": *[_type == "project" && defined(slug.current)]|order(publishedAt desc)[0]{_id, title, slug, ogImage},
+  "appearance": *[_type == "appearance" && defined(slug.current)]|order(publishedAt desc)[0]{_id, title, slug, ogImage}
+}`;
+
+const latestContent = await sanityClient.fetch<{
+  post: SanityDocument | null;
+  project: SanityDocument | null;
+  appearance: SanityDocument | null;
+}>(LATEST_CONTENT_QUERY);
+
+const {
+  post: latestPost,
+  project: latestProject,
+  appearance: latestAppearance,
+} = latestContent;
+
+const getOgImageUrl = (item: SanityDocument | null) =>
+  item?.ogImage ? urlForImage(item.ogImage).url() : undefined;
+
+const latestPostOgImageUrl = getOgImageUrl(latestPost);
+const latestProjectOgImageUrl = getOgImageUrl(latestProject);
+const latestAppearanceOgImageUrl = getOgImageUrl(latestAppearance);
+
+const latestContentItems = [
+  {
+    type: "writing",
+    path: "writing",
+    item: latestPost,
+    ogImageUrl: latestPostOgImageUrl,
+  },
+  {
+    type: "work",
+    path: "work",
+    item: latestProject,
+    ogImageUrl: latestProjectOgImageUrl,
+  },
+  {
+    type: "appearance",
+    path: "appearances",
+    item: latestAppearance,
+    ogImageUrl: latestAppearanceOgImageUrl,
+  },
+].filter(
+  (content): content is typeof content & { item: SanityDocument } =>
+    content.item !== null,
+);
+
+const description = "A collection of links to my work, writing, and more";
+const shortBio = `Frontend Engineer
+Designer
+Creator`;
+
+const socialLinks = [
+  {
+    label: "Twitter/X",
+    href: "https://x.com/ryandotfurrer",
+    followerCount: 970,
+    color: "zinc",
+    icon: XIcon,
+    iconFill: "fill-white",
+    iconBackground: "bg-zinc-950",
+    actionLabel: "Follow",
+  },
+  {
+    label: "Bluesky",
+    href: "https://bsky.app/profile/ryandotfurrer.bsky.social",
+    followerCount: 764,
+    color: "sky",
+    icon: BlueskyIcon,
+    iconFill: "fill-white",
+    iconBackground: "bg-sky-500",
+    actionLabel: "Follow",
+  },
+  {
+    label: "Twitch",
+    href: "https://www.twitch.tv/ryandotfurrer",
+    followerCount: 178,
+    color: "violet",
+    icon: TwitchIcon,
+    iconFill: "fill-white",
+    iconBackground: "bg-violet-600",
+    actionLabel: "Follow",
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@ryandotfurrer",
+    followerCount: 46,
+    color: "rose",
+    icon: YoutubeIcon,
+    iconFill: "fill-white",
+    iconBackground: "bg-rose-600",
+    actionLabel: "Subscribe",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/ryanfurrer/",
+    followerCount: 1920,
+    color: "blue",
+    icon: LinkedinIcon,
+    iconFill: "fill-white stroke-none",
+    iconBackground: "bg-blue-600",
+    actionLabel: "Follow",
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/ryandotfurrer",
+    followerCount: 59,
+    color: "zinc",
+    icon: GithubIcon,
+    iconFill: "fill-white",
+    iconBackground: "bg-zinc-950",
+    actionLabel: "Follow",
+  },
+];
+---
+
+<Layout
+  title="Links — Ryan Furrer"
+  description={description}
+  noNavbar
+  noFooter
+  maxWidth="sm"
+>
+  <div class="space-y-16">
+    <header class="space-y-8">
+      <div class="jusftify-center flex items-center gap-8">
+        <div class="size-full max-w-36 overflow-hidden rounded-full">
+          <img src={profilePicture.src} alt="Ryan Furrer" class="" />
+        </div>
+        <div class="space-y-2">
+          <h1 class="text-3xl font-semibold tracking-tight text-foreground">
+            Ryan Furrer
+          </h1>
+          <p class="text-lg/5 font-medium text-pretty whitespace-pre-line">
+            {shortBio}
+          </p>
+        </div>
+      </div>
+    </header>
+    <main class="space-y-16">
+      <section class="space-y-4">
+        <h2>Connect with me</h2>
+        <div class="grid grid-cols-2 gap-4">
+          {
+            socialLinks.map((link) => {
+              const IconComponent = link.icon;
+              return (
+                <LinksCard
+                  href={link.href}
+                  variant="square"
+                  class={getColorClasses(link.color)}
+                >
+                  <div class="flex h-full flex-col justify-between">
+                    <div class="flex flex-col gap-2">
+                      <IconComponent
+                        class:list={[
+                          "squircle size-8 rounded-xl p-2",
+                          link.iconFill,
+                          link.iconBackground,
+                        ]}
+                      />
+                      <h3 class="small-heading leading-none">{link.label}</h3>
+                    </div>
+                    <div
+                      class={cn(
+                        getColorClasses(link.color),
+                        "font-mono-custom mt-1 bg-transparent! text-4xl dark:text-white!",
+                      )}
+                    >
+                      <span>{formatFollowerCount(link.followerCount)}</span>
+                    </div>
+                    <div>
+                      <span
+                        class={cn(
+                          "squircle pointer-events-none inline-flex h-auto items-center justify-center rounded-lg px-2 py-1 text-xs font-medium text-inherit transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
+                          getColorClasses(link.color),
+                        )}
+                      >
+                        {link.actionLabel}
+                      </span>
+                    </div>
+                  </div>
+                </LinksCard>
+              );
+            })
+          }
+        </div>
+      </section>
+      {
+        latestContentItems.length > 0 && (
+          <section class="space-y-4">
+            <h2>My Latest Work</h2>
+            <div class="grid grid-cols-1 gap-4">
+              {latestContentItems.map((content) => (
+                <LinksCard
+                  href={`/${content.path}/${content.item.slug.current}`}
+                >
+                  <header class="flex items-center pt-1 pb-2">
+                    <p class="small-heading leading-none">{content.type}</p>
+                    <h3 class="sr-only">{content.item.title}</h3>
+                  </header>
+                  {content.ogImageUrl && (
+                    <div class="overflow-hidden rounded-md">
+                      <img src={content.ogImageUrl} alt={content.item.title} />
+                    </div>
+                  )}
+                </LinksCard>
+              ))}
+            </div>
+          </section>
+        )
+      }
+    </main>
+  </div>
+</Layout>
