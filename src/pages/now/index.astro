@@ -1,79 +1,134 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-/* colors from: https://parade.com/astrology/pantone-color-birth-months
-January: Pantone 19-4052
-Feburary: Pantone 18-3838
-March: Pantone 15-0343
-April: Pantone 16-1546
-May: Pantone 13-1520
-June: Pantone 15-3919
-July: Pantone 18-1750
-August: Pantone 13-0647
-September: Pantone 18-1438
-October: Pantone 13-1023
-November: Pantone 17-3938
-December: Pantone 11-4201
+const title = "Now";
+const description = "What I'm up to currently";
+
+/* colors from: calendar wallpapers by Rob McCombe
+January: #8EB2C6
+Feburary: #0C263B
+March: #A0C2AF
+April: #577B5E
+May: #2B3A27
+June: #F3C93D
+July: #F88E3C
+August: #EA6644
+September: #D9CFB9
+October: #816A50
+November: #3D2E28
+December: #D9E7F5
 */
 ---
 
-<Layout title="Now" description="What I'm doing now">
-  <div class="space-y-8">
+<Layout title={title} description={description}>
+  <div class="space-y-8 text-foreground">
     <header class="md:px-2">
-      <h1 class="text-foreground">Now</h1>
+      <h1>{title}</h1>
+      <p class="text-foreground-muted">{description}</p>
     </header>
     <main class="space-y-8 md:px-2">
-      <section class="space-y-2">
-        <div class="my-0 h-1 w-4 bg-[#34558b]"></div>
+      <article
+        class="to-[#0C263B]/05 space-y-4 rounded-r-lg border-l-4 border-[#0C263B] bg-linear-to-br from-[#0C263B]/90 to-95% p-4"
+      >
+        <span class="font-mono-custom inline-block font-medium"
+          >February 2, 2026</span
+        >
+        <p>
+          I just returned from my first company offsite which took place in
+          Portland, OR. It was a long week but great to meet everyone in-person
+          and get to know everyone better.
+        </p>
+        <p>
+          During February, I plan to continue my focus on my mental and physical
+          health including returning to the gym which I'm excited for. I'm also
+          focusing a lot on my finances this year to prepare to move into a new
+          apartment next year. The plans are made, now it's up to me to execute.
+        </p>
+        <p>
+          I'm also excited for a handful of projects I'm working on, one of
+          which is a personal dashbaord I can use to track various things like
+          my social following, habits, to-dos, and more. Think of it like a
+          one-stop-shop for myself.
+        </p>
+        <p>
+          More on that will be shared in the near-ish future on my <a
+            href="https://x.com/ryandotfurrer">X/Twitter</a
+          >.
+        </p>
+        <section>
+          <ul class="space-y-1">
+            <li>
+              Watching: Finishing up <a
+                href="https://www.youtube.com/watch?v=uXr9Ha9qRHE"
+                >Dan Da Dan (Season 2)</a
+              > --> Rewatching <a
+                href="https://www.youtube.com/watch?v=Iwr1aLEDpe4"
+                >Frieren: Beyond Journey's End, Season 1</a
+              > before diving into <a
+                href="https://www.youtube.com/watch?v=EOMVXqH9DSg">Season 2</a
+              >
+            </li>
+            <li>
+              Reading: Finishing up <a
+                href="https://store.dailystoic.com/collections/all-books/products/the-obstacle-is-the-way-expanded-10th-anniversary-edition"
+                >The Obstacle is the Way by Ryan Holiday</a
+              >
+            </li>
+            <li>
+              Playing: <a href="https://www.expedition33.com/"
+                >Clair Obscur: Expedition 33</a
+              >
+            </li>
+            <li>
+              Latest Obsession: This cover of <a
+                href="https://youtu.be/KsrN_jsDFOA?si=dRT_Mg1ffS_CYfIG"
+                >Radiohead's "Creep" by Erin Morton</a
+              > and a cover of <a
+                href="https://youtu.be/9WoCqEZMBL0?si=Olk9GyCHzv2VywOW"
+                >"New York, New York" by Lawrence</a
+              >
+            </li>
+          </ul>
+        </section>
+      </article>
+      <article
+        class="to-[#8EB2C6]/05 space-y-4 rounded-r-lg border-l-4 border-[#8EB2C6]/50 bg-linear-to-br from-[#8EB2C6]/40 to-80% p-4"
+      >
         <span class="font-mono-custom inline-block font-medium"
           >January 1, 2026</span
         >
         <p>
-          <span class="text-accent">Focusing</span> on both my <span
-            class="text-accent">mental and physical health,</span
-          > giving it all at <span class="text-accent">my job,</span> and moving into
-          a new apartment next year. I'm setting up the systems now to help me stay
-          on track and <span class="text-accent">meet my goals.</span>
+          Focusing on both my mental and physical health, giving it all at my
+          job, and moving into a new apartment next year. I'm setting up the
+          systems now to help me stay on track and meet my goals.
         </p>
-      </section>
-      <section>
-        <ul class="space-y-1">
-          <li>
-            <span class="text-accent">Watching:</span>
-            <span
-              ><a href="https://www.youtube.com/watch?v=uXr9Ha9qRHE"
+        <section>
+          <ul class="space-y-1">
+            <li>
+              Watching: <a href="https://www.youtube.com/watch?v=uXr9Ha9qRHE"
                 >Dan Da Dan (Season 2)</a
-              ></span
-            >
-          </li>
-          <li>
-            <span class="text-accent">Reading:</span>
-            <span
-              ><a
+              >
+            </li>
+            <li>
+              Reading: <a
                 href="https://store.dailystoic.com/collections/all-books/products/the-obstacle-is-the-way-expanded-10th-anniversary-edition"
                 >The Obstacle is the Way by Ryan Holiday</a
-              ></span
-            >
-          </li>
-          <li>
-            <span class="text-accent">Playing:</span>
-            <span
-              ><a href="https://www.expedition33.com/"
+              >
+            </li>
+            <li>
+              Playing: <a href="https://www.expedition33.com/"
                 >Clair Obscur: Expedition 33</a
-              ></span
-            >
-          </li>
-          <li>
-            <span class="text-accent">Latest Obsession:</span>
-            <span
-              ><a
+              >
+            </li>
+            <li>
+              Latest Obsession: <a
                 href="https://www.youtube.com/watch?v=jH3xpS7Q_3E&list=OLAK5uy_k_hE5HhMiwlHuzdS7R17Yk8w68ilnSrMw&index=2"
                 >Final Fantasy VII Remake Acoustic Arrangements</a
-              ></span
-            >
-          </li>
-        </ul>
-      </section>
+              >
+            </li>
+          </ul>
+        </section>
+      </article>
     </main>
   </div>
 </Layout>
