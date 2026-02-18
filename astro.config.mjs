@@ -16,6 +16,7 @@ export default defineConfig({
       projectId: "z2j0j9ei",
       dataset: "production",
       useCdn: false,
+      studioBasePath: "/admin",
     }),
   ],
   site: "https://ryanfurrer.com/",
