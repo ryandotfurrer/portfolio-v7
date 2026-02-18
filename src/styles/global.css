@@ -243,6 +243,12 @@
     border-color: var(--color-border);
   }
 
+  /* Table of Contents active link */
+  [data-toc-link].is-active {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
   /* Traveling highlight hover effect for Item components */
   ul[data-dir-hover-list="items"] {
     position: relative;

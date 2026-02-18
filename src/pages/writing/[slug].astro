@@ -1,9 +1,11 @@
 ---
 import Link from "@/components/Link.astro";
 import PortableText from "@/components/sanity/PortableText.astro";
+import TableOfContents from "@/components/TableOfContents.astro";
+import TocDrawer from "@/components/TocDrawer.tsx";
 import Layout from "@/layouts/Layout.astro";
+import { slugify, textToPortableTextBlock } from "@/lib/utils";
 import { formatDateLong } from "@/utils/date";
-import { textToPortableTextBlock } from "@/lib/utils";
 import type { SanityDocument } from "@sanity/client";
 import {
   createImageUrlBuilder,
@@ -42,16 +44,48 @@ const postImageUrl = post.headerImage
 const postOgImageUrl = post.ogImage
   ? urlFor(post.ogImage)?.width(1200).height(630).url()
   : undefined;
+
+// Extract headings for ToC
+interface HeadingBlock {
+  _type: string;
+  style: string;
+  children: Array<{ text?: string }>;
+}
+const headings = (post.body ?? [])
+  .filter(
+    (b: HeadingBlock) =>
+      b._type === "block" && ["h2", "h3", "h4"].includes(b.style),
+  )
+  .map((b: HeadingBlock) => {
+    const text = b.children.map((c) => c.text ?? "").join("");
+    return {
+      id: slugify(text),
+      text,
+      level: parseInt(b.style.replace("h", ""), 10),
+    };
+  });
 ---
 
 <Layout
   title={post.title}
   description={post.description}
   ogImage={postOgImageUrl}
+  maxWidth="full"
 >
-  <div class="space-y-8 md:px-2">
-    <Link href="/writing" class="inline-block">Back to writing</Link>
-    <main class="prose prose-neutral dark:prose-invert">
+  <div class="grid grid-cols-1 xl:grid-cols-[12rem_1fr_12rem] gap-8">
+    <!-- Left: Back link (desktop) -->
+    <aside class="hidden xl:block">
+      <div class="sticky top-8">
+        <Link href="/writing">← Back to writing</Link>
+      </div>
+    </aside>
+
+    <!-- Center: Article -->
+    <main class="prose prose-neutral dark:prose-invert min-w-0">
+      <!-- Mobile back link -->
+      <Link href="/writing" class="xl:hidden not-prose inline-block mb-6"
+        >← Back to writing</Link
+      >
       {postImageUrl && <img src={postImageUrl} alt={post.title} />}
       <header>
         <h1 class="mb-1">{post.title}</h1>
@@ -80,15 +114,14 @@ const postOgImageUrl = post.ogImage
           <PortableText portableText={bodyWithDescription} />
         )
       }
-      <!-- {
-        Array.isArray(post.tags) && post.tags.length > 0 && (
-          <div class="mt-8 flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <Tag label={tag.name} />
-            ))}
-          </div>
-        )
-      } -->
     </main>
+
+    <!-- Right: ToC (desktop) -->
+    <aside class="hidden xl:block">
+      <TableOfContents headings={headings} />
+    </aside>
   </div>
+
+  <!-- Mobile ToC drawer -->
+  <TocDrawer headings={headings} client:load />
 </Layout>

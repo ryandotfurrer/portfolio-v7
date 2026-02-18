@@ -1,0 +1,57 @@
+---
+interface Heading {
+  id: string;
+  text: string;
+  level: number;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+---
+
+{
+  headings.length > 0 && (
+    <nav class="toc sticky top-8 hidden xl:block text-sm space-y-1">
+      <p class="small-heading mb-3 text-foreground">On this page</p>
+      {headings.map((h) => (
+        <a
+          href={`#${h.id}`}
+          data-toc-link={h.id}
+          class:list={[
+            "block transition-colors text-foreground-muted hover:text-foreground no-underline",
+            h.level === 3 ? "pl-3" : h.level === 4 ? "pl-6" : "",
+          ]}
+        >
+          {h.text}
+        </a>
+      ))}
+    </nav>
+  )
+}
+
+<script>
+  const links = document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]");
+  const headingEls = [...links].map((l) =>
+    document.getElementById(l.dataset.tocLink!),
+  );
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const link = document.querySelector(
+          `[data-toc-link="${entry.target.id}"]`,
+        );
+        if (entry.isIntersecting) {
+          links.forEach((l) => l.classList.remove("is-active"));
+          link?.classList.add("is-active");
+        }
+      });
+    },
+    { rootMargin: "0px 0px -80% 0px" },
+  );
+
+  headingEls.forEach((h) => h && observer.observe(h));
+</script>

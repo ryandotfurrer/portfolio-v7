@@ -13,7 +13,7 @@ interface Props {
   ogImage?: string;
   noNavbar?: boolean;
   noFooter?: boolean;
-  maxWidth?: "sm" | "lg";
+  maxWidth?: "sm" | "lg" | "full";
 }
 
 const {
@@ -49,7 +49,7 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
   <body
     class={cn(
       "mx-auto space-y-16 bg-background px-4 py-8 text-foreground-muted antialiased lg:px-0",
-      maxWidth === "sm" ? "max-w-sm" : "max-w-2xl",
+      maxWidth === "sm" ? "max-w-sm" : maxWidth === "full" ? "max-w-5xl" : "max-w-2xl",
     )}
   >
     {!noNavbar && <Navbar />}
