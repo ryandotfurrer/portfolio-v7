@@ -13,7 +13,7 @@ interface Props {
   ogImage?: string;
   noNavbar?: boolean;
   noFooter?: boolean;
-  maxWidth?: "sm" | "lg" | "full";
+  maxWidth?: "sm" | "lg";
 }
 
 const {
@@ -47,15 +47,47 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
     {ogImage && <meta name="twitter:image" content={ogImage} />}
   </head>
   <body
-    class={cn(
-      "mx-auto space-y-16 bg-background px-4 py-8 text-foreground-muted antialiased lg:px-0",
-      maxWidth === "sm" ? "max-w-sm" : maxWidth === "full" ? "max-w-5xl" : "max-w-2xl",
-    )}
+    class="mx-auto max-w-[70rem] bg-background px-4 py-8 text-foreground-muted antialiased"
   >
-    {!noNavbar && <Navbar />}
-    <slot />
+    <div class="lg:grid lg:grid-cols-[12rem_1fr_12rem] lg:gap-x-8">
+      <!-- Navbar: center column, row 1 — above the side gutters -->
+      {!noNavbar && (
+        <div
+          class={cn(
+            "lg:col-start-2",
+            maxWidth === "sm"
+              ? "max-w-sm mx-auto lg:max-w-none lg:mx-0"
+              : "max-w-2xl mx-auto lg:max-w-none lg:mx-0",
+          )}
+        >
+          <Navbar />
+        </div>
+      )}
+
+      <!-- Left gutter: row 2, starts level with content (below Navbar) -->
+      <aside class="hidden lg:block lg:col-start-1 lg:row-start-2">
+        <slot name="left" />
+      </aside>
+
+      <!-- Center: row 2, same width on every page -->
+      <div
+        class={cn(
+          "space-y-16 min-w-0 lg:col-start-2 lg:row-start-2",
+          maxWidth === "sm"
+            ? "max-w-sm mx-auto lg:max-w-none lg:mx-0"
+            : "max-w-2xl mx-auto lg:max-w-none lg:mx-0",
+        )}
+      >
+        <slot />
+        {!noFooter && <Footer />}
+      </div>
+
+      <!-- Right gutter: row 2, starts level with content (below Navbar) -->
+      <aside class="hidden lg:block lg:col-start-3 lg:row-start-2">
+        <slot name="right" />
+      </aside>
+    </div>
     <Analytics />
-    {!noFooter && <Footer />}
     <SpeedInsights />
     <script>
       import "@/scripts/dir-hover";

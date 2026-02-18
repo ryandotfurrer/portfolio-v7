@@ -14,14 +14,14 @@ const { headings } = Astro.props;
 
 {
   headings.length > 0 && (
-    <nav class="toc sticky top-8 hidden xl:block text-sm space-y-1">
-      <p class="small-heading mb-3 text-foreground">On this page</p>
+    <nav class="toc sticky top-8 space-y-1 text-sm">
+      <p class="small-heading mb-3 text-foreground">Table of Contents</p>
       {headings.map((h) => (
         <a
           href={`#${h.id}`}
           data-toc-link={h.id}
           class:list={[
-            "block transition-colors text-foreground-muted hover:text-foreground no-underline",
+            "block text-foreground-muted no-underline transition-colors hover:text-foreground",
             h.level === 3 ? "pl-3" : h.level === 4 ? "pl-6" : "",
           ]}
         >

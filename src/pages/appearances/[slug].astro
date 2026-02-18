@@ -75,70 +75,53 @@ const headings = (appearance.body ?? [])
   title={appearance.title}
   description={appearance.description}
   ogImage={appearanceOgImageUrl}
-  maxWidth="full"
 >
-  <div class="grid grid-cols-1 xl:grid-cols-[12rem_1fr_12rem] gap-8">
-    <!-- Left: Back link (desktop) -->
-    <aside class="hidden xl:block">
-      <div class="sticky top-8">
-        <Link href="/appearances">← Back to appearances</Link>
-      </div>
-    </aside>
+  <!-- Desktop: back link in left gutter -->
+  <div slot="left" class="sticky top-8">
+    <Link href="/appearances">← Appearances</Link>
+  </div>
 
-    <!-- Center: Article -->
-    <main class="prose prose-neutral dark:prose-invert min-w-0">
-      <!-- Mobile back link -->
-      <Link href="/appearances" class="xl:hidden not-prose inline-block mb-6"
-        >← Back to appearances</Link
-      >
+  <!-- Desktop: ToC in right gutter -->
+  <TableOfContents slot="right" headings={headings} />
+
+  <!-- Center: article -->
+  <main class="prose min-w-0 prose-neutral dark:prose-invert">
+    <Link href="/appearances" class="not-prose mb-6 inline-block lg:hidden"
+      >← Back to appearances</Link
+    >
+    {
+      appearanceImageUrl && (
+        <img src={appearanceImageUrl} alt={appearance.title} />
+      )
+    }
+    <header>
+      <h1 class="mb-1">{appearance.title}</h1>
       {
-        appearanceImageUrl && (
-          <img src={appearanceImageUrl} alt={appearance.title} />
+        appearance.publishedAt && !appearance.updatedAt && (
+          <span class="font-mono-custom font-medium">
+            {formatDateLong(appearance.publishedAt)}
+          </span>
         )
       }
-      <header>
-        <h1 class="mb-1">{appearance.title}</h1>
-        {
-          appearance.publishedAt && !appearance.updatedAt && (
+      {
+        appearance.updatedAt && (
+          <div class="flex flex-col gap-y-1">
             <span class="font-mono-custom font-medium">
-              {formatDateLong(appearance.publishedAt)}
+              Originally published: {formatDateLong(appearance.publishedAt)}
             </span>
-          )
-        }
-        {
-          appearance.updatedAt && (
-            <div class="flex flex-col gap-y-1">
-              <span class="font-mono-custom font-medium">
-                Originally published: {formatDateLong(appearance.publishedAt)}
-              </span>
-              <span class="font-mono-custom w-fit bg-amber-400/50 font-medium text-foreground">
-                Updated: {formatDateLong(appearance.updatedAt)}
-              </span>
-            </div>
-          )
-        }
-      </header>
-      {
-        bodyWithDescription.length > 0 && (
-          <PortableText portableText={bodyWithDescription} />
-        )
-      }
-      <!-- {
-        Array.isArray(appearance.tags) && appearance.tags.length > 0 && (
-          <div class="mt-8 flex flex-wrap gap-2">
-            {appearance.tags.map((tag) => (
-              <Tag label={tag.name} />
-            ))}
+            <span class="font-mono-custom w-fit bg-amber-400/50 font-medium text-foreground">
+              Updated: {formatDateLong(appearance.updatedAt)}
+            </span>
           </div>
         )
-      } -->
-    </main>
-
-    <!-- Right: ToC (desktop) -->
-    <aside class="hidden xl:block">
-      <TableOfContents headings={headings} />
-    </aside>
-  </div>
+      }
+    </header>
+    {
+      bodyWithDescription.length > 0 && (
+        <PortableText portableText={bodyWithDescription} />
+      )
+    }
+  </main>
 
   <!-- Mobile ToC drawer -->
   <TocDrawer headings={headings} client:load />

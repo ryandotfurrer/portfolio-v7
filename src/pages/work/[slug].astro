@@ -74,104 +74,86 @@ const headings = (project.body ?? [])
   title={project.title}
   description={project.description}
   ogImage={projectOgImageUrl}
-  maxWidth="full"
 >
-  <div class="grid grid-cols-1 xl:grid-cols-[12rem_1fr_12rem] gap-8">
-    <!-- Left: Back link (desktop) -->
-    <aside class="hidden xl:block">
-      <div class="sticky top-8">
-        <Link href="/work">← Back to work</Link>
-      </div>
-    </aside>
+  <!-- Desktop: back link in left gutter -->
+  <div slot="left" class="sticky top-8">
+    <Link href="/work">← Work</Link>
+  </div>
 
-    <!-- Center: Article -->
-    <main class="prose prose-neutral dark:prose-invert min-w-0">
-      <!-- Mobile back link -->
-      <Link href="/work" class="xl:hidden not-prose inline-block mb-6"
-        >← Back to work</Link
-      >
-      {projectImageUrl && <img src={projectImageUrl} alt={project.title} />}
-      <header>
-        <h1 class="mb-2">{project.title}</h1>
-        {
-          project.publishedAt && !project.updatedAt && (
+  <!-- Desktop: ToC in right gutter -->
+  <TableOfContents slot="right" headings={headings} />
+
+  <!-- Center: article -->
+  <main class="prose min-w-0 prose-neutral dark:prose-invert">
+    <Link href="/work" class="not-prose mb-6 inline-block lg:hidden"
+      >← Back to work</Link
+    >
+    {projectImageUrl && <img src={projectImageUrl} alt={project.title} />}
+    <header>
+      <h1 class="mb-2">{project.title}</h1>
+      {
+        project.publishedAt && !project.updatedAt && (
+          <span class="font-mono-custom font-medium">
+            {formatDateLong(project.publishedAt)}
+          </span>
+        )
+      }
+      {
+        project.updatedAt && (
+          <div class="flex flex-col gap-y-1">
             <span class="font-mono-custom font-medium">
-              {formatDateLong(project.publishedAt)}
+              Originally published: {formatDateLong(project.publishedAt)}
             </span>
-          )
-        }
+            <span class="font-mono-custom w-fit bg-amber-400/50 font-medium text-foreground">
+              Updated: {formatDateLong(project.updatedAt)}
+            </span>
+          </div>
+        )
+      }
+      <div class="mt-4 flex flex-col gap-4">
         {
-          project.updatedAt && (
-            <div class="flex flex-col gap-y-1">
-              <span class="font-mono-custom font-medium">
-                Originally published: {formatDateLong(project.publishedAt)}
-              </span>
-              <span class="font-mono-custom w-fit bg-amber-400/50 font-medium text-foreground">
-                Updated: {formatDateLong(project.updatedAt)}
-              </span>
+          Array.isArray(project.techStack) && project.techStack.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {project.techStack.map((tech) => (
+                <Tag label={tech} />
+              ))}
             </div>
           )
         }
-        <div class="mt-4 flex flex-col gap-4">
-          {
-            Array.isArray(project.techStack) &&
-              project.techStack.length > 0 && (
-                <div class="flex flex-wrap gap-2">
-                  {project.techStack.map((tech) => (
-                    <Tag label={tech} />
-                  ))}
-                </div>
-              )
-          }
-          {
-            (project.projectUrl || project.githubUrl) && (
-              <div class="flex flex-wrap gap-4">
-                {project.projectUrl && (
-                  <a
-                    href={project.projectUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-sm"
-                  >
-                    Live Site
-                  </a>
-                )}
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-sm"
-                  >
-                    GitHub
-                  </a>
-                )}
-              </div>
-            )
-          }
-        </div>
-      </header>
-      {
-        bodyWithDescription.length > 0 && (
-          <PortableText portableText={bodyWithDescription} />
-        )
-      }
-      <!-- {
-        Array.isArray(project.tags) && project.tags.length > 0 && (
-          <div class="mt-8 flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <Tag label={tag.name} />
-            ))}
-          </div>
-        )
-      } -->
-    </main>
-
-    <!-- Right: ToC (desktop) -->
-    <aside class="hidden xl:block">
-      <TableOfContents headings={headings} />
-    </aside>
-  </div>
+        {
+          (project.projectUrl || project.githubUrl) && (
+            <div class="flex flex-wrap gap-4">
+              {project.projectUrl && (
+                <a
+                  href={project.projectUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm"
+                >
+                  Live Site
+                </a>
+              )}
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm"
+                >
+                  GitHub
+                </a>
+              )}
+            </div>
+          )
+        }
+      </div>
+    </header>
+    {
+      bodyWithDescription.length > 0 && (
+        <PortableText portableText={bodyWithDescription} />
+      )
+    }
+  </main>
 
   <!-- Mobile ToC drawer -->
   <TocDrawer headings={headings} client:load />

@@ -70,57 +70,49 @@ const headings = (post.body ?? [])
   title={post.title}
   description={post.description}
   ogImage={postOgImageUrl}
-  maxWidth="full"
 >
-  <div class="grid grid-cols-1 xl:grid-cols-[12rem_1fr_12rem] gap-8">
-    <!-- Left: Back link (desktop) -->
-    <aside class="hidden xl:block">
-      <div class="sticky top-8">
-        <Link href="/writing">← Back to writing</Link>
-      </div>
-    </aside>
+  <!-- Desktop: back link in left gutter -->
+  <div slot="left" class="sticky top-8">
+    <Link href="/writing">← Writing</Link>
+  </div>
 
-    <!-- Center: Article -->
-    <main class="prose prose-neutral dark:prose-invert min-w-0">
-      <!-- Mobile back link -->
-      <Link href="/writing" class="xl:hidden not-prose inline-block mb-6"
-        >← Back to writing</Link
-      >
-      {postImageUrl && <img src={postImageUrl} alt={post.title} />}
-      <header>
-        <h1 class="mb-1">{post.title}</h1>
-        {
-          post.publishedAt && !post.updatedAt && (
-            <span class="font-mono-custom font-medium">
-              {formatDateLong(post.publishedAt)}
-            </span>
-          )
-        }
-        {
-          post.updatedAt && (
-            <div class="flex flex-col gap-y-1">
-              <span class="font-mono-custom font-medium">
-                Originally published: {formatDateLong(post.publishedAt)}
-              </span>
-              <span class="font-mono-custom w-fit bg-amber-400/50 font-medium text-foreground">
-                Updated: {formatDateLong(post.updatedAt)}
-              </span>
-            </div>
-          )
-        }
-      </header>
+  <!-- Desktop: ToC in right gutter -->
+  <TableOfContents slot="right" headings={headings} />
+
+  <!-- Center: article -->
+  <main class="prose min-w-0 prose-neutral dark:prose-invert">
+    <Link href="/writing" class="not-prose mb-6 inline-block lg:hidden"
+      >← Back to writing</Link
+    >
+    {postImageUrl && <img src={postImageUrl} alt={post.title} />}
+    <header>
+      <h1 class="mb-1">{post.title}</h1>
       {
-        bodyWithDescription.length > 0 && (
-          <PortableText portableText={bodyWithDescription} />
+        post.publishedAt && !post.updatedAt && (
+          <span class="font-mono-custom font-medium">
+            {formatDateLong(post.publishedAt)}
+          </span>
         )
       }
-    </main>
-
-    <!-- Right: ToC (desktop) -->
-    <aside class="hidden xl:block">
-      <TableOfContents headings={headings} />
-    </aside>
-  </div>
+      {
+        post.updatedAt && (
+          <div class="flex flex-col gap-y-1">
+            <span class="font-mono-custom font-medium">
+              Originally published: {formatDateLong(post.publishedAt)}
+            </span>
+            <span class="font-mono-custom w-fit bg-amber-400/50 font-medium text-foreground">
+              Updated: {formatDateLong(post.updatedAt)}
+            </span>
+          </div>
+        )
+      }
+    </header>
+    {
+      bodyWithDescription.length > 0 && (
+        <PortableText portableText={bodyWithDescription} />
+      )
+    }
+  </main>
 
   <!-- Mobile ToC drawer -->
   <TocDrawer headings={headings} client:load />

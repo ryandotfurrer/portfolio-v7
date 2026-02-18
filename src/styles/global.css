@@ -35,6 +35,10 @@
   font-display: optional;
 }
 
+html {
+  background-color: var(--background);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -231,22 +235,12 @@
   }
 
   .prose img {
-    position: relative;
-    left: 50%;
     display: block;
-    width: 100vw;
-    max-width: 64rem;
-    transform: translateX(-50%);
+    width: 100%;
     border-radius: var(--radius-lg);
     border-width: 1px;
     border-style: solid;
     border-color: var(--color-border);
-  }
-
-  /* Table of Contents active link */
-  [data-toc-link].is-active {
-    color: var(--primary);
-    font-weight: 600;
   }
 
   /* Traveling highlight hover effect for Item components */
@@ -292,4 +286,10 @@
       border-color: var(--border);
     }
   }
+}
+
+/* Table of Contents active link — outside @layer so it beats Tailwind utility classes */
+[data-toc-link].is-active {
+  color: var(--color-primary);
+  font-weight: 600;
 }
