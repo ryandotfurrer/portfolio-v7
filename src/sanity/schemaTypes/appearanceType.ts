@@ -68,8 +68,10 @@ export const appearanceType = defineType({
       name: 'description',
       type: 'text',
       title: 'Description',
-      validation: (rule) =>
-        rule.max(160).warning('Description should be 160 characters or less').required(),
+      validation: (rule) => [
+        rule.required(),
+        rule.max(160).warning('Description should be 160 characters or less'),
+      ],
     }),
     defineField({
       name: 'body',
