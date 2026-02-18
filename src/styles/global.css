@@ -37,6 +37,7 @@
 
 html {
   background-color: var(--background);
+  scrollbar-gutter: stable;
 }
 
 @theme inline {
