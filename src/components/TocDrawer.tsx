@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Heading {
   id: string;
@@ -13,6 +13,17 @@ interface Props {
 export default function TocDrawer({ headings }: Props) {
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   if (headings.length === 0) return null;
 
   return (
@@ -20,7 +31,7 @@ export default function TocDrawer({ headings }: Props) {
       {/* Backdrop */}
       {open && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-xs lg:hidden"
           onClick={() => setOpen(false)}
         />
       )}
@@ -30,7 +41,7 @@ export default function TocDrawer({ headings }: Props) {
         className={`fixed bottom-0 left-0 right-0 z-50 lg:hidden transform transition-transform duration-300 ease-in-out ${open ? "translate-y-0" : "translate-y-full"
           }`}
       >
-        <div className="bg-background rounded-t-xl border border-border/50 px-6 pb-8 pt-6 max-h-[60vh] overflow-y-auto">
+        <div className="bg-background rounded-t-xl border border-border/50 px-6 pb-8 pt-6 max-h-[60vh] overflow-y-auto overscroll-contain">
           <div className="flex items-center justify-between mb-4">
             <p className="text-sm font-semibold text-foreground">On this page</p>
             <button

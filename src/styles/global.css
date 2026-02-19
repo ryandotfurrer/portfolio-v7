@@ -155,7 +155,7 @@ html {
     outline-color: color-mix(in oklch, var(--color-ring) 50%, transparent);
   }
 
-  a:not(nav a, footer a, .text-color-hover) {
+  main a:not(.no-underline) {
     font-weight: inherit;
     text-decoration: underline;
     text-decoration-color: var(--link-underline);
@@ -168,8 +168,8 @@ html {
     }
   }
 
-  a:not(nav a, footer a, .text-color-hover, .links-card):hover,
-  a:not(nav a, footer a, .text-color-hover, .links-card):focus {
+  main a:not(.no-underline, .links-card):hover,
+  main a:not(.no-underline, .links-card):focus {
     border-bottom-color: color-mix(
       in oklch,
       var(--color-foreground) 90%,
