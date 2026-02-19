@@ -120,6 +120,7 @@ const MyBanner = () => (
 - **Dark Mode**: Use `dark:` prefix and CSS media queries
 - **Responsive**: Mobile-first approach with responsive prefixes
 - **Animations**: Use CSS transitions and transforms for smooth effects
+- **Tailwind Usage**: When building with tailwind, be sure to reference `@/rules/tailwind.md`
 
 ### Error Handling
 
@@ -224,7 +225,7 @@ Required environment variables (add to `.env`):
 
 ## Package Manager
 
-Use **pnpm** as the package manager (based on lockfile and Cursor rules).
+- Use **pnpm** as the package manager
 
 ## Notes for Agents
 

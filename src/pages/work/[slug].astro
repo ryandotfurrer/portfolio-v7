@@ -1,10 +1,12 @@
 ---
-import Link from "@/components/Link.astro";
+import BackLink from "@/components/BackLink.astro";
 import PortableText from "@/components/sanity/PortableText.astro";
+import TableOfContents from "@/components/TableOfContents.astro";
+import TocDrawer from "@/components/TocDrawer.tsx";
 import Tag from "@/components/Tag.astro";
 import Layout from "@/layouts/Layout.astro";
+import { slugify, textToPortableTextBlock } from "@/lib/utils";
 import { formatDateLong } from "@/utils/date";
-import { textToPortableTextBlock } from "@/lib/utils";
 import type { SanityDocument } from "@sanity/client";
 import {
   createImageUrlBuilder,
@@ -46,6 +48,26 @@ const projectImageUrl = project.headerImage
 const projectOgImageUrl = project.ogImage
   ? urlFor(project.ogImage)?.width(1200).height(630).url()
   : undefined;
+
+// Extract headings for ToC
+interface HeadingBlock {
+  _type: string;
+  style: string;
+  children: Array<{ text?: string }>;
+}
+const headings = (project.body ?? [])
+  .filter(
+    (b: HeadingBlock) =>
+      b._type === "block" && ["h2", "h3", "h4"].includes(b.style),
+  )
+  .map((b: HeadingBlock) => {
+    const text = b.children.map((c) => c.text ?? "").join("");
+    return {
+      id: slugify(text),
+      text,
+      level: parseInt(b.style.replace("h", ""), 10),
+    };
+  });
 ---
 
 <Layout
@@ -53,84 +75,84 @@ const projectOgImageUrl = project.ogImage
   description={project.description}
   ogImage={projectOgImageUrl}
 >
-  <div class="space-y-8 md:px-2">
-    <Link href="/work" class="inline-block">Back to work</Link>
-    <main class="prose prose-neutral dark:prose-invert">
-      {projectImageUrl && <img src={projectImageUrl} alt={project.title} />}
-      <header>
-        <h1 class="mb-2">{project.title}</h1>
-        {
-          project.publishedAt && !project.updatedAt && (
+  <!-- Desktop: back link in left gutter -->
+  <div slot="left" class="sticky top-8">
+    <BackLink href="/work" label="Work" />
+  </div>
+
+  <!-- Desktop: ToC in right gutter -->
+  <TableOfContents slot="right" headings={headings} />
+
+  <!-- Center: article -->
+  <main class="prose min-w-0 prose-neutral dark:prose-invert">
+    <BackLink href="/work" label="Work" class="mb-6 lg:hidden" />
+    {projectImageUrl && <img src={projectImageUrl} alt={project.title} />}
+    <header>
+      <h1 class="mb-2">{project.title}</h1>
+      {
+        project.publishedAt && !project.updatedAt && (
+          <span class="font-mono-custom font-medium">
+            {formatDateLong(project.publishedAt)}
+          </span>
+        )
+      }
+      {
+        project.updatedAt && (
+          <div class="flex flex-col gap-y-1">
             <span class="font-mono-custom font-medium">
-              {formatDateLong(project.publishedAt)}
+              Originally published: {formatDateLong(project.publishedAt)}
             </span>
-          )
-        }
+            <span class="font-mono-custom w-fit bg-amber-400/50 font-medium text-foreground">
+              Updated: {formatDateLong(project.updatedAt)}
+            </span>
+          </div>
+        )
+      }
+      <div class="mt-4 flex flex-col gap-4">
         {
-          project.updatedAt && (
-            <div class="flex flex-col gap-y-1">
-              <span class="font-mono-custom font-medium">
-                Originally published: {formatDateLong(project.publishedAt)}
-              </span>
-              <span class="font-mono-custom w-fit bg-amber-400/50 font-medium text-foreground">
-                Updated: {formatDateLong(project.updatedAt)}
-              </span>
+          Array.isArray(project.techStack) && project.techStack.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {project.techStack.map((tech) => (
+                <Tag label={tech} />
+              ))}
             </div>
           )
         }
-        <div class="mt-4 flex flex-col gap-4">
-          {
-            Array.isArray(project.techStack) &&
-              project.techStack.length > 0 && (
-                <div class="flex flex-wrap gap-2">
-                  {project.techStack.map((tech) => (
-                    <Tag label={tech} />
-                  ))}
-                </div>
-              )
-          }
-          {
-            (project.projectUrl || project.githubUrl) && (
-              <div class="flex flex-wrap gap-4">
-                {project.projectUrl && (
-                  <a
-                    href={project.projectUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-sm"
-                  >
-                    Live Site
-                  </a>
-                )}
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-sm"
-                  >
-                    GitHub
-                  </a>
-                )}
-              </div>
-            )
-          }
-        </div>
-      </header>
-      {
-        bodyWithDescription.length > 0 && (
-          <PortableText portableText={bodyWithDescription} />
-        )
-      }
-      <!-- {
-        Array.isArray(project.tags) && project.tags.length > 0 && (
-          <div class="mt-8 flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <Tag label={tag.name} />
-            ))}
-          </div>
-        )
-      } -->
-    </main>
-  </div>
+        {
+          (project.projectUrl || project.githubUrl) && (
+            <div class="flex flex-wrap gap-4">
+              {project.projectUrl && (
+                <a
+                  href={project.projectUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm"
+                >
+                  Live Site
+                </a>
+              )}
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-sm"
+                >
+                  GitHub
+                </a>
+              )}
+            </div>
+          )
+        }
+      </div>
+    </header>
+    {
+      bodyWithDescription.length > 0 && (
+        <PortableText portableText={bodyWithDescription} />
+      )
+    }
+  </main>
+
+  <!-- Mobile ToC drawer -->
+  <TocDrawer headings={headings} client:load />
 </Layout>

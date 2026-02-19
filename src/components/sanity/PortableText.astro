@@ -2,6 +2,9 @@
 import { PortableText as PortableTextInternal } from "astro-portabletext";
 import PortableTextImage from "./PortableTextImage.astro";
 import CodeBlock from "./CodeBlock.astro";
+import H2Block from "./H2Block.astro";
+import H3Block from "./H3Block.astro";
+import H4Block from "./H4Block.astro";
 
 const { portableText } = Astro.props;
 
@@ -9,6 +12,11 @@ const components = {
   type: {
     image: PortableTextImage,
     code: CodeBlock,
+  },
+  block: {
+    h2: H2Block,
+    h3: H3Block,
+    h4: H4Block,
   },
 };
 ---

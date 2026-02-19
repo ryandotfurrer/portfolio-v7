@@ -34,8 +34,8 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
 ---
 
 <Layout>
-  <div class="space-y-16">
-    <header class="space-y-4 md:px-2">
+  <main class="space-y-16">
+    <section class="space-y-4 md:px-2">
       <div class="space-y-2">
         <h1 class="font-medium text-primary">Ryan Furrer</h1>
         <p class="text-lg/5 font-medium text-pretty">
@@ -59,9 +59,7 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
           <SocialLinks orientation="horizontal" />
         </div>
       </div>
-    </header>
-  </div>
-  <main class="space-y-16">
+    </section>
     <LatestItemsSection
       title="Writing"
       items={latestPosts}

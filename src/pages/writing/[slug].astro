@@ -1,9 +1,11 @@
 ---
-import Link from "@/components/Link.astro";
+import BackLink from "@/components/BackLink.astro";
 import PortableText from "@/components/sanity/PortableText.astro";
+import TableOfContents from "@/components/TableOfContents.astro";
+import TocDrawer from "@/components/TocDrawer.tsx";
 import Layout from "@/layouts/Layout.astro";
+import { slugify, textToPortableTextBlock } from "@/lib/utils";
 import { formatDateLong } from "@/utils/date";
-import { textToPortableTextBlock } from "@/lib/utils";
 import type { SanityDocument } from "@sanity/client";
 import {
   createImageUrlBuilder,
@@ -42,6 +44,26 @@ const postImageUrl = post.headerImage
 const postOgImageUrl = post.ogImage
   ? urlFor(post.ogImage)?.width(1200).height(630).url()
   : undefined;
+
+// Extract headings for ToC
+interface HeadingBlock {
+  _type: string;
+  style: string;
+  children: Array<{ text?: string }>;
+}
+const headings = (post.body ?? [])
+  .filter(
+    (b: HeadingBlock) =>
+      b._type === "block" && ["h2", "h3", "h4"].includes(b.style),
+  )
+  .map((b: HeadingBlock) => {
+    const text = b.children.map((c) => c.text ?? "").join("");
+    return {
+      id: slugify(text),
+      text,
+      level: parseInt(b.style.replace("h", ""), 10),
+    };
+  });
 ---
 
 <Layout
@@ -49,46 +71,47 @@ const postOgImageUrl = post.ogImage
   description={post.description}
   ogImage={postOgImageUrl}
 >
-  <div class="space-y-8 md:px-2">
-    <Link href="/writing" class="inline-block">Back to writing</Link>
-    <main class="prose prose-neutral dark:prose-invert">
-      {postImageUrl && <img src={postImageUrl} alt={post.title} />}
-      <header>
-        <h1 class="mb-1">{post.title}</h1>
-        {
-          post.publishedAt && !post.updatedAt && (
-            <span class="font-mono-custom font-medium">
-              {formatDateLong(post.publishedAt)}
-            </span>
-          )
-        }
-        {
-          post.updatedAt && (
-            <div class="flex flex-col gap-y-1">
-              <span class="font-mono-custom font-medium">
-                Originally published: {formatDateLong(post.publishedAt)}
-              </span>
-              <span class="font-mono-custom w-fit bg-amber-400/50 font-medium text-foreground">
-                Updated: {formatDateLong(post.updatedAt)}
-              </span>
-            </div>
-          )
-        }
-      </header>
+  <!-- Desktop: back link in left gutter -->
+  <div slot="left" class="sticky top-8">
+    <BackLink href="/writing" label="Writing" />
+  </div>
+
+  <!-- Desktop: ToC in right gutter -->
+  <TableOfContents slot="right" headings={headings} />
+
+  <!-- Center: article -->
+  <main class="prose min-w-0 prose-neutral dark:prose-invert">
+    <BackLink href="/writing" label="Writing" class="mb-6 lg:hidden" />
+    {postImageUrl && <img src={postImageUrl} alt={post.title} />}
+    <header>
+      <h1 class="mb-1">{post.title}</h1>
       {
-        bodyWithDescription.length > 0 && (
-          <PortableText portableText={bodyWithDescription} />
+        post.publishedAt && !post.updatedAt && (
+          <span class="font-mono-custom font-medium">
+            {formatDateLong(post.publishedAt)}
+          </span>
         )
       }
-      <!-- {
-        Array.isArray(post.tags) && post.tags.length > 0 && (
-          <div class="mt-8 flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <Tag label={tag.name} />
-            ))}
+      {
+        post.updatedAt && (
+          <div class="flex flex-col gap-y-1">
+            <span class="font-mono-custom font-medium">
+              Originally published: {formatDateLong(post.publishedAt)}
+            </span>
+            <span class="font-mono-custom w-fit bg-amber-400/50 font-medium text-foreground">
+              Updated: {formatDateLong(post.updatedAt)}
+            </span>
           </div>
         )
-      } -->
-    </main>
-  </div>
+      }
+    </header>
+    {
+      bodyWithDescription.length > 0 && (
+        <PortableText portableText={bodyWithDescription} />
+      )
+    }
+  </main>
+
+  <!-- Mobile ToC drawer -->
+  <TocDrawer headings={headings} client:load />
 </Layout>

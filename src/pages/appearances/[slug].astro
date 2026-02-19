@@ -1,9 +1,11 @@
 ---
-import Link from "@/components/Link.astro";
+import BackLink from "@/components/BackLink.astro";
 import PortableText from "@/components/sanity/PortableText.astro";
+import TableOfContents from "@/components/TableOfContents.astro";
+import TocDrawer from "@/components/TocDrawer.tsx";
 import Layout from "@/layouts/Layout.astro";
+import { slugify, textToPortableTextBlock } from "@/lib/utils";
 import { formatDateLong } from "@/utils/date";
-import { textToPortableTextBlock } from "@/lib/utils";
 import type { SanityDocument } from "@sanity/client";
 import {
   createImageUrlBuilder,
@@ -47,6 +49,26 @@ const appearanceImageUrl = appearance.headerImage
 const appearanceOgImageUrl = appearance.ogImage
   ? urlFor(appearance.ogImage)?.width(1200).height(630).url()
   : undefined;
+
+// Extract headings for ToC
+interface HeadingBlock {
+  _type: string;
+  style: string;
+  children: Array<{ text?: string }>;
+}
+const headings = (appearance.body ?? [])
+  .filter(
+    (b: HeadingBlock) =>
+      b._type === "block" && ["h2", "h3", "h4"].includes(b.style),
+  )
+  .map((b: HeadingBlock) => {
+    const text = b.children.map((c) => c.text ?? "").join("");
+    return {
+      id: slugify(text),
+      text,
+      level: parseInt(b.style.replace("h", ""), 10),
+    };
+  });
 ---
 
 <Layout
@@ -54,50 +76,51 @@ const appearanceOgImageUrl = appearance.ogImage
   description={appearance.description}
   ogImage={appearanceOgImageUrl}
 >
-  <div class="space-y-8 md:px-2">
-    <Link href="/appearances" class="inline-block">Back to appearances</Link>
-    <main class="prose prose-neutral dark:prose-invert">
+  <!-- Desktop: back link in left gutter -->
+  <div slot="left" class="sticky top-8">
+    <BackLink href="/appearances" label="Appearances" />
+  </div>
+
+  <!-- Desktop: ToC in right gutter -->
+  <TableOfContents slot="right" headings={headings} />
+
+  <!-- Center: article -->
+  <main class="prose min-w-0 prose-neutral dark:prose-invert">
+    <BackLink href="/appearances" label="Appearances" class="mb-6 lg:hidden" />
+    {
+      appearanceImageUrl && (
+        <img src={appearanceImageUrl} alt={appearance.title} />
+      )
+    }
+    <header>
+      <h1 class="mb-1">{appearance.title}</h1>
       {
-        appearanceImageUrl && (
-          <img src={appearanceImageUrl} alt={appearance.title} />
+        appearance.publishedAt && !appearance.updatedAt && (
+          <span class="font-mono-custom font-medium">
+            {formatDateLong(appearance.publishedAt)}
+          </span>
         )
       }
-      <header>
-        <h1 class="mb-1">{appearance.title}</h1>
-        {
-          appearance.publishedAt && !appearance.updatedAt && (
+      {
+        appearance.updatedAt && (
+          <div class="flex flex-col gap-y-1">
             <span class="font-mono-custom font-medium">
-              {formatDateLong(appearance.publishedAt)}
+              Originally published: {formatDateLong(appearance.publishedAt)}
             </span>
-          )
-        }
-        {
-          appearance.updatedAt && (
-            <div class="flex flex-col gap-y-1">
-              <span class="font-mono-custom font-medium">
-                Originally published: {formatDateLong(appearance.publishedAt)}
-              </span>
-              <span class="font-mono-custom w-fit bg-amber-400/50 font-medium text-foreground">
-                Updated: {formatDateLong(appearance.updatedAt)}
-              </span>
-            </div>
-          )
-        }
-      </header>
-      {
-        bodyWithDescription.length > 0 && (
-          <PortableText portableText={bodyWithDescription} />
-        )
-      }
-      <!-- {
-        Array.isArray(appearance.tags) && appearance.tags.length > 0 && (
-          <div class="mt-8 flex flex-wrap gap-2">
-            {appearance.tags.map((tag) => (
-              <Tag label={tag.name} />
-            ))}
+            <span class="font-mono-custom w-fit bg-amber-400/50 font-medium text-foreground">
+              Updated: {formatDateLong(appearance.updatedAt)}
+            </span>
           </div>
         )
-      } -->
-    </main>
-  </div>
+      }
+    </header>
+    {
+      bodyWithDescription.length > 0 && (
+        <PortableText portableText={bodyWithDescription} />
+      )
+    }
+  </main>
+
+  <!-- Mobile ToC drawer -->
+  <TocDrawer headings={headings} client:load />
 </Layout>
