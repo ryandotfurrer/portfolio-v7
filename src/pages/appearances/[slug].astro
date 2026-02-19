@@ -1,5 +1,5 @@
 ---
-import Link from "@/components/Link.astro";
+import BackLink from "@/components/BackLink.astro";
 import PortableText from "@/components/sanity/PortableText.astro";
 import TableOfContents from "@/components/TableOfContents.astro";
 import TocDrawer from "@/components/TocDrawer.tsx";
@@ -78,7 +78,7 @@ const headings = (appearance.body ?? [])
 >
   <!-- Desktop: back link in left gutter -->
   <div slot="left" class="sticky top-8">
-    <Link href="/appearances">← Appearances</Link>
+    <BackLink href="/appearances" label="Appearances" />
   </div>
 
   <!-- Desktop: ToC in right gutter -->
@@ -86,9 +86,7 @@ const headings = (appearance.body ?? [])
 
   <!-- Center: article -->
   <main class="prose min-w-0 prose-neutral dark:prose-invert">
-    <Link href="/appearances" class="not-prose mb-6 inline-block lg:hidden"
-      >← Back to appearances</Link
-    >
+    <BackLink href="/appearances" label="Appearances" class="mb-6 lg:hidden" />
     {
       appearanceImageUrl && (
         <img src={appearanceImageUrl} alt={appearance.title} />
