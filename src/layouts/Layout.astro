@@ -47,25 +47,27 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
     {ogImage && <meta name="twitter:image" content={ogImage} />}
   </head>
   <body
-    class="mx-auto max-w-[70rem] bg-background px-4 py-8 text-foreground-muted antialiased"
+    class="mx-auto max-w-280 bg-background px-4 py-8 text-foreground-muted antialiased"
   >
     <div class="lg:grid lg:grid-cols-[12rem_1fr_12rem] lg:gap-x-8">
       <!-- Navbar: center column, row 1 — above the side gutters -->
-      {!noNavbar && (
-        <div
-          class={cn(
-            "lg:col-start-2",
-            maxWidth === "sm"
-              ? "max-w-sm mx-auto lg:max-w-none lg:mx-0"
-              : "max-w-2xl mx-auto lg:max-w-none lg:mx-0",
-          )}
-        >
-          <Navbar />
-        </div>
-      )}
+      {
+        !noNavbar && (
+          <div
+            class={cn(
+              "lg:col-start-2",
+              maxWidth === "sm"
+                ? "mx-auto max-w-sm lg:mx-0 lg:max-w-none"
+                : "mx-auto max-w-2xl lg:mx-0 lg:max-w-none",
+            )}
+          >
+            <Navbar />
+          </div>
+        )
+      }
 
       <!-- Left gutter: row 2, starts level with content (below Navbar) -->
-      <aside class="hidden lg:block lg:col-start-1 lg:row-start-2">
+      <aside class="hidden lg:col-start-1 lg:row-start-2 lg:block">
         <slot name="left" />
       </aside>
 
@@ -83,7 +85,7 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
       </div>
 
       <!-- Right gutter: row 2, starts level with content (below Navbar) -->
-      <aside class="hidden lg:block lg:col-start-3 lg:row-start-2">
+      <aside class="hidden lg:col-start-3 lg:row-start-2 lg:block">
         <slot name="right" />
       </aside>
     </div>
