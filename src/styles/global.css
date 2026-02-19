@@ -264,6 +264,7 @@ html {
   /* Traveling highlight hover effect for Item components */
   ul[data-dir-hover-list="items"] {
     position: relative;
+    isolation: isolate;
   }
 
   ul[data-dir-hover-list="items"]::before {
