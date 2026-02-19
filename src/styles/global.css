@@ -46,6 +46,13 @@
 html {
   background-color: var(--background);
   scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 @theme inline {
@@ -222,6 +229,7 @@ html {
   .prose h5,
   .prose h6 {
     color: var(--color-foreground) !important;
+    scroll-margin-block-start: 1.5em;
   }
 
   .prose a {
