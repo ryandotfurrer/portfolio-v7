@@ -232,7 +232,7 @@ html {
     scroll-margin-block-start: 1.5em;
   }
 
-  .prose a {
+  .prose a:not(.no-underline) {
     color: inherit !important;
     font-weight: inherit !important;
     text-decoration: underline !important;
