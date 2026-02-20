@@ -46,10 +46,8 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
     {description && <meta name="twitter:description" content={description} />}
     {ogImage && <meta name="twitter:image" content={ogImage} />}
   </head>
-  <body
-    class="mx-auto max-w-280 bg-background px-4 py-8 text-foreground-muted antialiased"
-  >
-    <div class="lg:grid lg:grid-cols-[12rem_1fr_12rem] lg:gap-x-8">
+  <body class="bg-background text-foreground-muted antialiased">
+    <div class="mx-auto max-w-280 px-4 py-8 lg:grid lg:grid-cols-[12rem_1fr_12rem] lg:gap-x-8">
       <!-- Navbar: center column, row 1 — above the side gutters -->
       {
         !noNavbar && (
