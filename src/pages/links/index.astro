@@ -137,54 +137,53 @@ const socialLinks = [
   maxWidth="sm"
 >
   <div class="mx-auto w-full max-w-sm space-y-8">
-    <!-- Dark profile panel -->
-    <header
-      class="relative overflow-clip rounded-2xl bg-[oklch(0.11_0_0)] px-6 py-8 dark:ring-1 dark:ring-white/5"
-    >
+    <!-- Profile header -->
+    <header class="relative overflow-x-clip border-b border-border/40 py-10 text-center">
       <!-- Glow blob -->
       <div
-        class="pointer-events-none absolute -right-8 -top-8 size-48 rounded-full blur-2xl"
-        style="background: radial-gradient(circle, oklch(0.72 0.18 28 / 0.25), transparent 65%);"
+        class="animate-glow-pulse pointer-events-none absolute left-1/2 -top-8 size-64 -translate-x-1/2 rounded-full blur-3xl"
+        style="background: radial-gradient(circle, oklch(0.65 0.22 28 / 0.35), transparent 65%);"
         aria-hidden="true"
       ></div>
 
-      <div class="relative flex items-center gap-5">
-        <!-- Avatar -->
-        <div
-          class="size-20 shrink-0 overflow-hidden rounded-full ring-2 ring-white/10"
-        >
-          <img
-            src={profilePicture.src}
-            alt="Ryan Furrer"
-            width={profilePicture.width}
-            height={profilePicture.height}
-            class="h-full w-full object-cover"
-          />
-        </div>
-
-        <!-- Name + bio -->
-        <div>
-          <h1 class="text-xl font-bold tracking-tight text-white">
-            Ryan Furrer
-          </h1>
-          <p class="mt-0.5 text-sm leading-snug text-white/50">
-            Frontend Engineer · Designer · Creator
-          </p>
-          <a
-            href="/"
-            class="no-underline mt-3 inline-block font-mono text-xs font-semibold uppercase tracking-widest text-rf-accent transition-colors hover:text-white/60"
-          >
-            ryanfurrer.com →
-          </a>
-        </div>
+      <!-- Avatar -->
+      <div class="hero-animate relative mx-auto mb-6 size-24 overflow-hidden rounded-full ring-1 ring-border">
+        <img
+          src={profilePicture.src}
+          alt="Ryan Furrer"
+          width={profilePicture.width}
+          height={profilePicture.height}
+          class="h-full w-full object-cover"
+        />
       </div>
+
+      <!-- Name -->
+      <h1
+        class="hero-animate hero-delay-1 font-serif italic leading-none text-foreground"
+        style="font-size: clamp(2.25rem, 10vw, 3rem);"
+      >
+        Ryan Furrer<span class="text-rf-accent">.</span>
+      </h1>
+
+      <!-- Tagline -->
+      <p class="hero-animate hero-delay-2 mt-3 font-mono text-xs tracking-wide text-foreground-muted">
+        Frontend Engineer · Designer · Creator
+      </p>
+
+      <!-- Site link -->
+      <a
+        href="/"
+        class="hero-animate hero-delay-3 no-underline mt-5 inline-block small-heading text-rf-accent transition-colors hover:text-foreground"
+      >
+        ryanfurrer.com →
+      </a>
     </header>
 
     <main class="space-y-10">
       <!-- Connect section -->
-      <section class="space-y-4">
+      <section class="hero-animate hero-delay-1 space-y-4">
         <div class="flex items-center gap-3">
-          <h2 class="small-heading shrink-0 text-rf-accent">Connect with me</h2>
+          <h2 class="small-heading shrink-0 text-foreground-muted">Connect with me</h2>
           <div class="h-px flex-1 bg-border"></div>
         </div>
         <div class="grid grid-cols-2 gap-4">
@@ -237,9 +236,9 @@ const socialLinks = [
       <!-- Latest work section -->
       {
         latestContentItems.length > 0 && (
-          <section class="space-y-4">
+          <section class="hero-animate hero-delay-2 space-y-4">
             <div class="flex items-center gap-3">
-              <h2 class="small-heading shrink-0 text-rf-accent">My Latest Work</h2>
+              <h2 class="small-heading shrink-0 text-foreground-muted">My Latest Work</h2>
               <div class="h-px flex-1 bg-border"></div>
             </div>
             <div class="grid grid-cols-1 gap-4">
