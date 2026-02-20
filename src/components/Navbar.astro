@@ -1,4 +1,6 @@
 ---
+import MobileMenu from "@/components/MobileMenu";
+
 const navItems = [
   {
     label: "Writing",
@@ -29,7 +31,7 @@ const currentPath = Astro.url.pathname;
         aria-hidden="true"
       ></div></a
     >
-    <ul class="flex gap-4 text-sm">
+    <ul class="hidden md:flex gap-4 text-sm">
       {
         navItems.map((item) => {
           const isActive = currentPath === item.href || currentPath.startsWith(item.href + "/");
@@ -53,5 +55,6 @@ const currentPath = Astro.url.pathname;
         })
       }
     </ul>
+    <MobileMenu currentPath={currentPath} client:load />
   </div>
 </nav>

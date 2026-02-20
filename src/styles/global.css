@@ -342,6 +342,53 @@ html {
   font-weight: 600;
 }
 
+/* ─── Mobile nav stagger ──────────────────────────────────────────────────── */
+@keyframes mobile-nav-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobile-nav-item-unblur {
+  from { filter: blur(6px); }
+  to   { filter: blur(0); }
+}
+
+.mobile-nav-item {
+  animation:
+    mobile-nav-item-in 220ms cubic-bezier(0.23, 1, 0.32, 1) both 180ms,
+    mobile-nav-item-unblur 500ms ease-out both 180ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav-item {
+    animation: none;
+  }
+}
+
+/* ─── Touch target hack — 44×44px invisible hitbox via ::before ───────────── */
+@utility touch-hitbox {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    pointer-events: auto;
+    background-color: transparent;
+  }
+}
+
 /* ─── Reading progress bar (CSS scroll-driven) ────────────────────────────── */
 .reading-progress {
   position: fixed;
