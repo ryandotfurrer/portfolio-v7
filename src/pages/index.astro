@@ -35,26 +35,30 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
 
 <Layout>
   <main class="space-y-16">
-    <section class="space-y-4 md:px-2">
-      <div class="space-y-2">
-        <h1 class="font-semibold text-primary">Ryan Furrer</h1>
-        <p class="text-lg/5 font-medium text-pretty">
-          <span class="text-foreground">Frontend Engineer</span> who loves creating
-          where design and engineering meet.
+    <section class="space-y-8 md:px-2">
+      <div class="space-y-3">
+        <h1 class="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+          Ryan Furrer
+        </h1>
+        <p class="font-serif italic text-xl text-foreground-muted sm:text-2xl">
+          Frontend Engineer & Designer
         </p>
       </div>
-      <div class="mb-6 space-y-2 font-medium">
+      <div class="space-y-3 font-medium">
         <p>
-          Currently I am a Design Engineer at <a href="https://pragma.gg"
-            >Pragma</a
-          >, part of the team creating the platform that helps studios build
-          successful games, <a href="https://firstlook.gg">FirstLook</a>.
+          Currently a Design Engineer at <a href="https://pragma.gg">Pragma</a>,
+          building <a href="https://firstlook.gg">FirstLook</a> — the platform
+          helping game studios build and engage their communities.
         </p>
-        <Link href="/about">Learn more about me</Link>
+        <p class="text-foreground-muted font-normal">
+          I care deeply about the intersection of design and engineering — where
+          performance, accessibility, and craft come together.
+        </p>
+        <Link href="/about">More about me</Link>
       </div>
 
       <div class="space-y-2">
-        <span class="small-heading inline-block">Find me elsewhere:</span>
+        <p class="small-heading text-rf-accent">Find me elsewhere</p>
         <div class="text-sm">
           <SocialLinks orientation="horizontal" />
         </div>

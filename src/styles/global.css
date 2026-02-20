@@ -69,6 +69,7 @@ html {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-foreground-muted: var(--foreground-muted);
+  --color-rf-accent: var(--rf-accent);
   --font-sans: "Geist", "Inter", ui-sans-serif, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
   --font-cursive: "Permanent Marker", ui-cursive, cursive;
@@ -130,7 +131,8 @@ html {
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
-  --link-underline: #bbb;
+  --rf-accent: oklch(0.52 0.16 38);
+  --link-underline: oklch(0.75 0.08 38);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
@@ -154,7 +156,8 @@ html {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --link-underline: oklch(0.4 0 0);
+    --rf-accent: oklch(0.78 0.14 42);
+    --link-underline: oklch(0.42 0.08 38);
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
     --foreground-muted: #86868b;
@@ -205,7 +208,7 @@ html {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
     &:hover {
-      color: var(--color-foreground);
+      color: var(--color-rf-accent);
       text-decoration-color: currentColor;
     }
   }
@@ -235,7 +238,7 @@ html {
   }
 
   .text-color-hover:hover {
-    color: var(--color-foreground);
+    color: var(--color-rf-accent);
   }
 
   .small-heading {
@@ -276,7 +279,7 @@ html {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
     &:hover {
-      color: var(--color-foreground) !important;
+      color: var(--color-rf-accent) !important;
       text-decoration-color: currentColor !important;
     }
   }

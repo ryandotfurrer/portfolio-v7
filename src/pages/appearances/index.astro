@@ -36,8 +36,8 @@ const description =
 
 <Layout title="Appearances — Ryan Furrer" description={description}>
   <div class="space-y-8">
-    <header class="md:px-2">
-      <h1 class="text-foreground">Appearances</h1>
+    <header class="space-y-1 md:px-2">
+      <h1 class="text-3xl font-bold tracking-tight text-foreground">Appearances</h1>
       <p class="text-foreground-muted">{description}</p>
     </header>
     <main>
@@ -45,7 +45,7 @@ const description =
         {
           years.map((year) => (
             <section class="space-y-4">
-              <h2 class="small-heading font-mono text-sm md:px-2">{year}</h2>
+              <h2 class="small-heading text-rf-accent md:px-2">{year}</h2>
               <ul class="flex flex-col gap-px">
                 {appearancesByYear[year].map((appearance) => (
                   <li>

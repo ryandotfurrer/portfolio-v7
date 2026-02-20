@@ -34,8 +34,8 @@ const description = "A collection of my projects, code snippets, and more";
 
 <Layout>
   <div class="space-y-8">
-    <header class="md:px-2">
-      <h1 class="text-foreground">Work</h1>
+    <header class="space-y-1 md:px-2">
+      <h1 class="text-3xl font-bold tracking-tight text-foreground">Work</h1>
       <p class="text-foreground-muted">{description}</p>
     </header>
     <main>
@@ -43,7 +43,7 @@ const description = "A collection of my projects, code snippets, and more";
         {
           years.map((year) => (
             <section class="space-y-4">
-              <h2 class="small-heading font-mono text-sm md:px-2">{year}</h2>
+              <h2 class="small-heading text-rf-accent md:px-2">{year}</h2>
               <ul class="flex flex-col gap-px">
                 {projectsByYear[year].map((project) => (
                   <li>
