@@ -87,79 +87,78 @@ const headings = (appearance.body ?? [])
   <!-- Desktop: ToC in right gutter -->
   <TableOfContents slot="right" headings={headings} />
 
-  <!-- Appearance hero panel -->
-  <div
-    class="relative overflow-clip rounded-2xl bg-[oklch(0.11_0_0)] dark:ring-1 dark:ring-white/5 sm:rounded-3xl"
-  >
-    <!-- Glow -->
+  <!-- Appearance header — editorial, typography-first -->
+  <header class="relative">
+    <!-- Ambient glow -->
     <div
-      class="pointer-events-none absolute -left-10 -top-10 size-72 rounded-full blur-3xl"
-      style="background: radial-gradient(circle, oklch(0.72 0.18 42 / 0.2), transparent 60%);"
+      class="pointer-events-none absolute -top-24 -left-24 size-[36rem] rounded-full blur-3xl -z-10"
+      style="background: radial-gradient(circle, oklch(0.72 0.18 285 / 0.07), transparent 65%);"
       aria-hidden="true"
     ></div>
 
-    <div class="relative px-6 pt-8 pb-6 sm:px-8 sm:pt-10">
-      <!-- Mobile back link -->
+    <!-- Breadcrumb + rule -->
+    <div class="hero-animate mb-8 flex items-center gap-4">
       <a
         href="/appearances"
-        class="no-underline mb-6 inline-block font-mono text-xs font-semibold uppercase tracking-widest text-white/40 transition-colors hover:text-rf-accent lg:hidden"
-      >
-        ← Appearances
-      </a>
-
-      <!-- Title -->
-      <h1
-        class="mt-3 font-serif italic text-3xl leading-tight text-white sm:text-4xl md:text-5xl lg:mt-0"
-      >
-        {appearance.title}
-      </h1>
-
-      <!-- Meta row -->
-      <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
-        {
-          appearance.publishedAt && !appearance.updatedAt && (
-            <span class="font-mono-custom text-white/40">
-              {formatDateLong(appearance.publishedAt)}
-            </span>
-          )
-        }
-        {
-          appearance.updatedAt && (
-            <div class="flex flex-wrap gap-x-4 gap-y-1">
-              <span class="font-mono-custom text-white/40">
-                {formatDateLong(appearance.publishedAt)}
-              </span>
-              <span class="font-mono-custom rounded-sm bg-amber-400/20 px-1.5 text-amber-300">
-                Updated: {formatDateLong(appearance.updatedAt)}
-              </span>
-            </div>
-          )
-        }
-        {
-          appearance.tags?.map((tag: { name: string }) => (
-            <span class="rounded-full bg-white/10 px-2.5 py-0.5 text-xs font-medium text-white/60">
-              {tag.name}
-            </span>
-          ))
-        }
-      </div>
+        class="no-underline small-heading text-foreground-muted transition-colors hover:text-rf-accent shrink-0 lg:hidden"
+      >← Appearances</a>
+      <span class="small-heading text-rf-accent hidden lg:block shrink-0">Appearances</span>
+      <div class="h-px flex-1 bg-border"></div>
     </div>
 
-    <!-- Header image flush inside the panel -->
-    {
-      appearanceImageUrl && (
-        <div class="overflow-hidden">
-          <img
-            src={appearanceImageUrl}
-            alt={appearance.title}
-            width="1100"
-            height="620"
-            class="w-full object-cover"
-          />
-        </div>
-      )
-    }
-  </div>
+    <!-- Title -->
+    <h1
+      class="hero-animate hero-delay-1 font-serif italic text-foreground"
+      style="font-size: clamp(2.5rem, 6.5vw, 5rem); line-height: 0.93;"
+    >
+      {appearance.title}
+    </h1>
+
+    <!-- Meta -->
+    <div class="hero-animate hero-delay-2 mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
+      {
+        appearance.publishedAt && !appearance.updatedAt && (
+          <span class="font-mono-custom text-foreground-muted">
+            {formatDateLong(appearance.publishedAt)}
+          </span>
+        )
+      }
+      {
+        appearance.updatedAt && (
+          <div class="flex flex-wrap gap-x-4 gap-y-1">
+            <span class="font-mono-custom text-foreground-muted">
+              {formatDateLong(appearance.publishedAt)}
+            </span>
+            <span class="font-mono-custom rounded-sm bg-amber-400/15 px-1.5 text-amber-700 dark:bg-amber-400/20 dark:text-amber-300">
+              Updated: {formatDateLong(appearance.updatedAt)}
+            </span>
+          </div>
+        )
+      }
+      {
+        appearance.tags?.map((tag: { name: string }) => (
+          <span class="rounded-full bg-rf-accent/10 px-2.5 py-0.5 text-xs font-medium text-rf-accent">
+            {tag.name}
+          </span>
+        ))
+      }
+    </div>
+  </header>
+
+  <!-- Header image -->
+  {
+    appearanceImageUrl && (
+      <div class="overflow-hidden rounded-2xl border border-border">
+        <img
+          src={appearanceImageUrl}
+          alt={appearance.title}
+          width="1100"
+          height="620"
+          class="w-full object-cover"
+        />
+      </div>
+    )
+  }
 
   <!-- Prose body -->
   <main class="prose min-w-0 prose-neutral dark:prose-invert">

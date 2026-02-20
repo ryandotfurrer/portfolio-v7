@@ -1,6 +1,4 @@
 ---
-import logo from "@/assets/logo.svg";
-
 const navItems = [
   {
     label: "Writing",
@@ -25,7 +23,11 @@ const currentPath = Astro.url.pathname;
       href="/"
       aria-label="Go to home page"
       class="rounded-sm transition-all hover:saturate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:saturate-70"
-      ><img src={logo.src} alt="Ryan Furrer" class="size-8" /></a
+      ><div
+        class="size-8 rounded-full"
+        style="background: linear-gradient(145deg, oklch(0.75 0.2 295), oklch(0.45 0.28 270))"
+        aria-hidden="true"
+      ></div></a
     >
     <ul class="flex gap-4 text-sm">
       {

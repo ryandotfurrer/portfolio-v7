@@ -114,31 +114,29 @@ html {
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --foreground-muted: #6e6e73;
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --card-foreground-muted: #6e6e73;
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  --background: oklch(0.965 0.012 285);
+  --foreground: oklch(0.11 0.04 285);
+  --foreground-muted: oklch(0.48 0.02 285);
+  --card: oklch(0.983 0.006 285);
+  --card-foreground: oklch(0.11 0.04 285);
+  --card-foreground-muted: oklch(0.48 0.02 285);
+  --popover: oklch(0.983 0.006 285);
+  --popover-foreground: oklch(0.11 0.04 285);
   --popover-foreground-muted: var(--color-neutral-600);
-  /* custom red-orange */
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --rf-accent: oklch(0.52 0.16 38);
-  --link-underline: oklch(0.75 0.08 38);
+  --secondary: oklch(0.93 0.014 285);
+  --secondary-foreground: oklch(0.11 0.04 285);
+  --muted: oklch(0.93 0.014 285);
+  --muted-foreground: oklch(0.48 0.02 285);
+  --accent: oklch(0.93 0.014 285);
+  --rf-accent: oklch(0.52 0.24 285);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: oklch(0.87 0.018 285);
+  --input: oklch(0.87 0.018 285);
+  --ring: oklch(0.52 0.24 285);
   --radius: 0.625rem;
-  --accent-foreground: oklch(0.205 0 0);
+  --accent-foreground: oklch(0.11 0.04 285);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -156,8 +154,7 @@ html {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --rf-accent: oklch(0.78 0.14 42);
-    --link-underline: oklch(0.42 0.08 38);
+    --rf-accent: oklch(0.76 0.18 285);
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
     --foreground-muted: #86868b;
@@ -396,7 +393,7 @@ html {
 /* ─── Dark hero panel — link color overrides ──────────────────────────────── */
 .hero-dark-panel a:not(.no-underline) {
   color: oklch(1 0 0 / 0.65);
-  text-decoration-color: oklch(0.72 0.18 42 / 0.35);
+  text-decoration-color: oklch(0.72 0.18 285 / 0.35);
 }
 
 .hero-dark-panel a:not(.no-underline):hover {
