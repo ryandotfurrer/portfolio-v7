@@ -21,12 +21,24 @@ December: #D9E7F5
 ---
 
 <Layout title={title} description={description}>
-  <div class="space-y-8 text-foreground">
-    <header class="space-y-1 md:px-2">
-      <h1 class="text-3xl font-bold tracking-tight">{title}</h1>
-      <p class="text-foreground-muted">{description}</p>
+  <div class="space-y-10 text-foreground">
+    <!-- Dark panel header -->
+    <header
+      class="relative overflow-clip rounded-xl bg-[oklch(0.11_0_0)] px-6 py-8 dark:ring-1 dark:ring-white/5 sm:px-8 sm:py-10"
+    >
+      <div
+        class="pointer-events-none absolute -right-8 -top-8 size-48 rounded-full blur-2xl"
+        style="background: radial-gradient(circle, oklch(0.72 0.18 42 / 0.2), transparent 65%);"
+        aria-hidden="true"
+      ></div>
+      <div class="relative">
+        <h1 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          Now<span class="text-rf-accent">.</span>
+        </h1>
+        <p class="mt-1 text-white/50">{description}</p>
+      </div>
     </header>
-    <main class="space-y-8 md:px-2">
+    <main class="space-y-8">
       <article
         class="dark:to-[#0C263B]/05 space-y-4 rounded-r-lg border-l-4 border-[#0C263B]/50 bg-linear-to-br from-[#0C263B]/20 to-[#0C263B]/5 p-4 saturate-500 dark:border-[#0C263B] dark:from-[#0C263B]/90 dark:saturate-200"
       >

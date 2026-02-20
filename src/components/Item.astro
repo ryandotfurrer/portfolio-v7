@@ -7,9 +7,10 @@ interface Props {
   href: string;
   publishedAt?: string;
   techStack?: string[];
+  variant?: "line" | "card";
 }
 
-const { title, href, publishedAt, techStack } = Astro.props;
+const { title, href, publishedAt, techStack, variant = "line" } = Astro.props;
 
 const formattedDate = publishedAt ? formatDateDotNotation(publishedAt) : null;
 
@@ -18,37 +19,61 @@ const remainingCount =
   techStack && techStack.length > 3 ? techStack.length - 3 : 0;
 ---
 
-<a
-  href={href}
-  data-dir-hover="item"
-  class="group/item block rounded-md border border-transparent py-1 font-normal no-underline transition-all group-hover/item:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:p-2"
->
-  <div class="w-full items-center justify-between gap-4 md:flex">
-    <div class="w-fit text-foreground md:text-foreground-muted">
-      <h3 class="transition-colors group-hover/item:text-foreground">
-        {title}
-      </h3>
-    </div>
-    <div class="hidden min-w-4 flex-1 border-b md:block"></div>
-    {
-      techStack && techStack.length > 0 ? (
-        <>
+{
+  variant === "card" ? (
+    <a
+      href={href}
+      class="group/card block rounded-lg border border-border bg-card p-4 no-underline transition-all hover:border-rf-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+    >
+      <div class="flex items-start justify-between gap-3">
+        <h3 class="font-medium leading-snug text-foreground transition-colors group-hover/card:text-rf-accent">
+          {title}
+        </h3>
+        {formattedDate && (
+          <span class="font-mono-custom shrink-0 text-foreground-muted">
+            {formattedDate}
+          </span>
+        )}
+      </div>
+      {techStack && techStack.length > 0 && (
+        <div class="mt-3 flex flex-wrap gap-1.5">
+          {displayedTags.map((tech) => (
+            <Tag label={tech} />
+          ))}
+          {remainingCount > 0 && <Tag label={`+${remainingCount}`} />}
+        </div>
+      )}
+    </a>
+  ) : (
+    <a
+      href={href}
+      data-dir-hover="item"
+      class="group/item block rounded-md border border-transparent py-1 font-normal no-underline transition-all group-hover/item:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:p-2"
+    >
+      <div class="w-full items-center justify-between gap-4 md:flex">
+        <div class="w-fit text-foreground md:text-foreground-muted">
+          <h3 class="transition-colors group-hover/item:text-foreground">
+            {title}
+          </h3>
+        </div>
+        <div class="hidden min-w-4 flex-1 border-b md:block" />
+        {techStack && techStack.length > 0 ? (
           <div class="flex items-center gap-1">
             {displayedTags.map((tech) => (
               <Tag label={tech} />
             ))}
             {remainingCount > 0 && <Tag label={`+${remainingCount} more`} />}
           </div>
-        </>
-      ) : (
-        formattedDate && (
-          <div class="font-mono-custom w-fit">
-            <span class="transition-colors group-hover/item:text-foreground">
-              {formattedDate}
-            </span>
-          </div>
-        )
-      )
-    }
-  </div>
-</a>
+        ) : (
+          formattedDate && (
+            <div class="font-mono-custom w-fit">
+              <span class="transition-colors group-hover/item:text-foreground">
+                {formattedDate}
+              </span>
+            </div>
+          )
+        )}
+      </div>
+    </a>
+  )
+}
