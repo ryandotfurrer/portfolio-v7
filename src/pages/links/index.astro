@@ -6,7 +6,6 @@ import TwitchIcon from "@/assets/icons/twitch.svg";
 import XIcon from "@/assets/icons/x.svg";
 import YoutubeIcon from "@/assets/icons/youtube.svg";
 import profilePicture from "@/assets/profile-picture.webp";
-import Button from "@/components/ui/Button.astro";
 import LinksCard from "@/components/ui/LinksCard.astro";
 import Layout from "@/layouts/Layout.astro";
 import { cn } from "@/lib/utils";
@@ -65,9 +64,6 @@ const latestContentItems = [
 );
 
 const description = "A collection of links to my work, writing, and more";
-const shortBio = `Frontend Engineer
-Designer
-Creator`;
 
 const socialLinks = [
   {
@@ -140,28 +136,57 @@ const socialLinks = [
   noFooter
   maxWidth="sm"
 >
-  <div class="mx-auto w-full max-w-sm space-y-16">
-    <header class="space-y-8">
-      <div class="flex items-center gap-8">
-        <div class="size-full max-w-36 overflow-hidden rounded-full">
-          <img src={profilePicture.src} alt="Ryan Furrer" width={profilePicture.width} height={profilePicture.height} class="" />
+  <div class="mx-auto w-full max-w-sm space-y-8">
+    <!-- Dark profile panel -->
+    <header
+      class="relative overflow-clip rounded-2xl bg-[oklch(0.11_0_0)] px-6 py-8 dark:ring-1 dark:ring-white/5"
+    >
+      <!-- Glow blob -->
+      <div
+        class="pointer-events-none absolute -right-8 -top-8 size-48 rounded-full blur-2xl"
+        style="background: radial-gradient(circle, oklch(0.72 0.18 42 / 0.25), transparent 65%);"
+        aria-hidden="true"
+      ></div>
+
+      <div class="relative flex items-center gap-5">
+        <!-- Avatar -->
+        <div
+          class="size-20 shrink-0 overflow-hidden rounded-full ring-2 ring-white/10"
+        >
+          <img
+            src={profilePicture.src}
+            alt="Ryan Furrer"
+            width={profilePicture.width}
+            height={profilePicture.height}
+            class="h-full w-full object-cover"
+          />
         </div>
-        <div class="space-y-2">
-          <h1 class="text-3xl font-semibold tracking-tight text-foreground">
+
+        <!-- Name + bio -->
+        <div>
+          <h1 class="text-xl font-bold tracking-tight text-white">
             Ryan Furrer
           </h1>
-          <p class="text-lg/5 font-medium text-pretty whitespace-pre-line">
-            {shortBio}
+          <p class="mt-0.5 text-sm leading-snug text-white/50">
+            Frontend Engineer · Designer · Creator
           </p>
+          <a
+            href="/"
+            class="no-underline mt-3 inline-block font-mono text-xs font-semibold uppercase tracking-widest text-rf-accent transition-colors hover:text-white/60"
+          >
+            ryanfurrer.com →
+          </a>
         </div>
       </div>
-      <div>
-        <Button href="/">Go to ryanfurrer.com</Button>
-      </div>
     </header>
-    <main class="space-y-16">
+
+    <main class="space-y-10">
+      <!-- Connect section -->
       <section class="space-y-4">
-        <h2>Connect with me</h2>
+        <div class="flex items-center gap-3">
+          <h2 class="small-heading shrink-0 text-rf-accent">Connect with me</h2>
+          <div class="h-px flex-1 bg-border"></div>
+        </div>
         <div class="grid grid-cols-2 gap-4">
           {
             socialLinks.map((link) => {
@@ -208,10 +233,15 @@ const socialLinks = [
           }
         </div>
       </section>
+
+      <!-- Latest work section -->
       {
         latestContentItems.length > 0 && (
           <section class="space-y-4">
-            <h2>My Latest Work</h2>
+            <div class="flex items-center gap-3">
+              <h2 class="small-heading shrink-0 text-rf-accent">My Latest Work</h2>
+              <div class="h-px flex-1 bg-border"></div>
+            </div>
             <div class="grid grid-cols-1 gap-4">
               {latestContentItems.map((content) => (
                 <LinksCard
@@ -223,7 +253,11 @@ const socialLinks = [
                   </header>
                   {content.ogImageUrl && (
                     <div class="overflow-hidden rounded-md">
-                      <img src={content.ogImageUrl} alt={content.item.title} loading="lazy" />
+                      <img
+                        src={content.ogImageUrl}
+                        alt={content.item.title}
+                        loading="lazy"
+                      />
                     </div>
                   )}
                 </LinksCard>
@@ -232,9 +266,6 @@ const socialLinks = [
           </section>
         )
       }
-      <div>
-        <Button href="/">Go to ryanfurrer.com</Button>
-      </div>
     </main>
   </div>
 </Layout>

@@ -1,8 +1,8 @@
 ---
-import BackLink from "@/components/BackLink.astro";
 import PortableText from "@/components/sanity/PortableText.astro";
 import TableOfContents from "@/components/TableOfContents.astro";
 import TocDrawer from "@/components/TocDrawer.tsx";
+import BackLink from "@/components/BackLink.astro";
 import Layout from "@/layouts/Layout.astro";
 import { slugify, textToPortableTextBlock } from "@/lib/utils";
 import { formatDateLong } from "@/utils/date";
@@ -19,7 +19,6 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
 }`;
 const post = await sanityClient.fetch<SanityDocument>(POST_QUERY, Astro.params);
 
-// Prepend description as first paragraph in body
 let bodyWithDescription = Array.isArray(post.body) ? [...post.body] : [];
 if (post.description && typeof post.description === "string") {
   const descriptionBlock = textToPortableTextBlock(post.description);
@@ -39,13 +38,12 @@ const urlFor = (source: SanityImageSource) =>
     ? createImageUrlBuilder({ projectId, dataset }).image(source)
     : null;
 const postImageUrl = post.headerImage
-  ? urlFor(post.headerImage)?.width(550).height(310).url()
+  ? urlFor(post.headerImage)?.width(1100).height(620).url()
   : null;
 const postOgImageUrl = post.ogImage
   ? urlFor(post.ogImage)?.width(1200).height(630).url()
   : undefined;
 
-// Extract headings for ToC
 interface HeadingBlock {
   _type: string;
   style: string;
@@ -71,6 +69,9 @@ const headings = (post.body ?? [])
   description={post.description}
   ogImage={postOgImageUrl}
 >
+  <!-- Reading progress bar -->
+  <div class="reading-progress" aria-hidden="true"></div>
+
   <!-- Desktop: back link in left gutter -->
   <div slot="left" class="sticky top-8">
     <BackLink href="/writing" label="Writing" />
@@ -79,32 +80,82 @@ const headings = (post.body ?? [])
   <!-- Desktop: ToC in right gutter -->
   <TableOfContents slot="right" headings={headings} />
 
-  <!-- Center: article -->
+  <!-- Article hero panel -->
+  <div
+    class="relative overflow-clip rounded-2xl bg-[oklch(0.11_0_0)] dark:ring-1 dark:ring-white/5 sm:rounded-3xl"
+  >
+    <!-- Glow -->
+    <div
+      class="pointer-events-none absolute -left-10 -top-10 size-72 rounded-full blur-3xl"
+      style="background: radial-gradient(circle, oklch(0.72 0.18 42 / 0.2), transparent 60%);"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative px-6 pt-8 pb-6 sm:px-8 sm:pt-10">
+      <!-- Mobile back link -->
+      <a
+        href="/writing"
+        class="no-underline mb-6 inline-block font-mono text-xs font-semibold uppercase tracking-widest text-white/40 transition-colors hover:text-rf-accent lg:hidden"
+      >
+        ← Writing
+      </a>
+
+      <!-- Title -->
+      <h1
+        class="mt-2 text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:mt-0"
+      >
+        {post.title}
+      </h1>
+
+      <!-- Meta row -->
+      <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+        {
+          post.publishedAt && !post.updatedAt && (
+            <span class="font-mono-custom text-white/40">
+              {formatDateLong(post.publishedAt)}
+            </span>
+          )
+        }
+        {
+          post.updatedAt && (
+            <div class="flex flex-wrap gap-x-4 gap-y-1">
+              <span class="font-mono-custom text-white/40">
+                {formatDateLong(post.publishedAt)}
+              </span>
+              <span class="font-mono-custom rounded-sm bg-amber-400/20 px-1.5 text-amber-300">
+                Updated: {formatDateLong(post.updatedAt)}
+              </span>
+            </div>
+          )
+        }
+        {
+          post.tags?.map((tag: { name: string }) => (
+            <span class="rounded-full bg-white/10 px-2.5 py-0.5 text-xs font-medium text-white/60">
+              {tag.name}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Header image flush inside the panel -->
+    {
+      postImageUrl && (
+        <div class="overflow-hidden">
+          <img
+            src={postImageUrl}
+            alt={post.title}
+            width="1100"
+            height="620"
+            class="w-full object-cover"
+          />
+        </div>
+      )
+    }
+  </div>
+
+  <!-- Prose body -->
   <main class="prose min-w-0 prose-neutral dark:prose-invert">
-    <BackLink href="/writing" label="Writing" class="mb-6 lg:hidden" />
-    {postImageUrl && <img src={postImageUrl} alt={post.title} width="550" height="310" />}
-    <header>
-      <h1 class="mb-1">{post.title}</h1>
-      {
-        post.publishedAt && !post.updatedAt && (
-          <span class="font-mono-custom font-medium">
-            {formatDateLong(post.publishedAt)}
-          </span>
-        )
-      }
-      {
-        post.updatedAt && (
-          <div class="flex flex-col gap-y-1">
-            <span class="font-mono-custom font-medium">
-              Originally published: {formatDateLong(post.publishedAt)}
-            </span>
-            <span class="font-mono-custom w-fit bg-amber-400/50 font-medium text-foreground">
-              Updated: {formatDateLong(post.updatedAt)}
-            </span>
-          </div>
-        )
-      }
-    </header>
     {
       bodyWithDescription.length > 0 && (
         <PortableText portableText={bodyWithDescription} />
@@ -112,6 +163,5 @@ const headings = (post.body ?? [])
     }
   </main>
 
-  <!-- Mobile ToC drawer -->
   <TocDrawer headings={headings} client:load />
 </Layout>

@@ -3,7 +3,6 @@ import BackLink from "@/components/BackLink.astro";
 import PortableText from "@/components/sanity/PortableText.astro";
 import TableOfContents from "@/components/TableOfContents.astro";
 import TocDrawer from "@/components/TocDrawer.tsx";
-import Tag from "@/components/Tag.astro";
 import Layout from "@/layouts/Layout.astro";
 import { slugify, textToPortableTextBlock } from "@/lib/utils";
 import { formatDateLong } from "@/utils/date";
@@ -43,7 +42,7 @@ const urlFor = (source: SanityImageSource) =>
     ? createImageUrlBuilder({ projectId, dataset }).image(source)
     : null;
 const projectImageUrl = project.headerImage
-  ? urlFor(project.headerImage)?.width(550).height(310).url()
+  ? urlFor(project.headerImage)?.width(1100).height(620).url()
   : null;
 const projectOgImageUrl = project.ogImage
   ? urlFor(project.ogImage)?.width(1200).height(630).url()
@@ -75,6 +74,9 @@ const headings = (project.body ?? [])
   description={project.description}
   ogImage={projectOgImageUrl}
 >
+  <!-- Reading progress bar -->
+  <div class="reading-progress" aria-hidden="true"></div>
+
   <!-- Desktop: back link in left gutter -->
   <div slot="left" class="sticky top-8">
     <BackLink href="/work" label="Work" />
@@ -83,69 +85,123 @@ const headings = (project.body ?? [])
   <!-- Desktop: ToC in right gutter -->
   <TableOfContents slot="right" headings={headings} />
 
-  <!-- Center: article -->
-  <main class="prose min-w-0 prose-neutral dark:prose-invert">
-    <BackLink href="/work" label="Work" class="mb-6 lg:hidden" />
-    {projectImageUrl && <img src={projectImageUrl} alt={project.title} width="550" height="310" />}
-    <header>
-      <h1 class="mb-2">{project.title}</h1>
-      {
-        project.publishedAt && !project.updatedAt && (
-          <span class="font-mono-custom font-medium">
-            {formatDateLong(project.publishedAt)}
-          </span>
-        )
-      }
-      {
-        project.updatedAt && (
-          <div class="flex flex-col gap-y-1">
-            <span class="font-mono-custom font-medium">
-              Originally published: {formatDateLong(project.publishedAt)}
+  <!-- Project hero panel -->
+  <div
+    class="relative overflow-clip rounded-2xl bg-[oklch(0.11_0_0)] dark:ring-1 dark:ring-white/5 sm:rounded-3xl"
+  >
+    <!-- Glow -->
+    <div
+      class="pointer-events-none absolute -left-10 -top-10 size-72 rounded-full blur-3xl"
+      style="background: radial-gradient(circle, oklch(0.72 0.18 42 / 0.2), transparent 60%);"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative px-6 pt-8 pb-6 sm:px-8 sm:pt-10">
+      <!-- Mobile back link -->
+      <a
+        href="/work"
+        class="no-underline mb-6 inline-block font-mono text-xs font-semibold uppercase tracking-widest text-white/40 transition-colors hover:text-rf-accent lg:hidden"
+      >
+        ← Work
+      </a>
+
+      <!-- Title -->
+      <h1
+        class="mt-2 text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:mt-0"
+      >
+        {project.title}
+      </h1>
+
+      <!-- Meta row -->
+      <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+        {
+          project.publishedAt && !project.updatedAt && (
+            <span class="font-mono-custom text-white/40">
+              {formatDateLong(project.publishedAt)}
             </span>
-            <span class="font-mono-custom w-fit bg-amber-400/50 font-medium text-foreground">
-              Updated: {formatDateLong(project.updatedAt)}
+          )
+        }
+        {
+          project.updatedAt && (
+            <div class="flex flex-wrap gap-x-4 gap-y-1">
+              <span class="font-mono-custom text-white/40">
+                {formatDateLong(project.publishedAt)}
+              </span>
+              <span class="font-mono-custom rounded-sm bg-amber-400/20 px-1.5 text-amber-300">
+                Updated: {formatDateLong(project.updatedAt)}
+              </span>
+            </div>
+          )
+        }
+        {
+          project.tags?.map((tag: { name: string }) => (
+            <span class="rounded-full bg-white/10 px-2.5 py-0.5 text-xs font-medium text-white/60">
+              {tag.name}
             </span>
+          ))
+        }
+      </div>
+
+      <!-- Tech stack chips -->
+      {
+        Array.isArray(project.techStack) && project.techStack.length > 0 && (
+          <div class="mt-4 flex flex-wrap gap-2">
+            {project.techStack.map((tech: string) => (
+              <span class="font-mono-custom rounded-md bg-white/8 px-2 py-0.5 text-xs text-white/50 lowercase">
+                {tech}
+              </span>
+            ))}
           </div>
         )
       }
-      <div class="mt-4 flex flex-col gap-4">
-        {
-          Array.isArray(project.techStack) && project.techStack.length > 0 && (
-            <div class="flex flex-wrap gap-2">
-              {project.techStack.map((tech) => (
-                <Tag label={tech} />
-              ))}
-            </div>
-          )
-        }
-        {
-          (project.projectUrl || project.githubUrl) && (
-            <div class="flex flex-wrap gap-4">
-              {project.projectUrl && (
-                <a
-                  href={project.projectUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-sm"
-                >
-                  Live Site
-                </a>
-              )}
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-sm"
-                >
-                  GitHub
-                </a>
-              )}
-            </div>
-          )
-        }
-      </div>
-    </header>
+
+      <!-- External links -->
+      {
+        (project.projectUrl || project.githubUrl) && (
+          <div class="mt-5 flex flex-wrap gap-3">
+            {project.projectUrl && (
+              <a
+                href={project.projectUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="no-underline inline-flex items-center gap-1.5 rounded-full bg-rf-accent/20 px-3.5 py-1 text-sm font-medium text-rf-accent transition-colors hover:bg-rf-accent/30"
+              >
+                Live Site ↗
+              </a>
+            )}
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="no-underline inline-flex items-center gap-1.5 rounded-full bg-white/8 px-3.5 py-1 text-sm font-medium text-white/60 transition-colors hover:bg-white/12 hover:text-white/80"
+              >
+                GitHub ↗
+              </a>
+            )}
+          </div>
+        )
+      }
+    </div>
+
+    <!-- Header image flush inside the panel -->
+    {
+      projectImageUrl && (
+        <div class="overflow-hidden">
+          <img
+            src={projectImageUrl}
+            alt={project.title}
+            width="1100"
+            height="620"
+            class="w-full object-cover"
+          />
+        </div>
+      )
+    }
+  </div>
+
+  <!-- Prose body -->
+  <main class="prose min-w-0 prose-neutral dark:prose-invert">
     {
       bodyWithDescription.length > 0 && (
         <PortableText portableText={bodyWithDescription} />
@@ -153,6 +209,5 @@ const headings = (project.body ?? [])
     }
   </main>
 
-  <!-- Mobile ToC drawer -->
   <TocDrawer headings={headings} client:load />
 </Layout>

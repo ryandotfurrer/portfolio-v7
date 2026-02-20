@@ -44,7 +44,7 @@ const urlFor = (source: SanityImageSource) =>
     ? createImageUrlBuilder({ projectId, dataset }).image(source)
     : null;
 const appearanceImageUrl = appearance.headerImage
-  ? urlFor(appearance.headerImage)?.width(550).height(310).url()
+  ? urlFor(appearance.headerImage)?.width(1100).height(620).url()
   : null;
 const appearanceOgImageUrl = appearance.ogImage
   ? urlFor(appearance.ogImage)?.width(1200).height(630).url()
@@ -76,6 +76,9 @@ const headings = (appearance.body ?? [])
   description={appearance.description}
   ogImage={appearanceOgImageUrl}
 >
+  <!-- Reading progress bar -->
+  <div class="reading-progress" aria-hidden="true"></div>
+
   <!-- Desktop: back link in left gutter -->
   <div slot="left" class="sticky top-8">
     <BackLink href="/appearances" label="Appearances" />
@@ -84,36 +87,82 @@ const headings = (appearance.body ?? [])
   <!-- Desktop: ToC in right gutter -->
   <TableOfContents slot="right" headings={headings} />
 
-  <!-- Center: article -->
-  <main class="prose min-w-0 prose-neutral dark:prose-invert">
-    <BackLink href="/appearances" label="Appearances" class="mb-6 lg:hidden" />
+  <!-- Appearance hero panel -->
+  <div
+    class="relative overflow-clip rounded-2xl bg-[oklch(0.11_0_0)] dark:ring-1 dark:ring-white/5 sm:rounded-3xl"
+  >
+    <!-- Glow -->
+    <div
+      class="pointer-events-none absolute -left-10 -top-10 size-72 rounded-full blur-3xl"
+      style="background: radial-gradient(circle, oklch(0.72 0.18 42 / 0.2), transparent 60%);"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative px-6 pt-8 pb-6 sm:px-8 sm:pt-10">
+      <!-- Mobile back link -->
+      <a
+        href="/appearances"
+        class="no-underline mb-6 inline-block font-mono text-xs font-semibold uppercase tracking-widest text-white/40 transition-colors hover:text-rf-accent lg:hidden"
+      >
+        ← Appearances
+      </a>
+
+      <!-- Title -->
+      <h1
+        class="mt-2 text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:mt-0"
+      >
+        {appearance.title}
+      </h1>
+
+      <!-- Meta row -->
+      <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+        {
+          appearance.publishedAt && !appearance.updatedAt && (
+            <span class="font-mono-custom text-white/40">
+              {formatDateLong(appearance.publishedAt)}
+            </span>
+          )
+        }
+        {
+          appearance.updatedAt && (
+            <div class="flex flex-wrap gap-x-4 gap-y-1">
+              <span class="font-mono-custom text-white/40">
+                {formatDateLong(appearance.publishedAt)}
+              </span>
+              <span class="font-mono-custom rounded-sm bg-amber-400/20 px-1.5 text-amber-300">
+                Updated: {formatDateLong(appearance.updatedAt)}
+              </span>
+            </div>
+          )
+        }
+        {
+          appearance.tags?.map((tag: { name: string }) => (
+            <span class="rounded-full bg-white/10 px-2.5 py-0.5 text-xs font-medium text-white/60">
+              {tag.name}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Header image flush inside the panel -->
     {
       appearanceImageUrl && (
-        <img src={appearanceImageUrl} alt={appearance.title} width="550" height="310" />
+        <div class="overflow-hidden">
+          <img
+            src={appearanceImageUrl}
+            alt={appearance.title}
+            width="1100"
+            height="620"
+            class="w-full object-cover"
+          />
+        </div>
       )
     }
-    <header>
-      <h1 class="mb-1">{appearance.title}</h1>
-      {
-        appearance.publishedAt && !appearance.updatedAt && (
-          <span class="font-mono-custom font-medium">
-            {formatDateLong(appearance.publishedAt)}
-          </span>
-        )
-      }
-      {
-        appearance.updatedAt && (
-          <div class="flex flex-col gap-y-1">
-            <span class="font-mono-custom font-medium">
-              Originally published: {formatDateLong(appearance.publishedAt)}
-            </span>
-            <span class="font-mono-custom w-fit bg-amber-400/50 font-medium text-foreground">
-              Updated: {formatDateLong(appearance.updatedAt)}
-            </span>
-          </div>
-        )
-      }
-    </header>
+  </div>
+
+  <!-- Prose body -->
+  <main class="prose min-w-0 prose-neutral dark:prose-invert">
     {
       bodyWithDescription.length > 0 && (
         <PortableText portableText={bodyWithDescription} />
@@ -121,6 +170,5 @@ const headings = (appearance.body ?? [])
     }
   </main>
 
-  <!-- Mobile ToC drawer -->
   <TocDrawer headings={headings} client:load />
 </Layout>
