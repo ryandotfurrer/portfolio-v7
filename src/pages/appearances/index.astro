@@ -12,7 +12,6 @@ const APPEARANCES_QUERY = `*[
 const appearances =
   await sanityClient.fetch<SanityDocument[]>(APPEARANCES_QUERY);
 
-// Group appearances by year
 const appearancesByYear = appearances.reduce(
   (acc, appearance) => {
     const year = new Date(appearance.publishedAt).getFullYear();
@@ -25,7 +24,6 @@ const appearancesByYear = appearances.reduce(
   {} as Record<number, SanityDocument[]>,
 );
 
-// Sort years descending (newest first)
 const years = Object.keys(appearancesByYear)
   .map(Number)
   .sort((a, b) => b - a);
@@ -35,32 +33,46 @@ const description =
 ---
 
 <Layout title="Appearances — Ryan Furrer" description={description}>
-  <div class="space-y-8">
-    <header class="md:px-2">
-      <h1 class="text-foreground">Appearances</h1>
-      <span>{description}</span>
-    </header>
-    <main>
-      <div class="space-y-8">
-        {
-          years.map((year) => (
-            <section class="space-y-4">
-              <h2 class="small-heading font-mono text-sm md:px-2">{year}</h2>
-              <ul class="flex flex-col gap-px">
-                {appearancesByYear[year].map((appearance) => (
-                  <li>
-                    <Item
-                      title={appearance.title}
-                      href={`/appearances/${appearance.slug.current}`}
-                      publishedAt={appearance.publishedAt}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))
-        }
+  <div class="space-y-10">
+    <header class="border-b border-border pb-10">
+      <div class="hero-animate mb-6 flex items-center gap-3">
+        <div class="size-1.5 rounded-full bg-rf-accent shrink-0"></div>
+        <div class="h-px flex-1 bg-border"></div>
       </div>
+      <h1
+        class="hero-animate hero-delay-1 font-serif italic text-foreground leading-none"
+        style="font-size: clamp(3rem, 9vw, 6rem);"
+      >
+        Appearances<span class="text-rf-accent">.</span>
+      </h1>
+      <p class="hero-animate hero-delay-2 mt-4 font-mono text-sm text-foreground-muted tracking-wide">
+        {description}
+      </p>
+    </header>
+
+    <!-- Year groups -->
+    <main class="space-y-10">
+      {
+        years.map((year) => (
+          <section class="space-y-4">
+            <h2 class="font-mono-custom text-foreground-muted">
+              {year}
+            </h2>
+            <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {appearancesByYear[year].map((appearance) => (
+                <li>
+                  <Item
+                    title={appearance.title}
+                    href={`/appearances/${appearance.slug.current}`}
+                    publishedAt={appearance.publishedAt}
+                    variant="card"
+                  />
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
     </main>
   </div>
 </Layout>

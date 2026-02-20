@@ -2,9 +2,8 @@
 import type { SanityDocument } from "@sanity/client";
 import { sanityClient } from "sanity:client";
 import LatestItemsSection from "@/components/LatestItemsSection.astro";
-import Link from "@/components/Link.astro";
-import SocialLinks from "@/components/SocialLinks.astro";
 import Layout from "@/layouts/Layout.astro";
+import { socialLinks } from "@/lib/social-links";
 
 const LATEST_POSTS_QUERY = `*[
   _type == "post"
@@ -35,31 +34,79 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
 
 <Layout>
   <main class="space-y-16">
-    <section class="space-y-4 md:px-2">
-      <div class="space-y-2">
-        <h1 class="font-medium text-primary">Ryan Furrer</h1>
-        <p class="text-lg/5 font-medium text-pretty">
-          <span class="text-foreground">Frontend Engineer</span> who loves creating
-          where design and engineering meet.
-        </p>
-      </div>
-      <div class="mb-6 space-y-2 font-medium">
-        <p>
-          Currently I am a Design Engineer at <a href="https://pragma.gg"
-            >Pragma</a
-          >, part of the team creating the platform that helps studios build
-          successful games, <a href="https://firstlook.gg">FirstLook</a>.
-        </p>
-        <Link href="/about">Learn more about me</Link>
-      </div>
+    <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+    <section class="relative overflow-x-clip border-b border-border/40 py-10 sm:py-14">
+      <!-- Warm glow -->
+      <div
+        class="animate-glow-pulse pointer-events-none absolute -left-12 -top-12 size-[28rem] rounded-full blur-3xl sm:size-[40rem]"
+        style="background: radial-gradient(circle, oklch(0.65 0.22 28 / 0.35), transparent 60%);"
+        aria-hidden="true"
+      ></div>
 
-      <div class="space-y-2">
-        <span class="small-heading inline-block">Find me elsewhere:</span>
-        <div class="text-sm">
-          <SocialLinks orientation="horizontal" />
+      <div class="relative space-y-10">
+        <!-- Name — display scale, stacked -->
+        <div class="hero-animate space-y-4">
+          <h1
+            class="font-bold leading-none tracking-tighter text-foreground text-wrap-balance"
+            style="font-size: clamp(3.25rem, 13vw, 7.5rem);"
+          >
+            <span class="block">Ryan</span>
+            <span class="block">Furrer<span class="text-rf-accent">.</span></span>
+          </h1>
+          <p
+            class="hero-animate hero-delay-1 font-serif italic text-rf-accent"
+            style="font-size: clamp(1.25rem, 3.5vw, 2rem);"
+          >
+            Frontend Engineer & Designer
+          </p>
+        </div>
+
+        <!-- Bio -->
+        <div class="hero-animate hero-delay-2 max-w-prose space-y-3">
+          <p class="font-medium text-foreground">
+            Currently a Design Engineer at <a href="https://pragma.gg"
+              >Pragma</a
+            >, building <a href="https://firstlook.gg">FirstLook</a> — the
+            platform helping game studios build and engage their communities.
+          </p>
+          <p class="text-foreground-muted">
+            I care deeply about where design and engineering meet — the layer
+            where performance, accessibility, and craft come together.
+          </p>
+        </div>
+
+        <!-- CTA row -->
+        <div
+          class="hero-animate hero-delay-3 flex flex-wrap items-center gap-x-8 gap-y-4"
+        >
+          <a
+            href="/about"
+            class="group no-underline inline-flex items-center gap-1.5 rounded-sm text-sm font-semibold uppercase tracking-widest text-foreground-muted transition-colors hover:text-rf-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2"
+          >
+            More about me
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 transition-transform duration-150 ease-out group-hover:translate-x-0.5" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <div class="h-3 w-px bg-border" aria-hidden="true"></div>
+          <!-- Social links inlined so we can control styles cleanly -->
+          <ul class="flex flex-wrap gap-x-4 gap-y-1">
+            {
+              socialLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="no-underline rounded-sm text-sm text-foreground-muted/60 transition-colors hover:text-rf-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
         </div>
       </div>
     </section>
+
+    <!-- ── Content sections ─────────────────────────────────────────────── -->
     <LatestItemsSection
       title="Writing"
       items={latestPosts}

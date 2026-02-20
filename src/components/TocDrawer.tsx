@@ -26,8 +26,11 @@ export default function TocDrawer({ headings }: Props) {
   const handleHeadingClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     setOpen(false);
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     setTimeout(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      document.getElementById(id)?.scrollIntoView({
+        behavior: prefersReducedMotion ? "instant" : "smooth",
+      });
     }, 250);
   };
 
@@ -35,7 +38,7 @@ export default function TocDrawer({ headings }: Props) {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
         ref={triggerRef}
-        className="fixed bottom-6 right-6 z-30 lg:hidden bg-foreground text-background text-sm font-medium px-4 py-2 rounded-full shadow-lg hover:opacity-90 transition-opacity"
+        className="fixed bottom-[calc(1.5rem+env(safe-area-inset-bottom))] right-6 z-30 lg:hidden bg-foreground text-background text-sm font-medium px-4 py-2 rounded-full shadow-lg hover:opacity-90 transition-opacity touch-manipulation"
       >
         Table of Contents
       </SheetTrigger>
@@ -57,7 +60,7 @@ export default function TocDrawer({ headings }: Props) {
               key={h.id}
               href={`#${h.id}`}
               onClick={(e) => handleHeadingClick(e, h.id)}
-              className={`block text-foreground-muted hover:text-foreground transition-colors no-underline ${h.level === 3 ? "pl-3" : h.level === 4 ? "pl-6" : ""
+              className={`block rounded-sm text-foreground-muted hover:text-foreground transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${h.level === 3 ? "pl-3" : h.level === 4 ? "pl-6" : ""
                 }`}
             >
               {h.text}

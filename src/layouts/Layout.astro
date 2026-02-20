@@ -4,6 +4,7 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 import Footer from "@/components/Footer.astro";
 import Head from "@/components/Head.astro";
 import Navbar from "@/components/Navbar.astro";
+import { ViewTransitions } from "astro:transitions";
 import { cn } from "@/lib/utils";
 import "@/styles/global.css";
 
@@ -31,6 +32,12 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
 <html lang="en">
   <head>
     <Head title={title} description={description} ogImage={ogImage} />
+    <ViewTransitions />
+    <script is:inline>
+      if (!/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+        document.documentElement.classList.add('no-safari');
+      }
+    </script>
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
@@ -47,6 +54,7 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
     {ogImage && <meta name="twitter:image" content={ogImage} />}
   </head>
   <body class="bg-background text-foreground-muted antialiased">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:ring-2 focus:ring-ring">Skip to main content</a>
     <div class="mx-auto max-w-280 px-4 py-8 lg:grid lg:grid-cols-[12rem_1fr_12rem] lg:gap-x-8">
       <!-- Navbar: center column, row 1 — above the side gutters -->
       {
@@ -71,6 +79,7 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
 
       <!-- Center: row 2, same width on every page -->
       <div
+        id="main-content"
         class={cn(
           "space-y-16 min-w-0 lg:col-start-2 lg:row-start-2",
           maxWidth === "sm"
