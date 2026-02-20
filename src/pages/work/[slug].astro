@@ -86,21 +86,10 @@ const headings = (project.body ?? [])
   <TableOfContents slot="right" headings={headings} />
 
   <!-- Project header — editorial, typography-first -->
-  <header class="relative overflow-hidden">
-    <!-- Ambient glow -->
-    <div
-      class="pointer-events-none absolute -top-24 -left-24 size-[36rem] rounded-full blur-3xl -z-10"
-      style="background: radial-gradient(circle, oklch(0.72 0.18 28 / 0.07), transparent 65%);"
-      aria-hidden="true"
-    ></div>
-
+  <header>
     <!-- Breadcrumb + rule -->
     <div class="hero-animate mb-8 flex items-center gap-4">
-      <a
-        href="/work"
-        class="no-underline small-heading text-foreground-muted transition-colors hover:text-rf-accent shrink-0 lg:hidden"
-      >← Work</a>
-      <span class="small-heading text-rf-accent hidden lg:block shrink-0">Work</span>
+      <BackLink href="/work" label="Work" class="lg:hidden" />
       <div class="h-px flex-1 bg-border"></div>
     </div>
 

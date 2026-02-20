@@ -4,6 +4,7 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 import Footer from "@/components/Footer.astro";
 import Head from "@/components/Head.astro";
 import Navbar from "@/components/Navbar.astro";
+import { ViewTransitions } from "astro:transitions";
 import { cn } from "@/lib/utils";
 import "@/styles/global.css";
 
@@ -31,6 +32,7 @@ const ogUrl = new URL(Astro.url.pathname, Astro.site).toString();
 <html lang="en">
   <head>
     <Head title={title} description={description} ogImage={ogImage} />
+    <ViewTransitions />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}

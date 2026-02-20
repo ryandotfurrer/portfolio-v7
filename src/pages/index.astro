@@ -35,11 +35,11 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
 <Layout>
   <main class="space-y-16">
     <!-- ── Hero ─────────────────────────────────────────────────────────── -->
-    <section class="relative overflow-clip border-b border-border/40 py-10 sm:py-14">
+    <section class="relative overflow-x-clip border-b border-border/40 py-10 sm:py-14">
       <!-- Warm glow -->
       <div
-        class="pointer-events-none absolute -left-12 -top-12 size-[28rem] rounded-full blur-3xl sm:size-[40rem]"
-        style="background: radial-gradient(circle, oklch(0.72 0.18 28 / 0.12), transparent 60%);"
+        class="animate-glow-pulse pointer-events-none absolute -left-12 -top-12 size-[28rem] rounded-full blur-3xl sm:size-[40rem]"
+        style="background: radial-gradient(circle, oklch(0.65 0.22 28 / 0.35), transparent 60%);"
         aria-hidden="true"
       ></div>
 
