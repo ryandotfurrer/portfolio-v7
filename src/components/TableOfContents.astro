@@ -21,7 +21,7 @@ const { headings } = Astro.props;
           href={`#${h.id}`}
           data-toc-link={h.id}
           class:list={[
-            "block text-foreground-muted no-underline transition-colors hover:text-foreground",
+            "block rounded-sm text-foreground-muted no-underline transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
             h.level === 3 ? "pl-3" : h.level === 4 ? "pl-6" : "",
           ]}
         >

@@ -11,7 +11,7 @@ const { href, label, class: className } = Astro.props;
 <a
   href={href}
   class:list={[
-    "not-prose inline-flex items-center gap-1.5 font-serif italic no-underline text-foreground-muted transition-colors hover:text-foreground",
+    "not-prose inline-flex items-center gap-1.5 rounded-sm font-serif italic no-underline text-foreground-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
     className,
   ]}
 >

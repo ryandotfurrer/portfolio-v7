@@ -140,11 +140,11 @@ const socialLinks = [
   noFooter
   maxWidth="sm"
 >
-  <div class="space-y-16">
+  <div class="mx-auto w-full max-w-sm space-y-16">
     <header class="space-y-8">
-      <div class="jusftify-center flex items-center gap-8">
+      <div class="flex items-center gap-8">
         <div class="size-full max-w-36 overflow-hidden rounded-full">
-          <img src={profilePicture.src} alt="Ryan Furrer" class="" />
+          <img src={profilePicture.src} alt="Ryan Furrer" width={profilePicture.width} height={profilePicture.height} class="" />
         </div>
         <div class="space-y-2">
           <h1 class="text-3xl font-semibold tracking-tight text-foreground">
@@ -223,7 +223,7 @@ const socialLinks = [
                   </header>
                   {content.ogImageUrl && (
                     <div class="overflow-hidden rounded-md">
-                      <img src={content.ogImageUrl} alt={content.item.title} />
+                      <img src={content.ogImageUrl} alt={content.item.title} loading="lazy" />
                     </div>
                   )}
                 </LinksCard>
