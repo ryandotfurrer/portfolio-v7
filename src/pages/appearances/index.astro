@@ -35,17 +35,17 @@ const description =
 <Layout title="Appearances — Ryan Furrer" description={description}>
   <div class="space-y-10">
     <header class="border-b border-border pb-10">
-      <div class="mb-6 flex items-center gap-3">
+      <div class="hero-animate mb-6 flex items-center gap-3">
         <div class="size-1.5 rounded-full bg-rf-accent shrink-0"></div>
         <div class="h-px flex-1 bg-border"></div>
       </div>
       <h1
-        class="font-serif italic text-foreground leading-none"
+        class="hero-animate hero-delay-1 font-serif italic text-foreground leading-none"
         style="font-size: clamp(3rem, 9vw, 6rem);"
       >
         Appearances<span class="text-rf-accent">.</span>
       </h1>
-      <p class="mt-4 font-mono text-sm text-foreground-muted tracking-wide">
+      <p class="hero-animate hero-delay-2 mt-4 font-mono text-sm text-foreground-muted tracking-wide">
         {description}
       </p>
     </header>
@@ -55,12 +55,9 @@ const description =
       {
         years.map((year) => (
           <section class="space-y-4">
-            <div class="flex items-center gap-2">
-              <span class="size-2 rounded-full bg-rf-accent" aria-hidden="true" />
-              <h2 class="font-mono text-sm font-semibold uppercase tracking-widest text-rf-accent">
-                {year}
-              </h2>
-            </div>
+            <h2 class="font-mono-custom text-foreground-muted">
+              {year}
+            </h2>
             <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {appearancesByYear[year].map((appearance) => (
                 <li>

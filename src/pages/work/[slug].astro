@@ -86,11 +86,11 @@ const headings = (project.body ?? [])
   <TableOfContents slot="right" headings={headings} />
 
   <!-- Project header — editorial, typography-first -->
-  <header class="relative">
+  <header class="relative overflow-hidden">
     <!-- Ambient glow -->
     <div
       class="pointer-events-none absolute -top-24 -left-24 size-[36rem] rounded-full blur-3xl -z-10"
-      style="background: radial-gradient(circle, oklch(0.72 0.18 285 / 0.07), transparent 65%);"
+      style="background: radial-gradient(circle, oklch(0.72 0.18 28 / 0.07), transparent 65%);"
       aria-hidden="true"
     ></div>
 
@@ -112,7 +112,7 @@ const headings = (project.body ?? [])
       {project.title}
     </h1>
 
-    <!-- Meta -->
+    <!-- Date / updated -->
     <div class="hero-animate hero-delay-2 mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
       {
         project.publishedAt && !project.updatedAt && (
@@ -133,14 +133,20 @@ const headings = (project.body ?? [])
           </div>
         )
       }
-      {
-        project.tags?.map((tag: { name: string }) => (
-          <span class="rounded-full bg-rf-accent/10 px-2.5 py-0.5 text-xs font-medium text-rf-accent">
-            {tag.name}
-          </span>
-        ))
-      }
     </div>
+
+    <!-- Tags -->
+    {
+      project.tags && project.tags.length > 0 && (
+        <div class="hero-animate hero-delay-3 mt-3 flex flex-wrap gap-2">
+          {project.tags.map((tag: { name: string }) => (
+            <span class="rounded-full border border-border bg-muted px-2.5 py-0.5 text-xs font-medium text-foreground-muted">
+              {tag.name}
+            </span>
+          ))}
+        </div>
+      )
+    }
 
     <!-- Tech stack chips -->
     {

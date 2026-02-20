@@ -34,14 +34,12 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
 
 <Layout>
   <main class="space-y-16">
-    <!-- ── Dark hero panel ──────────────────────────────────────────────── -->
-    <section
-      class="hero-dark-panel relative overflow-clip rounded-2xl bg-[oklch(0.11_0_0)] p-8 dark:bg-[oklch(0.09_0_0)] dark:ring-1 dark:ring-white/5 sm:rounded-3xl sm:p-10 md:p-14"
-    >
-      <!-- Warm glow — echoes the logo orb -->
+    <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+    <section class="relative overflow-clip border-b border-border/40 py-10 sm:py-14">
+      <!-- Warm glow -->
       <div
         class="pointer-events-none absolute -left-12 -top-12 size-[28rem] rounded-full blur-3xl sm:size-[40rem]"
-        style="background: radial-gradient(circle, oklch(0.72 0.18 285 / 0.22), transparent 60%);"
+        style="background: radial-gradient(circle, oklch(0.72 0.18 28 / 0.12), transparent 60%);"
         aria-hidden="true"
       ></div>
 
@@ -49,13 +47,11 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
         <!-- Name — display scale, stacked -->
         <div class="hero-animate space-y-4">
           <h1
-            class="font-bold leading-none tracking-tighter text-white"
+            class="font-bold leading-none tracking-tighter text-foreground"
             style="font-size: clamp(3.25rem, 13vw, 7.5rem);"
           >
             <span class="block">Ryan</span>
-            <span class="block"
-              >Furrer<span class="text-rf-accent">.</span></span
-            >
+            <span class="block">Furrer<span class="text-rf-accent">.</span></span>
           </h1>
           <p
             class="hero-animate hero-delay-1 font-serif italic text-rf-accent"
@@ -67,13 +63,13 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
 
         <!-- Bio -->
         <div class="hero-animate hero-delay-2 max-w-prose space-y-3">
-          <p class="font-medium text-white/80">
+          <p class="font-medium text-foreground">
             Currently a Design Engineer at <a href="https://pragma.gg"
               >Pragma</a
             >, building <a href="https://firstlook.gg">FirstLook</a> — the
             platform helping game studios build and engage their communities.
           </p>
-          <p class="text-white/50">
+          <p class="text-foreground-muted">
             I care deeply about where design and engineering meet — the layer
             where performance, accessibility, and craft come together.
           </p>
@@ -85,11 +81,11 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
         >
           <a
             href="/about"
-            class="no-underline inline-flex items-center gap-1.5 rounded-sm text-sm font-semibold uppercase tracking-widest text-white/70 transition-colors hover:text-rf-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2"
+            class="no-underline inline-flex items-center gap-1.5 rounded-sm text-sm font-semibold uppercase tracking-widest text-foreground-muted transition-colors hover:text-rf-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2"
           >
             More about me →
           </a>
-          <div class="h-3 w-px bg-white/15" aria-hidden="true"></div>
+          <div class="h-3 w-px bg-border" aria-hidden="true"></div>
           <!-- Social links inlined so we can control styles cleanly -->
           <ul class="flex flex-wrap gap-x-4 gap-y-1">
             {
@@ -97,7 +93,7 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
                 <li>
                   <a
                     href={link.href}
-                    class="no-underline rounded-sm text-sm text-white/40 transition-colors hover:text-rf-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2"
+                    class="no-underline rounded-sm text-sm text-foreground-muted/60 transition-colors hover:text-rf-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2"
                   >
                     {link.label}
                   </a>
