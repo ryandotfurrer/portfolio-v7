@@ -201,25 +201,17 @@ html {
   }
 
   main a:not(.no-underline) {
+    color: var(--color-rf-accent);
     font-weight: inherit;
     text-decoration: underline;
-    text-decoration-color: var(--link-underline);
-    transition-property: color, text-decoration-color;
+    text-decoration-color: color-mix(in oklch, var(--color-rf-accent) 35%, transparent);
+    text-underline-offset: 3px;
+    transition-property: text-decoration-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
     &:hover {
-      color: var(--color-rf-accent);
-      text-decoration-color: currentColor;
+      text-decoration-color: var(--color-rf-accent);
     }
-  }
-
-  main a:not(.no-underline, .links-card):hover,
-  main a:not(.no-underline, .links-card):focus {
-    border-bottom-color: color-mix(
-      in oklch,
-      var(--color-foreground) 90%,
-      transparent
-    );
   }
 
   .font-mono-custom {
@@ -271,16 +263,16 @@ html {
   }
 
   .prose a:not(.no-underline) {
-    color: inherit !important;
+    color: var(--color-rf-accent) !important;
     font-weight: inherit !important;
     text-decoration: underline !important;
-    text-decoration-color: var(--link-underline) !important;
-    transition-property: color, text-decoration-color;
+    text-decoration-color: color-mix(in oklch, var(--color-rf-accent) 35%, transparent) !important;
+    text-underline-offset: 3px;
+    transition-property: text-decoration-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
     &:hover {
-      color: var(--color-rf-accent) !important;
-      text-decoration-color: currentColor !important;
+      text-decoration-color: var(--color-rf-accent) !important;
     }
   }
 
