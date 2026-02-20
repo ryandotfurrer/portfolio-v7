@@ -350,3 +350,40 @@ html {
   color: var(--color-primary);
   font-weight: 600;
 }
+
+/* ─── Hero entrance animation ─────────────────────────────────────────────── */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    translate: 0 1.25rem;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.hero-animate {
+  animation: hero-in 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-delay-1 { animation-delay: 80ms; }
+.hero-delay-2 { animation-delay: 160ms; }
+.hero-delay-3 { animation-delay: 240ms; }
+.hero-delay-4 { animation-delay: 320ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-animate {
+    animation: none;
+  }
+}
+
+/* ─── Dark hero panel — link color overrides ──────────────────────────────── */
+.hero-dark-panel a:not(.no-underline) {
+  color: oklch(1 0 0 / 0.65);
+  text-decoration-color: oklch(0.72 0.18 42 / 0.35);
+}
+
+.hero-dark-panel a:not(.no-underline):hover {
+  color: var(--color-rf-accent);
+  text-decoration-color: currentColor;
+}
