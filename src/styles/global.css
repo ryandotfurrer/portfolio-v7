@@ -154,6 +154,7 @@ html {
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --link-underline: oklch(0.4 0 0);
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
     --foreground-muted: #86868b;

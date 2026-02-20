@@ -15,6 +15,8 @@ const navItems = [
     href: "/appearances",
   },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <nav class="mb-16 md:px-2">
@@ -27,17 +29,26 @@ const navItems = [
     >
     <ul class="flex gap-4 text-sm">
       {
-        navItems.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              aria-label={`Go to ${item.label.toLowerCase()} page`}
-              class="text-color-hover rounded-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            >
-              {item.label}
-            </a>
-          </li>
-        ))
+        navItems.map((item) => {
+          const isActive = currentPath === item.href || currentPath.startsWith(item.href + "/");
+          return (
+            <li>
+              <a
+                href={item.href}
+                aria-label={`Go to ${item.label.toLowerCase()} page`}
+                aria-current={isActive ? "page" : undefined}
+                class:list={[
+                  "rounded-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                  isActive
+                    ? "text-foreground"
+                    : "text-foreground-muted hover:text-foreground",
+                ]}
+              >
+                {item.label}
+              </a>
+            </li>
+          );
+        })
       }
     </ul>
   </div>
