@@ -34,36 +34,54 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
 ---
 
 <Layout>
-  <main class="space-y-16">
-    <section class="space-y-8 md:px-2">
-      <div class="space-y-3">
-        <h1 class="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-          Ryan Furrer
-        </h1>
-        <p class="font-serif italic text-xl text-foreground-muted sm:text-2xl">
-          Frontend Engineer & Designer
-        </p>
-      </div>
-      <div class="space-y-3 font-medium">
-        <p>
-          Currently a Design Engineer at <a href="https://pragma.gg">Pragma</a>,
-          building <a href="https://firstlook.gg">FirstLook</a> — the platform
-          helping game studios build and engage their communities.
-        </p>
-        <p class="text-foreground-muted font-normal">
-          I care deeply about the intersection of design and engineering — where
-          performance, accessibility, and craft come together.
-        </p>
-        <Link href="/about">More about me</Link>
-      </div>
+  <main class="space-y-20">
+    <!-- Hero -->
+    <section class="relative overflow-clip md:px-2">
+      <!-- Warm ambient glow drawn from the logo orb -->
+      <div
+        class="pointer-events-none absolute -left-8 -top-8 size-80 rounded-full blur-3xl sm:size-[28rem]"
+        style="background: radial-gradient(circle, oklch(0.72 0.18 42 / 0.18), transparent 65%);"
+        aria-hidden="true"
+      ></div>
 
-      <div class="space-y-2">
-        <p class="small-heading text-rf-accent">Find me elsewhere</p>
-        <div class="text-sm">
-          <SocialLinks orientation="horizontal" />
+      <div class="relative space-y-10">
+        <!-- Name + tagline -->
+        <div class="space-y-2">
+          <h1
+            class="text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl"
+          >
+            Ryan Furrer
+          </h1>
+          <p class="font-serif italic text-2xl text-foreground-muted sm:text-3xl">
+            Frontend Engineer & Designer
+          </p>
+        </div>
+
+        <!-- Bio -->
+        <div class="space-y-3 max-w-prose">
+          <p class="font-medium">
+            Currently a Design Engineer at <a href="https://pragma.gg"
+              >Pragma</a
+            >, building <a href="https://firstlook.gg">FirstLook</a> — the
+            platform helping game studios build and engage their communities.
+          </p>
+          <p class="text-foreground-muted">
+            I care deeply about where design and engineering meet — the layer
+            where performance, accessibility, and craft come together.
+          </p>
+          <Link href="/about">More about me</Link>
+        </div>
+
+        <!-- Social -->
+        <div class="space-y-2">
+          <p class="small-heading text-rf-accent">Find me elsewhere</p>
+          <div class="text-sm">
+            <SocialLinks orientation="horizontal" />
+          </div>
         </div>
       </div>
     </section>
+
     <LatestItemsSection
       title="Writing"
       items={latestPosts}

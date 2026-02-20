@@ -12,10 +12,13 @@ interface Props {
 const { title, items, basePath } = Astro.props;
 ---
 
-<section class="space-y-2">
-  <h2 class="small-heading text-rf-accent md:px-2">
-    {title}
-  </h2>
+<section class="space-y-3">
+  <!-- Editorial header: LABEL ──────────────── VIEW ALL → -->
+  <div class="flex items-center gap-4 md:px-2">
+    <h2 class="small-heading shrink-0 text-rf-accent">{title}</h2>
+    <div class="h-px flex-1 bg-border"></div>
+    <Link href={`${basePath}`} class="shrink-0">View all →</Link>
+  </div>
   <ul class="flex flex-col gap-px">
     {
       items.map((item) => (
@@ -30,7 +33,4 @@ const { title, items, basePath } = Astro.props;
       ))
     }
   </ul>
-  <div class="md:px-2">
-    <Link href={`${basePath}`}>View all →</Link>
-  </div>
 </section>
