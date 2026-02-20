@@ -173,9 +173,10 @@ const socialLinks = [
       <!-- Site link -->
       <a
         href="/"
-        class="hero-animate hero-delay-3 no-underline mt-5 inline-block small-heading text-rf-accent transition-colors hover:text-foreground"
+        class="group hero-animate hero-delay-3 no-underline mt-5 inline-flex items-center gap-1.5 small-heading text-rf-accent transition-colors hover:text-foreground"
       >
-        ryanfurrer.com →
+        ryanfurrer.com
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 transition-transform duration-150 ease-out group-hover:translate-x-0.5" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
     </header>
 
@@ -255,6 +256,8 @@ const socialLinks = [
                       <img
                         src={content.ogImageUrl}
                         alt={content.item.title}
+                        width="1200"
+                        height="630"
                         loading="lazy"
                       />
                     </div>

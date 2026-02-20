@@ -30,7 +30,7 @@ const remainingCount =
           {formattedDate}
         </p>
       )}
-      <h3 class="flex-1 text-base font-semibold leading-snug text-foreground">
+      <h3 class="flex-1 text-base font-semibold leading-snug text-foreground text-wrap-balance">
         {title}
       </h3>
       {techStack && techStack.length > 0 && (
@@ -49,7 +49,7 @@ const remainingCount =
       class="group/item block rounded-md border border-transparent py-1 font-normal no-underline transition-all group-hover/item:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:p-2"
     >
       <div class="w-full items-center justify-between gap-4 md:flex">
-        <div class="w-fit text-foreground md:text-foreground-muted">
+        <div class="min-w-0 w-fit text-foreground md:text-foreground-muted">
           <h3 class="transition-colors group-hover/item:text-foreground">
             {title}
           </h3>

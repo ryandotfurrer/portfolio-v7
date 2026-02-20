@@ -47,7 +47,7 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
         <!-- Name — display scale, stacked -->
         <div class="hero-animate space-y-4">
           <h1
-            class="font-bold leading-none tracking-tighter text-foreground"
+            class="font-bold leading-none tracking-tighter text-foreground text-wrap-balance"
             style="font-size: clamp(3.25rem, 13vw, 7.5rem);"
           >
             <span class="block">Ryan</span>
@@ -81,9 +81,10 @@ const latestAppearances = await sanityClient.fetch<SanityDocument[]>(
         >
           <a
             href="/about"
-            class="no-underline inline-flex items-center gap-1.5 rounded-sm text-sm font-semibold uppercase tracking-widest text-foreground-muted transition-colors hover:text-rf-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2"
+            class="group no-underline inline-flex items-center gap-1.5 rounded-sm text-sm font-semibold uppercase tracking-widest text-foreground-muted transition-colors hover:text-rf-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2"
           >
-            More about me →
+            More about me
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 transition-transform duration-150 ease-out group-hover:translate-x-0.5" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
           <div class="h-3 w-px bg-border" aria-hidden="true"></div>
           <!-- Social links inlined so we can control styles cleanly -->

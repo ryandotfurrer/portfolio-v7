@@ -17,7 +17,10 @@ const { title, items, basePath } = Astro.props;
   <div class="flex items-center gap-4 md:px-2">
     <h2 class="small-heading shrink-0 text-rf-accent">{title}</h2>
     <div class="h-px flex-1 bg-border"></div>
-    <Link href={`${basePath}`} class="shrink-0">View all →</Link>
+    <Link href={`${basePath}`} class="group shrink-0 inline-flex items-center gap-1.5">
+      View all
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 transition-transform duration-150 ease-out group-hover:translate-x-0.5" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </Link>
   </div>
   <ul class="flex flex-col gap-px">
     {
