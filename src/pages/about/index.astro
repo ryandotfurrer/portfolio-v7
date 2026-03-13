@@ -6,48 +6,96 @@ const description = "Learn more about me";
 ---
 
 <Layout title="About — Ryan Furrer" description={description}>
-  <div class="space-y-8 md:px-2">
-    <header>
-      <h1 class="text-foreground">About</h1>
-      <span>{description}</span>
+  <div class="space-y-10">
+    <header class="border-b border-border pb-10">
+      <div class="hero-animate mb-6 flex items-center gap-3">
+        <div class="size-1.5 rounded-full bg-rf-accent shrink-0"></div>
+        <div class="h-px flex-1 bg-border"></div>
+      </div>
+      <h1
+        class="hero-animate hero-delay-1 font-serif italic text-foreground leading-none"
+        style="font-size: clamp(3rem, 9vw, 6rem);"
+      >
+        About<span class="text-rf-accent">.</span>
+      </h1>
+      <p class="hero-animate hero-delay-2 mt-4 font-mono text-sm text-foreground-muted tracking-wide">
+        {description}
+      </p>
     </header>
-    <main class="space-y-4">
-      <p>
-        I'm <span class="text-accent">Ryan Furrer</span>, a Frontend Engineer
-        who
-        <span class="text-accent">cares about how things look </span>, how they <span
-          class="text-accent">feel</span
-        >, <span class="text-accent">accessibility</span>, and more. <span
-          class="text-accent">I thrive on</span
-        >
-        tight-knit, fast-moving teams where we <span class="text-accent"
-          >ship often, iterate quickly</span
-        >, and can actually <span class="text-accent">see the impact</span> of our
-        work.
-      </p>
-      <p>
-        I believe great products come from <span class="text-accent"
-          >sweating the details</span
-        > and <span class="text-accent">caring about the craft</span>. <span
-          class="text-accent">I'm</span
-        >
-        always <span class="text-accent">looking</span> for new challenges and opportunities
-        <span class="text-accent">to learn and grow.</span>
-      </p>
-      <p>
-        When I'm not working, you'll probably find me <span class="text-accent"
-          >tinkering</span
-        > with side projects, <span class="text-accent">writing</span> about what
-        I'm learning, or <span class="text-accent">exploring</span> new tools and
-        projects.
-      </p>
-      <p>
-        Or, if I need some downtime, I'll fire up a game or catch up on whatever
-        shows or anime I've been putting off. <a href="/now"
-          >Check out what I'm currently up to!</a
-        >
-      </p>
-      <Signature />
-    </main>
+
+    <!-- Two-column layout: bio | sidebar -->
+    <div class="grid gap-10 lg:grid-cols-[1fr_13rem]">
+      <main class="space-y-4">
+        <p>
+          I'm <span class="text-foreground">Ryan Furrer</span>, a Frontend
+          Engineer who <span class="text-foreground">cares about how things look</span
+          >, how they <span class="text-foreground">feel</span>, <span
+            class="text-foreground">accessibility</span
+          >, and more. <span class="text-foreground">I thrive on</span>
+          tight-knit, fast-moving teams where we <span class="text-foreground"
+            >ship often, iterate quickly</span
+          >, and can actually <span class="text-foreground">see the impact</span>
+          of our work.
+        </p>
+        <p>
+          I believe great products come from <span class="text-foreground"
+            >sweating the details</span
+          > and <span class="text-foreground">caring about the craft</span>. <span
+            class="text-foreground">I'm</span
+          >
+          always <span class="text-foreground">looking</span> for new challenges
+          and opportunities <span class="text-foreground"
+            >to learn and grow.</span
+          >
+        </p>
+        <p>
+          When I'm not working, you'll probably find me <span
+            class="text-foreground">tinkering</span
+          > with side projects, <span class="text-foreground">writing</span> about
+          what I'm learning, or <span class="text-foreground">exploring</span> new
+          tools and projects.
+        </p>
+        <p>
+          Or, if I need some downtime, I'll fire up a game or catch up on
+          whatever shows or anime I've been putting off. <a href="/now"
+            >Check out what I'm currently up to!</a
+          >
+        </p>
+        <Signature />
+      </main>
+
+      <!-- Sidebar: 2-col on mobile, 3-col on sm, stacked in right gutter at lg -->
+      <aside class="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:block lg:space-y-8">
+        <div>
+          <h2 class="small-heading mb-3 text-rf-accent">Currently</h2>
+          <div class="space-y-0.5 text-sm">
+            <p class="font-medium text-foreground">Design Engineer</p>
+            <p class="text-foreground-muted">Pragma · FirstLook</p>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="small-heading mb-3 text-rf-accent">Stack</h2>
+          <ul class="space-y-1 text-sm text-foreground-muted">
+            <li>TypeScript</li>
+            <li>React / Astro</li>
+            <li>TailwindCSS</li>
+            <li>Figma</li>
+            <li>Sanity CMS</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="small-heading mb-3 text-rf-accent">Interests</h2>
+          <ul class="space-y-1 text-sm text-foreground-muted">
+            <li>Design engineering</li>
+            <li>Type & typography</li>
+            <li>Motion & interaction</li>
+            <li>Game development</li>
+            <li>Anime & manga</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
   </div>
 </Layout>

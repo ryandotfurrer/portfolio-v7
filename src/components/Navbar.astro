@@ -1,5 +1,5 @@
 ---
-import logo from "@/assets/logo.svg";
+import MobileMenu from "@/components/MobileMenu";
 
 const navItems = [
   {
@@ -15,30 +15,46 @@ const navItems = [
     href: "/appearances",
   },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <nav class="mb-16 md:px-2">
   <div class="flex items-center justify-between">
     <a
       href="/"
-      name="go to home page"
-      class="transition-all hover:saturate-100 focus:saturate-100 md:saturate-70"
-      ><img src={logo.src} alt="Ryan Furrer" class="size-8" /></a
+      aria-label="Go to home page"
+      class="rounded-sm transition-[filter,transform] hover:saturate-100 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:saturate-70"
+      ><div
+        class="size-8 rounded-full"
+        style="background: linear-gradient(145deg, oklch(0.72 0.16 30), oklch(0.42 0.18 20))"
+        aria-hidden="true"
+      ></div></a
     >
-    <ul class="flex gap-4 text-sm">
+    <ul class="hidden md:flex gap-4 text-sm">
       {
-        navItems.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              name={`go to ${item.label.toLowerCase()} page`}
-              class="text-color-hover font-medium focus:text-foreground"
-            >
-              {item.label}
-            </a>
-          </li>
-        ))
+        navItems.map((item) => {
+          const isActive = currentPath === item.href || currentPath.startsWith(item.href + "/");
+          return (
+            <li>
+              <a
+                href={item.href}
+                aria-label={`Go to ${item.label.toLowerCase()} page`}
+                aria-current={isActive ? "page" : undefined}
+                class:list={[
+                  "rounded-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                  isActive
+                    ? "text-rf-accent"
+                    : "text-foreground-muted hover:text-rf-accent",
+                ]}
+              >
+                {item.label}
+              </a>
+            </li>
+          );
+        })
       }
     </ul>
+    <MobileMenu currentPath={currentPath} client:load />
   </div>
 </nav>

@@ -10,7 +10,7 @@
   src: url("/assets/fonts/Geist[wght].woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
-  font-display: optional;
+  font-display: swap;
 }
 
 @font-face {
@@ -18,7 +18,7 @@
   src: url("/assets/fonts/Geist-Italic[wght].woff2") format("woff2");
   font-weight: 100 900;
   font-style: italic;
-  font-display: optional;
+  font-display: swap;
 }
 
 @font-face {
@@ -26,7 +26,7 @@
   src: url("/assets/fonts/GeistMono[wght].woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
-  font-display: optional;
+  font-display: swap;
 }
 
 @font-face {
@@ -34,7 +34,7 @@
   src: url("/assets/fonts/PermanentMarker-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
-  font-display: optional;
+  font-display: swap;
 }
 
 @font-face {
@@ -42,11 +42,12 @@
   src: url("/assets/fonts/PlayfairDisplay-Italic.woff2") format("woff2");
   font-weight: 400;
   font-style: italic;
-  font-display: optional;
+  font-display: swap;
 }
 
 html {
   background-color: var(--background);
+  color-scheme: light dark;
   /* scrollbar-gutter: stable; */
   scroll-behavior: smooth;
 }
@@ -68,6 +69,7 @@ html {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-foreground-muted: var(--foreground-muted);
+  --color-rf-accent: var(--rf-accent);
   --font-sans: "Geist", "Inter", ui-sans-serif, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
   --font-cursive: "Permanent Marker", ui-cursive, cursive;
@@ -112,30 +114,31 @@ html {
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --foreground-muted: #6e6e73;
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --card-foreground-muted: #6e6e73;
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  /* Olive grayscale base — warm yellow-green neutrals (~106°) with terracotta
+     accent (~28°) for a rich earthy palette */
+  --background: var(--color-olive-50);
+  --foreground: var(--color-olive-950);
+  --foreground-muted: var(--color-olive-600);
+  --card: var(--color-olive-100);
+  --card-foreground: var(--color-olive-950);
+  --card-foreground-muted: var(--color-olive-600);
+  --popover: var(--color-olive-100);
+  --popover-foreground: var(--color-olive-950);
   --popover-foreground-muted: var(--color-neutral-600);
-  /* custom red-orange */
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --link-underline: #bbb;
+  --secondary: var(--color-olive-200);
+  --secondary-foreground: var(--color-olive-950);
+  --muted: var(--color-olive-100);
+  --muted-foreground: var(--color-olive-600);
+  --accent: var(--color-olive-100);
+  --rf-accent: oklch(0.44 0.15 28);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: var(--color-olive-200);
+  --input: var(--color-olive-200);
+  --ring: oklch(0.44 0.15 28);
   --radius: 0.625rem;
-  --accent-foreground: oklch(0.205 0 0);
+  --accent-foreground: var(--color-olive-950);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -153,38 +156,39 @@ html {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --foreground-muted: #86868b;
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
+    --rf-accent: oklch(0.74 0.16 28);
+    --background: var(--color-olive-950);
+    --foreground: var(--color-olive-50);
+    --foreground-muted: var(--color-olive-400);
+    --card: var(--color-olive-900);
+    --card-foreground: var(--color-olive-50);
+    --popover: var(--color-olive-900);
+    --popover-foreground: var(--color-olive-50);
+    --primary: var(--color-olive-100);
+    --primary-foreground: var(--color-olive-950);
+    --secondary: var(--color-olive-800);
+    --secondary-foreground: var(--color-olive-50);
+    --muted: var(--color-olive-800);
+    --muted-foreground: var(--color-olive-400);
+    --accent: var(--color-olive-800);
+    --accent-foreground: var(--color-olive-50);
     --destructive: oklch(0.704 0.191 22.216);
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
+    --ring: oklch(0.74 0.16 28);
     --chart-1: oklch(0.488 0.243 264.376);
     --chart-2: oklch(0.696 0.17 162.48);
     --chart-3: oklch(0.769 0.188 70.08);
     --chart-4: oklch(0.627 0.265 303.9);
     --chart-5: oklch(0.645 0.246 16.439);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar: var(--color-olive-900);
+    --sidebar-foreground: var(--color-olive-50);
     --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-primary-foreground: var(--color-olive-50);
+    --sidebar-accent: var(--color-olive-800);
+    --sidebar-accent-foreground: var(--color-olive-50);
     --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+    --sidebar-ring: oklch(0.74 0.16 28);
   }
 }
 
@@ -196,25 +200,17 @@ html {
   }
 
   main a:not(.no-underline) {
+    color: var(--color-foreground);
     font-weight: inherit;
     text-decoration: underline;
-    text-decoration-color: var(--link-underline);
-    transition-property: color, text-decoration-color;
+    text-decoration-color: color-mix(in oklch, var(--color-foreground) 20%, transparent);
+    text-underline-offset: 3px;
+    transition-property: text-decoration-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
     &:hover {
-      color: var(--color-accent);
-      text-decoration-color: currentColor;
+      text-decoration-color: var(--color-foreground);
     }
-  }
-
-  main a:not(.no-underline, .links-card):hover,
-  main a:not(.no-underline, .links-card):focus {
-    border-bottom-color: color-mix(
-      in oklch,
-      var(--color-foreground) 90%,
-      transparent
-    );
   }
 
   .font-mono-custom {
@@ -233,7 +229,7 @@ html {
   }
 
   .text-color-hover:hover {
-    color: var(--color-foreground);
+    color: var(--color-rf-accent);
   }
 
   .small-heading {
@@ -266,23 +262,23 @@ html {
   }
 
   .prose a:not(.no-underline) {
-    color: inherit !important;
+    color: var(--color-foreground) !important;
     font-weight: inherit !important;
     text-decoration: underline !important;
-    text-decoration-color: var(--link-underline) !important;
-    transition-property: color, text-decoration-color;
+    text-decoration-color: color-mix(in oklch, var(--color-foreground) 20%, transparent) !important;
+    text-underline-offset: 3px;
+    transition-property: text-decoration-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
     &:hover {
-      color: var(--color-accent) !important;
-      text-decoration-color: currentColor !important;
+      text-decoration-color: var(--color-foreground) !important;
     }
   }
 
   .prose b,
   .prose strong {
     font-weight: 600 !important;
-    color: var(--color-accent) !important;
+    color: var(--color-foreground) !important;
   }
 
   .prose img {
@@ -345,3 +341,119 @@ html {
   color: var(--color-primary);
   font-weight: 600;
 }
+
+/* ─── Mobile nav stagger ──────────────────────────────────────────────────── */
+@keyframes mobile-nav-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobile-nav-item-unblur {
+  from { filter: blur(6px); }
+  to   { filter: blur(0); }
+}
+
+.mobile-nav-item {
+  animation:
+    mobile-nav-item-in 220ms cubic-bezier(0.23, 1, 0.32, 1) both 180ms,
+    mobile-nav-item-unblur 500ms ease-out both 180ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav-item {
+    animation: none;
+  }
+}
+
+/* ─── Touch target hack — 44×44px invisible hitbox via ::before ───────────── */
+@utility touch-hitbox {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    pointer-events: auto;
+    background-color: transparent;
+  }
+}
+
+/* ─── Reading progress bar (CSS scroll-driven) ────────────────────────────── */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  height: 2px;
+  width: 100%;
+  background: var(--color-rf-accent);
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: reading-progress linear both;
+  animation-timeline: scroll(root block);
+}
+
+@keyframes reading-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reading-progress { display: none; }
+}
+
+/* ─── Hero entrance animation ─────────────────────────────────────────────── */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    translate: 0 1.25rem;
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    filter: blur(0px);
+  }
+}
+
+.hero-animate {
+  animation: hero-in 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-delay-1 { animation-delay: 80ms; }
+.hero-delay-2 { animation-delay: 160ms; }
+.hero-delay-3 { animation-delay: 240ms; }
+.hero-delay-4 { animation-delay: 320ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-animate {
+    animation: none;
+  }
+}
+
+/* ─── Glow blob ambient pulse ──────────────────────────────────────────────── */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-glow-pulse {
+    animation: none;
+  }
+}
+
